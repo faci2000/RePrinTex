@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import QApplication
 # Main dla całej aplikacji, poza startem aplikacji w sumie raczej nic nie powinien robić, tak mi się wydaje
 
 # TODO:
+#  - przeniesienie tego dock1 do guielements
+#  - dodanie klas obrazu i kolekcji obrazów -> zastosowanie ich do tej listy(później)
 #  - resize obrazów przy resize okna, nwm czy do tego nie trzeba będzie z centralWidget zrobić kontenera a potem dopiero Qlabel
 #  - resize obrazka na wejscie
 #  - zoom

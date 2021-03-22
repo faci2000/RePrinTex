@@ -1,12 +1,9 @@
 from controllers.guielements.menu_bar_controller import MenuBarController
 from PyQt5.QtWidgets import QAction,QMenu
-class MenuBar():
+class FileMenu():
     def __init__(self,parent)->None:
         self.controller = MenuBarController(parent)
         self.parent=parent
-    
-    # - File menu
-    def get_file_menu(self):
         openAction = QAction("&Open files", self.parent ,shortcut="Ctrl+O")
         openAction.triggered.connect(lambda : self.controller.loadFiles())
 
@@ -22,9 +19,12 @@ class MenuBar():
         saveMenu = QMenu("&Save",self.parent)
         saveMenu.addActions([saveAction, saveAsAction, saveAllAction])
 
-        fileMenu = QMenu("&File",self.parent)
-        fileMenu.addActions([openAction])
-        fileMenu.addMenu(saveMenu)
-        return fileMenu
+        self.fileMenu = QMenu("&File",self.parent)
+        self.fileMenu.addActions([openAction])
+        self.fileMenu.addMenu(saveMenu)
+    
+    # - File menu
+    def getFileMenu(self):
+        return self.fileMenu
     
     

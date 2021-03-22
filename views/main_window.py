@@ -1,5 +1,4 @@
-
-from views.guielements.menu_bar import MenuBar
+from views.guielements.menu.file import FileMenu
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenuBar, \
@@ -14,9 +13,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("RePrinTex")
 
         # MenuBar
-        menuBar=MenuBar(self)
-        fileMenu = menuBar.get_file_menu()
-        self.menuBar().addMenu(fileMenu)
+        fileMenu = FileMenu(self)
+        self.menuBar().addMenu(fileMenu.getFileMenu())
 
         # Central widget
         self.setCentralWidget(QLabel())
