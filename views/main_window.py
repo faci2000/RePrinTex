@@ -15,7 +15,8 @@ class MainWindow(QMainWindow):
 
         # MenuBar
         menuBar=MenuBar(self)
-        self.menuBar().addMenu(menuBar.get_file_menu())
+        fileMenu = menuBar.get_file_menu()
+        self.menuBar().addMenu(fileMenu)
 
         # Central widget
         self.setCentralWidget(QLabel())
