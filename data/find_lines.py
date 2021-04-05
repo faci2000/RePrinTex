@@ -64,7 +64,7 @@ def find_lines(image):
         x, y, w, h = cv2.boundingRect(cnt)
         if contains(text_block_x,text_block_y,text_block_w,text_block_h,x,y,w,h):
             for word in words:
-                if contains(word[0],word[1],word[2],word[3],1,y,w,h):
+                if contains(word[0],word[1],word[2],word[3],x,y,w,h):
                     word[4].append((x,y,w,h))
             #words.append((x,y,w,h))
             cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
@@ -75,14 +75,14 @@ def find_lines(image):
     
     hist = np.mean(threshed,axis=1)
     print(hist)
-    plt.plot(hist)
+    #plt.plot(hist)
     
 
     th_strict = np.mean(threshed)
     th_lose = np.min(hist)*2
     print(th_strict)
     print(th_lose)
-    plt.show()
+    #plt.show()
     H,W = img.shape[:2]
     upuppers = [y for y in range(text_block_y,text_block_y+text_block_h,1) if hist[y]<=th_lose and hist[y+1]>th_lose]
     lolowers = [y for y in range(text_block_y,text_block_y+text_block_h,1) if hist[y]>th_lose and hist[y+1]<=th_lose]
@@ -111,34 +111,55 @@ def find_lines(image):
 
 def found_proper_line(uppers,lowers,word):
     i=0
-    while((uppers[i]>(word[1]+word[3])) or (lowers[i]<word[1])):
-        print(uppers[i],(word[1]+word[3]),lowers[i],word[1])
+    print(len(uppers),i ,uppers[i],(word[1]+word[3]),(uppers[i]>(word[1]+word[3])) ,lowers[i],word[1],(lowers[i]<word[1]))
+    while(len(uppers)>i and ((uppers[i]>(word[1]+word[3])) or (lowers[i]<word[1]))):
+        #print(uppers[i],(word[1]+word[3]),lowers[i],word[1])
         i+=1
+    print(i)
+    if (i==len(uppers)):
+        return -1
     return i
 
 
 def create_lines(words,uppers,lowers):
-    text_lines=[[] for i in range(len(uppers))]
+    text_lines=[(uppers[i],[]) for i in range(len(uppers))]
     for word in words:
-        text_lines[found_proper_line(uppers,lowers,word)].append(word)
+        i=found_proper_line(uppers,lowers,word)
+        print(uppers[i],word[1])
+        if i!=-1:
+            text_lines[i][1].append(word)
     return text_lines
 
 
 def move_letters(text_lines,img):
     final = img.copy()
     for line in text_lines:
+        print(line[0])
         for word in line[1]:
             offsets=[]
             the_biggest=0
+            print(word)
             for letter in word[4]:
                 if letter[3]>the_biggest:
                     the_biggest=letter[3]
             for letter in word[4]:
-                if letter[3]>(the_biggest)/2 and letter[1]>line[0]:
+               
+                if letter[3]>((the_biggest)/2) and letter[1]>line[0]: 
+                    print(letter[3],((the_biggest)/2),letter[1],line[0])
                     offsets.append(letter[1]-line[0])
-            offset=np.mean(offsets)
-            roi=img[word[0]:(word[0]+word[2]),word[1]:(word[1]+word[3])]
-            final[word[0]:(word[0]+word[2]),(word[1]-offset):(word[1]+word[3]-offset)]=roi
+            if(len(offsets)==0):
+                continue
+            print(offsets)
+            offset_f=np.mean(offsets)
+            offset=int(offset_f)
+            print(offset)
+            x,y,w,h=word[0],word[1],word[2],word[3]
+            w=w+x
+            h=y+h
+            print(word)
+            roi=img[y:h,x:w]
+            print(roi.shape,w,y,h)
+            final[(y-offset):(h-offset),x:w]=roi
     return final
 
             
