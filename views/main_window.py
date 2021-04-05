@@ -1,6 +1,13 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QMainWindow
+
+from models.image_collection import ImageCollection
+from views.guielements.central.image_preview_view import ImagePreviewView
+from views.guielements.docks.collection_view import CollectionView
 from views.guielements.menu.file import FileMenu
-from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import QScrollArea, QMainWindow, QLabel, QDockWidget, QListWidget
+from views.guielements.toolbar.toolbar import ToolBar
+
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -11,43 +18,21 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("RePrinTex")
 
         # MenuBar
-        fileMenu = FileMenu(self)
-        self.menuBar().addMenu(fileMenu.getFileMenu())
-
-         # Central widget
-        self.scrollArea = QScrollArea(self)
-        self.setCentralWidget(self.scrollArea)
-        self.centralLabel = QLabel(self.scrollArea)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setWidget(self.centralLabel)
-        self.centralLabel.setAlignment(Qt.AlignCenter)
-
-        # Dock widgets - to jest jakieś grube i chyba można tu zrobić sporo rzeczy
-        self.dock1 = QDockWidget("Files", self)
-        self.dock1.setAllowedAreas(Qt.TopDockWidgetArea | Qt.BottomDockWidgetArea)
-        self.addDockWidget(Qt.BottomDockWidgetArea, self.dock1)
-
-        self.filesList = QListWidget(self.dock1)
-        self.filesList.setViewMode(QListWidget.IconMode)
-        self.filesList.setResizeMode(QListWidget.Adjust)
-        self.filesList.setIconSize(QSize(150, 150))
-        self.dock1.setWidget(self.filesList)
+        file_menu = FileMenu(self)
+        self.menuBar().addMenu(file_menu.get_file_menu())
 
         # Toolbars
+        toolbar = ToolBar(self)
+        self.addToolBar(toolbar.get_toolbar())
+
+        # Central widget
+        self.image_preview_view = ImagePreviewView(self)
+        self.setCentralWidget(self.image_preview_view.get_widget())
+
+        # Dock widgets
+        self.collection_view = CollectionView(self)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.collection_view.get_view())
 
         # Statusbar
 
         self.show()
-    def zoomIn(self):
-        size = self.currentPixmap.size()
-        size.setWidth(int(size.width() * 1.1))
-        size.setHeight(int(size.height() * 1.1))
-        self.currentPixmap = self.currentPixmap.scaled(size, transformMode=Qt.SmoothTransformation)
-        self.centralLabel.setPixmap(self.currentPixmap)
-
-    def zoomOut(self):
-        size = self.currentPixmap.size()
-        size.setWidth(int(size.width() * 0.9))
-        size.setHeight(int(size.height() * 0.9))
-        self.currentPixmap = self.currentPixmap.scaled(size, transformMode=Qt.SmoothTransformation)
-        self.centralLabel.setPixmap(self.currentPixmap)
