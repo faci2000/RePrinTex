@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication
 
 # TODO:
 #  - przeniesienie tego dock1 do guielements
-#  - dodanie klas obrazu i kolekcji obrazów -> zastosowanie ich do tej listy(później)
+#  - dodanie klas obrazu i kolekcji obrazów -> zastosowanie ich do tej listy(później )
 #  - resize obrazów przy resize okna, nwm czy do tego nie trzeba będzie z centralWidget zrobić kontenera a potem dopiero Qlabel
 #  - resize obrazka na wejscie
 #  - zoom
