@@ -18,9 +18,9 @@ def img_analyze(input_img):
     # create sharp negative
     blur = cv2.GaussianBlur(gray,(13,13),0)
 
-    cv2.imwrite("blur.png", blur)
+    #cv2.imwrite("blur.png", blur)
     th, threshed = cv2.threshold(blur, 127, 255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-    cv2.imwrite("treshed.png", threshed)
+    #cv2.imwrite("treshed.png", threshed)
 
     contours, hierarchy = cv2.findContours(threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     #median_letter_width = np.median([contuor[2] for contuor in contours ])
@@ -64,7 +64,7 @@ def img_analyze(input_img):
     ## get boundaries of characters
     kernel = np.ones((7,7),np.uint8)
     dilation = cv2.dilate(threshed, kernel, iterations = 1)
-    cv2.imwrite("dilation.png", dilation)
+    #cv2.imwrite("dilation.png", dilation)
 
     #preparing data set with letters
 
@@ -112,7 +112,8 @@ def img_analyze(input_img):
     for y in input_img.page_info.lines["lowers"]:
         cv2.line(result_image, (0,y), (W, y), (0,250,250), 3)
 
-    cv2.imwrite("result.png", result_image)
+    #cv2.imwrite("./tmp/result.png", result_image)
+    input_img.modified_img = result_image
     fill_lines(input_img,words,input_img.page_info.lines["uppers"],input_img.page_info.lines["lowers"])
     #final=move_letters(text_lines,img)
 

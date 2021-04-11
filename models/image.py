@@ -9,3 +9,4 @@ class Image:
         self.pixmap = pixmap
         self.history = None
         self.page_info:PageInfo = None
+        self.modified_img=None
