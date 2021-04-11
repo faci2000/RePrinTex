@@ -1,3 +1,6 @@
+from models.page_info import PageInfo
+
+
 class Image:
     def __init__(self, idx, path, name, pixmap):
         self.id = idx
@@ -5,3 +8,4 @@ class Image:
         self.name = name
         self.pixmap = pixmap
         self.history = None
+        self.page_info:PageInfo = None

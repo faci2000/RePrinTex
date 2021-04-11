@@ -27,3 +27,6 @@ class ImageCollection:
 
     def get_current_pixmap(self):
         return self.collection[self.current_image_id].pixmap
+
+    def get_current_image(self) -> Image:
+        return self.collection[self.current_image_id]

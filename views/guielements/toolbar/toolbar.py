@@ -14,8 +14,24 @@ class ToolBar:
         self.toolbar.addActions(self.get_actions())
 
     def get_actions(self):
-        actions = [self.zoom_in(), self.zoom_out()]
+        actions = [self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters()]
         return actions
+
+    def analyze_image(self):
+        analyze_image = QAction("&Analyze image",self.parent)
+
+        analyze_image.setShortcut('Ctrl+a')
+        analyze_image.setStatusTip("Analyze image: find text block, words and characters, determine upper and lower bounds of text lines.")
+        analyze_image.triggered.connect(lambda: self.controller.analyze_text())
+        return analyze_image
+
+    def recognize_letters(self):
+        recognize_letters = QAction("&Recognize letters",self.parent)
+
+        recognize_letters.setShortcut('Ctrl+Shift+a')
+        recognize_letters.setStatusTip("Recognize letters: Perform image image analyze, fill letters set and recognize letters on the image.")
+        recognize_letters.triggered.connect(lambda: self.controller.recognize_letters())
+        return recognize_letters
 
     def zoom_in(self):
         zoom_in = QAction("&Zoom in", self.parent)

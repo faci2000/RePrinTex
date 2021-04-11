@@ -2,6 +2,8 @@ import cv2
 from matplotlib import lines
 import numpy as np
 import matplotlib.pyplot as plt
+import pytesseract
+from PIL import Image
 
 def contains(big_x,big_y,big_w,big_h,s_x,s_y,s_w,s_h):
     return big_x<=s_x and big_y<=s_y and (big_x+big_w)>=(s_x+s_w) and (big_y+big_h)>=(s_y+s_h)
@@ -43,10 +45,16 @@ def find_lines(image):
     dilation = cv2.dilate(threshed, kernel, iterations = 1)
 
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 
     words=[]
     for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
+        let_to_rec = Image.fromarray(threshed[y:(y+h),x:(x+w)].astype(np.uint8))
+        rec_lett=pytesseract.image_to_string(let_to_rec,config='--psm 8',lang='pol') # recognize the letter
+        print(rec_lett)
+        cv2.imshow("letter",threshed[y:(y+h),x:(x+w)])
+        cv2.waitKey(0)
         if contains(text_block_x,text_block_y,text_block_w,text_block_h,x,y,w,h):
             words.append((x,y,w,h,[]))
             cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -57,11 +65,28 @@ def find_lines(image):
     dilation = cv2.dilate(threshed, kernel, iterations = 1)
     cv2.imwrite("dilation.png", dilation)
 
+    #preparing data set with letters
+    letters= {}
+            # x,y,w,h=word[0],word[1],word[2],word[3]
+            # w=w+x
+            # h=y+h
+            # print(word)
+            # roi=img[y:h,x:w]
 
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
+        
+        let_to_rec = Image.fromarray(threshed[y:(y+h),x:(x+w)].astype(np.uint8))
+        cv2.imshow("letter",threshed[y:(y+h),x:(x+w)])
+        cv2.waitKey(0)
+        rec_lett=pytesseract.image_to_string(threshed[y:(y+h),x:(x+w)],config='--psm 10',lang='pol') # recognize the letter
+        print(rec_lett)
+        if rec_lett not in letters:
+            letters[rec_lett]=[]
+        letters[rec_lett].append((x,y,w,h))
+
         if contains(text_block_x,text_block_y,text_block_w,text_block_h,x,y,w,h):
             for word in words:
                 if contains(word[0],word[1],word[2],word[3],x,y,w,h):
