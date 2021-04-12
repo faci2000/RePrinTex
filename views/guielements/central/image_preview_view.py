@@ -14,6 +14,7 @@ class ImagePreviewView:
 
         self.area.setWidgetResizable(True)
         self.area.setWidget(self.label)
+        self.area.mouseReleaseEvent = self.controller.clicked_action
         self.label.setAlignment(Qt.AlignCenter)
 
     def get_widget(self):
@@ -21,3 +22,7 @@ class ImagePreviewView:
 
     def set_image(self, pixmap):
         self.label.setPixmap(pixmap)
+
+    def move(self, v, h):
+        self.area.horizontalScrollBar().setValue(h)
+        self.area.verticalScrollBar().setValue(v)
