@@ -169,7 +169,7 @@ def move_letters(text_lines,img):
                     the_biggest=letter[3]
             for letter in word[4]:
                
-                if letter[3]>((the_biggest)/2) and letter[1]>line[0]: 
+                if letter[3]>((the_biggest)*0.7) and letter[1]>line[0]: 
                     print(letter[3],((the_biggest)/2),letter[1],line[0])
                     offsets.append(letter[1]-line[0])
             if(len(offsets)==0):

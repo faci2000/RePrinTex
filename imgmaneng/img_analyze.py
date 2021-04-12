@@ -141,44 +141,6 @@ def fill_lines(input_image,words,uppers,lowers):
         if i!=-1:
             input_image.page_info.text_lines[i]["words"].append(word)
 
-
-# def move_letters(text_lines,img):
-#     final = img.copy()
-#     for line in text_lines:
-#         print(line["uppers"])
-#         for word in line["words"]:
-#             offsets=[]
-#             the_biggest=0
-#             print(word)
-#             for letter in word["letters"]:
-#                 if letter["h"]>the_biggest:
-#                     the_biggest=letter["h"]
-#             for letter in word["letters"]:
-               
-#                 if letter["h"]>((the_biggest)/2) and letter["y"]>line["uppers"]: 
-#                     print(letter["h"],((the_biggest)/2),letter["y"],line["uppers"])
-#                     offsets.append(letter["y"]-line["uppers"])
-#             if(len(offsets)==0):
-#                 continue
-#             print(offsets)
-#             offset_f=np.mean(offsets)
-#             offset=int(offset_f)
-#             print(offset)
-#             x,y,w,h=word["x"],word["y"],word["w"],word["h"]
-#             w=w+x
-#             h=y+h
-#             print(word)
-#             roi=img[y:h,x:w]
-#             print(roi.shape,w,y,h)
-#             final[(y-offset):(h-offset),x:w]=roi
-#     return final
-
             
 def contains(big_x,big_y,big_w,big_h,s_x,s_y,s_w,s_h):
     return big_x<=s_x and big_y<=s_y and (big_x+big_w)>=(s_x+s_w) and (big_y+big_h)>=(s_y+s_h)
-
-
-
-
-
-#find_lines("test.jpg")

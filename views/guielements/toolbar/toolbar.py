@@ -14,7 +14,7 @@ class ToolBar:
         self.toolbar.addActions(self.get_actions())
 
     def get_actions(self):
-        actions = [self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters()]
+        actions = [self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters(),self.straigten_lines()]
         return actions
 
     def analyze_image(self):
@@ -33,11 +33,19 @@ class ToolBar:
         recognize_letters.triggered.connect(lambda: self.controller.recognize_letters())
         return recognize_letters
 
+    def straigten_lines(self):
+        straigten_lines = QAction("&Straighten lines",self.parent)
+
+        straigten_lines.setShortcut('Ctrl+u')
+        straigten_lines.setStatusTip("Straighten lines: Take analyzed image and relocate letters accordingly to formerly determinde lines.")
+        straigten_lines.triggered.connect(lambda: self.controller.lines_streigtening())
+        return straigten_lines
+
     def zoom_in(self):
         zoom_in = QAction("&Zoom in", self.parent)
         # zoomIn = QAction(QIcon("zoomIn.bmp"),"Zoom in",self) <- too jak zrobimy ikonki kiedyś
 
-        zoom_in.setShortcut('Ctrl+u')
+        zoom_in.setShortcut('Ctrl+i')
         zoom_in.setStatusTip("Zoom in")
         zoom_in.triggered.connect(lambda: self.controller.zoom_in())  # jak sie da to od razu self.controller.zoom(1.1)
         return zoom_in
@@ -46,7 +54,7 @@ class ToolBar:
         zoom_out = QAction("&Zoom out", self.parent)
         # zoomOut = QAction(QIcon("zoomOut.bmp"),"Zoom out",self) <- too jak zrobimy ikonki kiedyś
 
-        zoom_out.setShortcut('Ctrl+i')
+        zoom_out.setShortcut('Ctrl+o')
         zoom_out.setStatusTip("Zoom out")
         zoom_out.triggered.connect(lambda: self.controller.zoom_out())
         return zoom_out
