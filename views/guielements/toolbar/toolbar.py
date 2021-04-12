@@ -14,7 +14,7 @@ class ToolBar:
         self.toolbar.addActions(self.get_actions())
 
     def get_actions(self):
-        actions = [self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters()]
+        actions = [self.undo(), self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters(), self.clean(), self.contrast()]
         return actions
 
     def analyze_image(self):
@@ -51,11 +51,23 @@ class ToolBar:
         zoom_out.triggered.connect(lambda: self.controller.zoom_out())
         return zoom_out
 
+    def clean(self):
+        clean = QAction("&Clean", self.parent)
+        clean.triggered.connect(lambda: self.controller.clean())
+        return clean
+
+    def contrast(self):
+        contrast = QAction("&Contrast", self.parent)
+        contrast.triggered.connect(lambda: self.controller.contrast())
+        return contrast
+
     def rotate(self):
         pass
 
     def undo(self):
-        pass
+        undo = QAction("&Undo", self.parent)
+        undo.triggered.connect(lambda: self.controller.undo())
+        return undo
 
     def get_toolbar(self):
         return self.toolbar
