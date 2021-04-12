@@ -7,5 +7,5 @@ class Image:
         self.path = path
         self.name = name
         self.pixmap = pixmap
-        self.history = []
+        self.history = None
         self.page_info:PageInfo = None
