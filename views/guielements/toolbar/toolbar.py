@@ -3,9 +3,6 @@ from PyQt5.QtWidgets import QAction, QToolBar
 from controllers.guielements.toolbar_controller import ToolBarController
 
 
-# TODO zoom nie działa xD
-
-
 class ToolBar:
     def __init__(self, parent):
         self.parent = parent
@@ -14,11 +11,7 @@ class ToolBar:
         self.toolbar.addActions(self.get_actions())
 
     def get_actions(self):
-<<<<<<< HEAD
-        actions = [self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters(),self.straigten_lines()]
-=======
-        actions = [self.undo(), self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters(), self.clean(), self.contrast()]
->>>>>>> b266058f76b0e623e9840aa1a3efb9ce5d1eb2f6
+        actions = [self.zoom_in(), self.zoom_out(), self.analyze_image(), self.recognize_letters(), self.straigten_lines()]
         return actions
 
     def analyze_image(self):
@@ -42,7 +35,7 @@ class ToolBar:
 
         straigten_lines.setShortcut('Ctrl+u')
         straigten_lines.setStatusTip("Straighten lines: Take analyzed image and relocate letters accordingly to formerly determinde lines.")
-        straigten_lines.triggered.connect(lambda: self.controller.lines_streigtening())
+        straigten_lines.triggered.connect(lambda: self.controller.lines_straightening())
         return straigten_lines
 
     def zoom_in(self):
@@ -62,16 +55,6 @@ class ToolBar:
         zoom_out.setStatusTip("Zoom out")
         zoom_out.triggered.connect(lambda: self.controller.zoom_out())
         return zoom_out
-
-    def clean(self):
-        clean = QAction("&Clean", self.parent)
-        clean.triggered.connect(lambda: self.controller.clean())
-        return clean
-
-    def contrast(self):
-        contrast = QAction("&Contrast", self.parent)
-        contrast.triggered.connect(lambda: self.controller.contrast())
-        return contrast
 
     def rotate(self):
         pass

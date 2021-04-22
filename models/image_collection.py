@@ -21,11 +21,11 @@ class ImageCollection:
     def get_image_elements(self, idx):
         return self.collection[idx].pixmap, self.collection[idx].name
 
-    def change_current_image(self, idx):
+    def change_current_image(self, idx) -> Image:
         self.current_image_id = idx
-        return self.collection[idx].pixmap
+        return self.collection[idx]
 
-    def get_current_pixmap(self):
+    def get_current_pixmap(self) -> QPixmap:
         return self.collection[self.current_image_id].pixmap
 
     def get_current_image(self) -> Image:
