@@ -11,7 +11,7 @@ class CollectionController:
         self.parent = parent
         self.collection = ImageCollection(self.parent)
 
-    def get_collection(self)->ImageCollection:
+    def get_collection(self) -> ImageCollection:
         return self.collection
 
     def create_collection(self, file_paths):
