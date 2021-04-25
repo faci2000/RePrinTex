@@ -7,3 +7,4 @@ class PageInfo:
         uppers = []
         lowers = []
         self.lines = {"upuppers":upuppers,"lolowers":lolowers,"uppers":uppers,"lowers":lowers}
+        self.text_block={"x":0,"y":0,"w":0,"h":0}

@@ -1,3 +1,4 @@
+from models.image import Image
 from PyQt5.QtCore import Qt
 from enum import Enum
 from PyQt5.QtGui import QImage, QPixmap
@@ -34,7 +35,7 @@ class ImagePreviewController:
         self.active_area = Area.ORIGINAL
         self.preview_zoom = 1
 
-    def set_new_image(self, image):
+    def set_new_image(self, image:Image):
         self.current_image = image
         self.view.set_new_image(image.pixmap)
         self.active_area = Area.ORIGINAL

@@ -46,8 +46,8 @@ class CollectionController:
     def change_image(self,img=None):
         if img==None:
             idx = self.view.files_list.currentIndex().row()
-            pixmap = self.collections[self.active_collection].change_current_image(idx)
-            self.parent.image_preview_view.controller.set_new_image(pixmap)
+            picture = self.collections[self.active_collection].change_current_image(idx)
+            self.parent.image_preview_view.controller.set_new_image(picture)
         else:
             self.parent.image_preview_view.controller.set_new_image(img)
 

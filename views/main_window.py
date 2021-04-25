@@ -13,12 +13,21 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.collection_view = CollectionView(self)
-        self.effects_view = EffectsView(self)
+        
 
         # Geometry
-        self.setGeometry(600, 300, 800, 600)
+        self.setGeometry(600, 300, 1080, 720)
         self.setWindowTitle("RePrinTex")
+        
+        # Central widget
+        self.image_preview_view = ImagePreviewView(self)
+        self.setCentralWidget(self.image_preview_view.get_widget())
+        
+        # Dock widgets
+        self.collection_view = CollectionView(self)
+        self.effects_view = EffectsView(self)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.collection_view.get_view())
+        self.addDockWidget(Qt.RightDockWidgetArea, self.effects_view.get_view())
 
         # MenuBar
         file_menu = FileMenu(self,self.collection_view)
@@ -28,13 +37,7 @@ class MainWindow(QMainWindow):
         toolbar = ToolBar(self)
         self.addToolBar(toolbar.get_toolbar())
 
-        # Central widget
-        self.image_preview_view = ImagePreviewView(self)
-        self.setCentralWidget(self.image_preview_view.get_widget())
-
-        # Dock widgets
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.collection_view.get_view())
-        self.addDockWidget(Qt.RightDockWidgetArea, self.effects_view.get_view())
+        
 
         # Statusbar
 

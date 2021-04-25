@@ -1,4 +1,5 @@
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QScrollArea, QLabel, QHBoxLayout, QWidget
 
 from controllers.guielements.image_preview_controller import ImagePreviewController
@@ -38,14 +39,14 @@ class ImagePreviewView:
     def get_widget(self):
         return self.central_widget
 
-    def set_new_image(self, pixmap):
+    def set_new_image(self, pixmap:QPixmap):
         self.set_left_image(pixmap)
         self.set_right_image(pixmap)
 
-    def set_left_image(self, pixmap):
+    def set_left_image(self, pixmap:QPixmap):
         self.label_original.setPixmap(pixmap)
 
-    def set_right_image(self, pixmap):
+    def set_right_image(self, pixmap:QPixmap):
         self.label_modified.setPixmap(pixmap)
 
     # move which

@@ -1,3 +1,5 @@
+from imgmaneng.lines_boundary_drawer import draw_lines_and_boundaries
+from models.effects import Effects
 import cv2
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QImage, QPixmap
@@ -18,6 +20,8 @@ class EffectsController:
     def __init__(self, parent, view) -> None:
         self.parent = parent
         self.view = view
+        self.original_effects:Effects = Effects()
+        self.modified_effects:Effects = Effects()
 
     def clean(self):
         current = self.parent.image_preview_view.controller.current_image
@@ -53,6 +57,18 @@ class EffectsController:
 
     def get_brush_radius(self):
         return self.view.stains_slider.value()
+
+    def updated_drawing_effects(self,update_org:bool):
+        
+        if update_org:  
+            pixmap = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.original_effects)  
+            self.parent.image_preview_view.controller.view.set_left_image(pixmap)
+        else:
+            pixmap = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.modified_effects) 
+            self.parent.image_preview_view.controller.set_new_modified_image(pixmap)
+
+
+
 
     
 

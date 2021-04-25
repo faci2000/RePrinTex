@@ -1,5 +1,6 @@
 from numpy.lib.function_base import median
 from models.page_info import PageInfo
+import models.image
 import cv2
 from matplotlib import lines
 import numpy as np
@@ -8,7 +9,7 @@ import pytesseract
 from PIL import Image
 
 
-def img_analyze(input_img):
+def img_analyze(input_img:models.image.Image):
     input_img.page_info = PageInfo()
     # read image
     img = cv2.imread(input_img.path)
@@ -41,9 +42,10 @@ def img_analyze(input_img):
         if text_block_w <= w and text_block_h <= h:
             text_block_x, text_block_y, text_block_w, text_block_h = x, y, w, h
 
-    cv2.rectangle(result_image, (text_block_x, text_block_y),
-                  (text_block_x + text_block_w, text_block_y + text_block_h), (255, 0, 0), 2)
-
+    #cv2.rectangle(result_image, (text_block_x, text_block_y),
+    #              (text_block_x + text_block_w, text_block_y + text_block_h), (255, 0, 0), 2)
+    
+    input_img.page_info.text_block["x"],input_img.page_info.text_block["y"],input_img.page_info.text_block["w"],input_img.page_info.text_block["h"] = text_block_x, text_block_y, text_block_w, text_block_h
     ## get boundaries of words
     kernel = np.ones((20, 50), np.uint8)
     dilation = cv2.dilate(threshed, kernel, iterations=1)
@@ -58,7 +60,7 @@ def img_analyze(input_img):
             word = {}
             word["x"], word["y"], word["w"], word["h"], word["letters"] = x, y, w, h, []
             words.append(word)
-            cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            #cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     ## get boundaries of characters
     kernel = np.ones((7,7),np.uint8)
@@ -77,7 +79,7 @@ def img_analyze(input_img):
                     letter = {}
                     letter["x"], letter["y"], letter["w"], letter["h"] = x, y, w, h
                     word["letters"].append(letter)
-            cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            #cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
     # cv2.imwrite("conturs.png", result_image)
 
@@ -100,17 +102,19 @@ def img_analyze(input_img):
     input_img.page_info.lines["lowers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
                                            hist[y] > th_strict and hist[y + 1] <= th_strict]
 
-    for y in input_img.page_info.lines["upuppers"]:
-        cv2.line(result_image, (0, y), (W, y), (0, 0, 0), 1)
+    # print(input_img.page_info.lines["lowers"])
 
-    for y in input_img.page_info.lines["lolowers"]:
-        cv2.line(result_image, (0, y), (W, y), (0, 250, 250), 1)
+    # for y in input_img.page_info.lines["upuppers"]:
+    #     cv2.line(result_image, (0, y), (W, y), (0, 0, 0), 1)
 
-    for y in input_img.page_info.lines["uppers"]:
-        cv2.line(result_image, (0, y), (W, y), (0, 0, 0), 3)
+    # for y in input_img.page_info.lines["lolowers"]:
+    #     cv2.line(result_image, (0, y), (W, y), (0, 250, 250), 1)
 
-    for y in input_img.page_info.lines["lowers"]:
-        cv2.line(result_image, (0, y), (W, y), (0, 250, 250), 3)
+    # for y in input_img.page_info.lines["uppers"]:
+    #     cv2.line(result_image, (0, y), (W, y), (0, 0, 0), 3)
+
+    # for y in input_img.page_info.lines["lowers"]:
+    #     cv2.line(result_image, (0, y), (W, y), (0, 250, 250), 3)
 
     #cv2.imwrite("./tmp/result.png", result_image)
     input_img.modified_img = result_image

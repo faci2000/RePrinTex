@@ -1,4 +1,5 @@
 from os import name
+from views.guielements.docks.collection_view import CollectionView
 from PyQt5 import QtWidgets
 import json
 
@@ -8,7 +9,7 @@ class ArchiveCreatorController:
     def __init__(self,archive_creator,collection_view) -> None:
         self.archive_creator = archive_creator
         self.collections={}
-        self.collection_view = collection_view
+        self.collection_view:CollectionView = collection_view
     
     def open_file_browser(self,path_box:QtWidgets.QComboBox):
         directory = str(QtWidgets.QFileDialog.getExistingDirectory())
