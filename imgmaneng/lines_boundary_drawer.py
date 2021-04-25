@@ -17,14 +17,14 @@ def draw_lines_and_boundaries(image:Image,effects:Effects)->QPixmap:
 
     if effects.words:
         print("words")
-        for line in image.page_info.lines:
+        for line in image.page_info.text_lines:
             for word in line["words"]:
                 cv2.rectangle(img, (word["x"], word["y"]),
                   (word["x"] + word["w"], word["y"] + word["h"]), (0, 255, 0), 2)
 
     if effects.letters:
         print("letters")
-        for line in image.page_info.lines:
+        for line in image.page_info.text_lines:
             for word in line["words"]:
                 for letter in word["letters"]:
                     cv2.rectangle(img, (letter["x"], letter["y"]),
