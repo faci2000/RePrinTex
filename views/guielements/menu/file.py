@@ -7,7 +7,11 @@ class FileMenu:
     def __init__(self, parent) -> None:
         self.controller = MenuBarController(parent)
         self.parent = parent
-        open_action = QAction("&Open files", self.parent, shortcut="Ctrl+O")
+
+        create_archive = QAction("&Create new image archive", self.parent)
+        create_archive.triggered.connect(lambda: self.controller.create_archive())
+
+        open_action = QAction("&Open new image", self.parent, shortcut="Ctrl+O")
         open_action.triggered.connect(lambda: self.controller.load_files())
 
         save_action = QAction("&Save", self.parent, shortcut="Ctrl+S")
@@ -23,7 +27,7 @@ class FileMenu:
         save_menu.addActions([save_action, save_as_action, save_all_action])
 
         self.file_menu = QMenu("&File", self.parent)
-        self.file_menu.addActions([open_action])
+        self.file_menu.addActions([create_archive,open_action])
         self.file_menu.addMenu(save_menu)
 
     # - File menu

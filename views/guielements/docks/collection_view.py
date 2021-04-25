@@ -14,7 +14,7 @@ class CollectionView:
         self.files_list = QListWidget(self.dock)
         self.files_list.setViewMode(QListWidget.IconMode)
         self.files_list.setResizeMode(QListWidget.Adjust)
-        self.files_list.setIconSize(QSize(150, 150))
+        self.files_list.setIconSize(QSize(50, 50))
         self.files_list.currentTextChanged[str].connect(lambda: self.controller.change_image())
 
         self.dock.setWidget(self.files_list)

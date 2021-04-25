@@ -14,11 +14,7 @@ class ToolBar:
         self.toolbar.addActions(self.get_actions())
 
     def get_actions(self):
-<<<<<<< HEAD
-        actions = [self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters(),self.straigten_lines()]
-=======
-        actions = [self.undo(), self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters(), self.clean(), self.contrast()]
->>>>>>> b266058f76b0e623e9840aa1a3efb9ce5d1eb2f6
+        actions = [self.undo(), self.zoom_in(), self.zoom_out(),self.analyze_image(),self.recognize_letters(), self.straigten_lines(), self.clean(), self.contrast()]
         return actions
 
     def analyze_image(self):
