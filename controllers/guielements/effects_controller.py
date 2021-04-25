@@ -54,4 +54,6 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
+    
+
 

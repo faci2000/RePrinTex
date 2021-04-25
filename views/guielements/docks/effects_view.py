@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDockWidget, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton
+from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton
 
 from controllers.guielements.effects_controller import EffectsController
 
@@ -34,7 +34,7 @@ class EffectsView:
         self.dock.setWidget(self.widget)
         self.widget.setLayout(layout)
 
-    def add_to_layout(self, layout):
+    def add_to_layout(self, layout:QVBoxLayout):
         # Labels
         l1 = QLabel("Cleaning parameters")
         l2 = QLabel("Light")
@@ -67,6 +67,9 @@ class EffectsView:
         layout.addWidget(self.apply_all_button)
         layout.addWidget(self.reset_button)
 
+        #Checkboxes - lines control
+        layout.addLayout(self.create_checkobxes())
+
     def get_view(self):
         return self.dock
 
@@ -79,6 +82,45 @@ class EffectsView:
             button.setCheckable(True)
         return button
 
+    def create_checkobxes(self):
+        labels = [" ","Main lines","Minor lines","Text block","Words","Letters"]
+        hbox = QHBoxLayout()
+        vbox = QVBoxLayout()
+        for label in labels:
+            vbox.addWidget(QLabel(label))
+        hbox.addLayout(vbox)
+        
+        vbox = QVBoxLayout()
+        vbox.addWidget(QLabel("Original"))
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        hbox.addLayout(vbox)
+
+        vbox = QVBoxLayout()
+        vbox.addWidget(QLabel("Preview"))
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        chk = QCheckBox()
+        vbox.addWidget(chk)
+        hbox.addLayout(vbox)
+
+        print("returnig vbox")
+        return hbox
+
 
 def create_slider(min_, max_, initial):
     slider = QSlider(Qt.Horizontal)
@@ -86,3 +128,6 @@ def create_slider(min_, max_, initial):
     slider.setMaximum(max_)
     slider.setValue(initial)
     return slider
+
+
+

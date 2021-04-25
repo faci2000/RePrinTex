@@ -1,3 +1,4 @@
+from typing import List
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
 
@@ -9,7 +10,8 @@ class CollectionController:
     def __init__(self, parent, view) -> None:
         self.view = view
         self.parent = parent
-        self.collection = ImageCollection(self.parent)
+        self.active_collection=None
+        self.collections:List[ImageCollection] = []   #ImageCollection(self.parent)
 
     def get_collection(self) -> ImageCollection:
         return self.collection
@@ -30,7 +32,23 @@ class CollectionController:
             self.collection.add_image(image)
             self.view.add_image_icon(pixmap, name)
 
-    def change_image(self):
-        idx = self.view.files_list.currentIndex().row()
-        pixmap = self.collection.change_current_image(idx)
-        self.parent.image_preview_view.controller.set_new_image(pixmap)
+    def add_collection(self,path):
+        self.collections.append(ImageCollection(self.parent,path))
+        self.active_collection=len(self.collections)-1
+        for img in self.collections[self.active_collection-1].collection:
+            self.view.add_image_icon(img.pixmap, img.name)
+        print("changing image to: "+self.collections[self.active_collection].collection[0].name)
+        self.change_image(self.collections[self.active_collection].collection[0])
+        
+
+
+
+    def change_image(self,img=None):
+        if img==None:
+            idx = self.view.files_list.currentIndex().row()
+            pixmap = self.collections[self.active_collection].change_current_image(idx)
+            self.parent.image_preview_view.controller.set_new_image(pixmap)
+        else:
+            self.parent.image_preview_view.controller.set_new_image(img)
+
+

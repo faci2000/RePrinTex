@@ -4,12 +4,12 @@ from controllers.guielements.menu_bar_controller import MenuBarController
 
 
 class FileMenu:
-    def __init__(self, parent) -> None:
+    def __init__(self, parent,collection_view) -> None:
         self.controller = MenuBarController(parent)
         self.parent = parent
 
         create_archive = QAction("&Create new image archive", self.parent)
-        create_archive.triggered.connect(lambda: self.controller.create_archive())
+        create_archive.triggered.connect(lambda: self.controller.create_archive(collection_view))
 
         open_action = QAction("&Open new image", self.parent, shortcut="Ctrl+O")
         open_action.triggered.connect(lambda: self.controller.load_files())

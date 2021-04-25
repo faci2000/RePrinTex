@@ -3,12 +3,34 @@ from PyQt5.QtWidgets import QMessageBox
 
 from models.image import Image
 
+import os
+import re
 
 class ImageCollection:
-    def __init__(self, parent):
+    def __init__(self, parent,path=None):
         self.parent = parent
         self.collection = []
         self.current_image_id = None
+        if path!=None:
+            self.path=path
+            self.detect_images()
+
+    def detect_images(self):
+        filenames = os.listdir(self.path)
+        img_files = [file for file in filenames if self.check_img_ext(file)]
+        for img in img_files:
+            print(self.path+'/'+img)
+            self.add_image(Image(len(self.collection),self.path+'/'+img,img.split('.')[0],QPixmap(QImage(self.path+'/'+img))))
+
+    def check_img_ext(self,file):
+        print(file)
+        for regex in Image.img_ext:
+            print(regex)
+            x=re.search(regex,file)
+            print(x)
+            if x:
+                return True
+        return False
 
     def add_image(self, image):
         self.collection.append(image)

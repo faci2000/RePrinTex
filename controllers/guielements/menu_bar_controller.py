@@ -11,8 +11,8 @@ class MenuBarController:
         if file_paths:
             self.parent.collection_view.controller.create_collection(file_paths)
 
-    def create_archive(self):
-        create_archive_dialog = ArchiveCreator()
+    def create_archive(self,collection_view):
+        create_archive_dialog = ArchiveCreator(collection_view)
         create_archive_dialog.exec_()
     
     def save_image(self):

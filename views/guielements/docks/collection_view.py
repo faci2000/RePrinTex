@@ -9,7 +9,7 @@ class CollectionView:
     def __init__(self, parent) -> None:
         self.parent = parent
         self.controller = CollectionController(parent, self)
-        self.dock = QDockWidget("Files", self.parent)
+        self.dock = QDockWidget("Collections", self.parent)
 
         self.files_list = QListWidget(self.dock)
         self.files_list.setViewMode(QListWidget.IconMode)
