@@ -68,13 +68,17 @@ def _get_peaks(image):
             peaks.append((i, v[0]))
     peaks = sorted(peaks, key=lambda x: x[1], reverse=True)
 
-    upper = peaks[0][0]
-    lower = peaks[1][0]
+    if len(peaks) < 2:
+        upper = lower = peaks[0][0]
+    else:
+        upper = peaks[0][0]
+        lower = peaks[1][0]
 
-    i = 0
-    while lower > 120:
-        lower = peaks[i][0]
-        i += 1
+        i = 0
+        while lower > 120:
+            lower = peaks[i][0]
+            i += 1
+
     return upper, lower
 
 
