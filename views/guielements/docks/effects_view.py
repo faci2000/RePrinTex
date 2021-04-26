@@ -14,20 +14,32 @@ class EffectsView:
         layout = QVBoxLayout(self.widget)
         layout.setAlignment(Qt.AlignTop)
 
-        # Buttons
-        # self.straighten_button = self.create_button("Straighten lines", self.controller.straighten_lines)
-        self.clean_button = self.create_button("Clean page", lambda: self.controller.clean())
-        self.contrast_button = self.create_button("Change contrast", lambda: self.controller.contrast())
-        self.stains_button = self.create_button("Removing stains", None, True)
-        self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
-        self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
-        self.reset_button = self.create_button("Reset", lambda: self.controller.reset())
-
         # Sliders
         self.clean_slider_light = create_slider(-50, 50, 0)
         self.clean_slider_dark = create_slider(40, 80, 50)
         self.contrast_slider = create_slider(1, 30, 10)
         self.stains_slider = create_slider(1, 100, 20)
+
+        # Buttons
+        # self.straighten_button = self.create_button("Straighten lines", self.controller.straighten_lines)
+        self.clean_button = self.create_button("Clean page")
+        self.contrast_button = self.create_button("Change contrast")
+        self.stains_button = self.create_button("Removing stains", None, True)
+        self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
+        self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
+        self.reset_button = self.create_button("Reset", lambda: self.controller.reset())
+        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
+        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
+        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
+        self.clean_button.clicked.connect(lambda: self.controller.updated_drawing_effects(False))
+
+        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
+        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
+        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
+        self.contrast_button.clicked.connect(lambda: self.controller.updated_drawing_effects(False))
+
+
+       
 
         self.add_to_layout(layout)
 
@@ -73,7 +85,7 @@ class EffectsView:
     def get_view(self):
         return self.dock
 
-    def create_button(self, text, controller, check=False):
+    def create_button(self, text, controller=None, check=False):
         button = QPushButton(self.widget)
         button.setText(text)
         if controller:
