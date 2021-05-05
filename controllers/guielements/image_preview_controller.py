@@ -33,9 +33,10 @@ class ImagePreviewController:
         self.view = view
         self.current_image: Image = None
         self.active_area = Area.ORIGINAL
+        self.original_zoom = 1
         self.preview_zoom = 1
 
-    def set_new_image(self, image:Image):
+    def set_new_image(self, image: Image):
         self.current_image = image
         self.view.set_new_image(image.pixmap)
         self.active_area = Area.ORIGINAL
@@ -47,12 +48,12 @@ class ImagePreviewController:
 
     def zoom(self, alpha):
         if self.active_area == Area.ORIGINAL:
-            zoom = self.current_image.zoom * (1 + alpha)
+            zoom = self.original_zoom * (1 + alpha)
             size = self.current_image.pixmap.size()
             size.setWidth(int(size.width() * zoom))
             size.setHeight(int(size.height() * zoom))
 
-            self.current_image.zoom = zoom
+            self.original_zoom = zoom
             self.view.set_left_image(self.current_image.pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
         else:
             zoom = self.preview_zoom * (1 + alpha)

@@ -1,6 +1,7 @@
+from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QScrollArea, QLabel, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import QScrollArea, QLabel, QHBoxLayout, QWidget, QSplitter
 
 from controllers.guielements.image_preview_controller import ImagePreviewController
 
@@ -27,8 +28,11 @@ class ImagePreviewView:
         self.label_original = create_label(self.area_original)
         self.label_modified = create_label(self.area_modified)
 
-        self.layout.addWidget(self.area_original)
-        self.layout.addWidget(self.area_modified)
+        splitter = QSplitter(Qt.Horizontal)
+        splitter.addWidget(self.area_original)
+        splitter.addWidget(self.area_modified)
+
+        self.layout.addWidget(splitter)
 
     def create_area(self, controller):
         area = QScrollArea(self.central_widget)
@@ -39,14 +43,18 @@ class ImagePreviewView:
     def get_widget(self):
         return self.central_widget
 
-    def set_new_image(self, pixmap:QPixmap):
+    def set_new_image(self, pixmap: QPixmap):
         self.set_left_image(pixmap)
         self.set_right_image(pixmap)
 
-    def set_left_image(self, pixmap:QPixmap):
+    def set_left_image(self, pixmap: QPixmap):
+        label_size = self.label_original.size()
+        pixmap = pixmap.scaled(label_size.width(), label_size.height(), Qt.KeepAspectRatio)
         self.label_original.setPixmap(pixmap)
 
-    def set_right_image(self, pixmap:QPixmap):
+    def set_right_image(self, pixmap: QPixmap):
+        label_size = self.label_modified.size()
+        pixmap = pixmap.scaled(label_size.width(), label_size.height(), Qt.KeepAspectRatio)
         self.label_modified.setPixmap(pixmap)
 
     # move which

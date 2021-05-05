@@ -50,14 +50,15 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
-    def updated_drawing_effects(self,update_org:bool): 
+    def updated_drawing_effects(self, update_org: bool):
         if update_org:  
-            img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.original_effects)  
+            img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image, self.original_effects)
             self.parent.image_preview_view.controller.view.set_left_image(img)
         else:
             img = self.contrast(self.parent.image_preview_view.controller.current_image)
             img = self.clean(img)
-            img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.modified_effects,img) 
+            # img = QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))
+            img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.modified_effects,img)
             self.parent.image_preview_view.controller.set_new_modified_image(img)
 
 

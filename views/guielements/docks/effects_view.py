@@ -36,10 +36,7 @@ class EffectsView:
         self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
         self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
         self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
-        self.contrast_button.clicked.connect(lambda: self.controller.updated_drawing_effects(False))
-
-
-       
+        self.contrast_button.clicked.connect(lambda: self.controller.updated_drawing_effects(True))
 
         self.add_to_layout(layout)
 
