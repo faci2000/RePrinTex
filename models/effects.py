@@ -9,3 +9,6 @@ class Effects:
         self.text_block = False
         self.words = False
         self.letters = False
+        self.upper_shift = 0
+        self.lower_shift = 0
+        self.contrast_intensity = 0

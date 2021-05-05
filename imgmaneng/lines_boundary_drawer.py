@@ -4,8 +4,9 @@ from models.image import Image
 from models.effects import Effects
 from PyQt5.QtGui import QImage, QPixmap
 
-def draw_lines_and_boundaries(image:Image,effects:Effects)->QPixmap:
-    img = cv2.imread(image.path)
+def draw_lines_and_boundaries(image:Image,effects:Effects,img:QImage=None)->QPixmap:
+    if img is None:
+        img = cv2.imread(image.path)
     print(image.page_info)
     if image.page_info is None:
         img_analyze(image)
@@ -51,4 +52,4 @@ def draw_lines_and_boundaries(image:Image,effects:Effects)->QPixmap:
             print(y)
             cv2.line(img, (0, y), (W, y), (0, 250, 250), 3)
 
-    return  QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))
+    return QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))

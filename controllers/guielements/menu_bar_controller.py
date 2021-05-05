@@ -18,8 +18,14 @@ class MenuBarController:
     def save_image(self):
         pass
 
-    def save_image_as(self):
+    def export_all_images(self):
         pass
 
-    def save_all_images(self):
+    def export_image_as(self):
+        pass
+
+    def export_image(self):
+        pass
+
+    def export_all_as(self):
         pass

@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QAction, QToolBar
 
 from controllers.guielements.toolbar_controller import ToolBarController
@@ -11,58 +12,43 @@ class ToolBar:
         self.toolbar.addActions(self.get_actions())
 
     def get_actions(self):
-        actions = [self.zoom_in(), self.zoom_out(), self.analyze_image(), self.recognize_letters(), self.straigten_lines()]
+        actions = [self.zoom_in(), self.zoom_out(), self.undo(), self.redo()]
         return actions
 
-    def analyze_image(self):
-        analyze_image = QAction("&Analyze image",self.parent)
+    def undo(self):
 
-        analyze_image.setShortcut('Ctrl+a')
-        analyze_image.setStatusTip("Analyze image: find text block, words and characters, determine upper and lower bounds of text lines.")
-        analyze_image.triggered.connect(lambda: self.controller.analyze_text())
-        return analyze_image
+        undo = QAction(QIcon(get_icon("data/icons/undo.png")), "&Undo", self.parent)
+        undo.setShortcut('Ctrl+z')
+        undo.setStatusTip("Erases the last change done")
+        undo.triggered.connect(lambda: self.controller.undo())
+        return undo
 
-    def recognize_letters(self):
-        recognize_letters = QAction("&Recognize letters",self.parent)
-
-        recognize_letters.setShortcut('Ctrl+Shift+a')
-        recognize_letters.setStatusTip("Recognize letters: Perform image image analyze, fill letters set and recognize letters on the image.")
-        recognize_letters.triggered.connect(lambda: self.controller.recognize_letters())
-        return recognize_letters
-
-    def straigten_lines(self):
-        straigten_lines = QAction("&Straighten lines",self.parent)
-
-        straigten_lines.setShortcut('Ctrl+u')
-        straigten_lines.setStatusTip("Straighten lines: Take analyzed image and relocate letters accordingly to formerly determinde lines.")
-        straigten_lines.triggered.connect(lambda: self.controller.lines_straightening())
-        return straigten_lines
+    def redo(self):
+        redo = QAction(QIcon(get_icon("data/icons/redo.png")), "&Redo", self.parent)
+        redo.setShortcut('Ctrl+x')
+        redo.setStatusTip("Restores the change that was previously undone")
+        redo.triggered.connect(lambda: self.controller.redo())
+        return redo
 
     def zoom_in(self):
-        zoom_in = QAction("&Zoom in", self.parent)
-        # zoomIn = QAction(QIcon("zoomIn.bmp"),"Zoom in",self) <- too jak zrobimy ikonki kiedyś
-
+        zoom_in = QAction(QIcon(get_icon("data/icons/zoom_in.png")), "&Zoom in", self.parent)
         zoom_in.setShortcut('Ctrl+i')
         zoom_in.setStatusTip("Zoom in")
         zoom_in.triggered.connect(lambda: self.controller.zoom_in())  # jak sie da to od razu self.controller.zoom(1.1)
         return zoom_in
 
     def zoom_out(self):
-        zoom_out = QAction("&Zoom out", self.parent)
-        # zoomOut = QAction(QIcon("zoomOut.bmp"),"Zoom out",self) <- too jak zrobimy ikonki kiedyś
-
+        zoom_out = QAction(QIcon(get_icon("data/icons/zoom_out.png")), "&Zoom out", self.parent)
         zoom_out.setShortcut('Ctrl+o')
         zoom_out.setStatusTip("Zoom out")
         zoom_out.triggered.connect(lambda: self.controller.zoom_out())
         return zoom_out
 
-    def rotate(self):
-        pass
-
-    def undo(self):
-        undo = QAction("&Undo", self.parent)
-        undo.triggered.connect(lambda: self.controller.undo())
-        return undo
-
     def get_toolbar(self):
         return self.toolbar
+
+
+def get_icon(path):
+    icon = QIcon()
+    icon.addPixmap(QPixmap(path), QIcon.Normal, QIcon.Off)
+    return icon

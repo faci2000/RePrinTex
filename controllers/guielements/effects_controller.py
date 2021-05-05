@@ -1,3 +1,4 @@
+from imgmaneng.img_converter import QImage2CV, convert_QPixmap_to_cv2Image, convert_cv2Image_to_QPixmap
 from imgmaneng.lines_boundary_drawer import draw_lines_and_boundaries
 from models.effects import Effects
 import cv2
@@ -23,22 +24,13 @@ class EffectsController:
         self.original_effects:Effects = Effects()
         self.modified_effects:Effects = Effects()
 
-    def clean(self):
-        current = self.parent.image_preview_view.controller.current_image
-        upper_shift = self.view.clean_slider_light.value()
-        lower_shift = self.view.clean_slider_dark.value()
+    def clean(self,img):
+        clean = clean_page(img, self.modified_effects.upper_shift, self.modified_effects.lower_shift)
+        return clean
 
-        clean = clean_page(current, upper_shift, lower_shift)
-        pixmap = QPixmap(QImage(clean, clean.shape[1], clean.shape[0], clean.shape[1] * 3, QImage.Format_RGB888))
-        self.parent.image_preview_view.controller.set_new_modified_image(pixmap)
-
-    def contrast(self):
-        current = self.parent.image_preview_view.controller.current_image
-        intensity = self.view.contrast_slider.value() * 1.0 / 10
-
-        clean = increase_contrast(current, intensity)
-        pixmap = QPixmap(QImage(clean, clean.shape[1], clean.shape[0], clean.shape[1] * 3, QImage.Format_RGB888))
-        self.parent.image_preview_view.controller.set_new_modified_image(pixmap)
+    def contrast(self,img):
+        clean = increase_contrast(img, self.modified_effects.contrast_intensity)
+        return clean
 
     def straighten_lines(self):
         pass
@@ -58,14 +50,16 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
-    def updated_drawing_effects(self,update_org:bool):
-        
+    def updated_drawing_effects(self, update_org: bool):
         if update_org:  
-            pixmap = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.original_effects)  
-            self.parent.image_preview_view.controller.view.set_left_image(pixmap)
+            img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image, self.original_effects)
+            self.parent.image_preview_view.controller.view.set_left_image(img)
         else:
-            pixmap = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.modified_effects) 
-            self.parent.image_preview_view.controller.set_new_modified_image(pixmap)
+            img = self.contrast(self.parent.image_preview_view.controller.current_image)
+            img = self.clean(img)
+            # img = QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))
+            img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.modified_effects,img)
+            self.parent.image_preview_view.controller.set_new_modified_image(img)
 
 
 
