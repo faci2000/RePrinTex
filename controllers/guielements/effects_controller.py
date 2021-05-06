@@ -6,6 +6,7 @@ from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QImage, QPixmap
 
 from imgmaneng.img_cleaner import clean_page, increase_contrast
+from threads.Worker import Worker
 
 
 class EffectsController:
@@ -24,11 +25,11 @@ class EffectsController:
         self.original_effects:Effects = Effects()
         self.modified_effects:Effects = Effects()
 
-    def clean(self,img):
+    def clean(self, img):
         clean = clean_page(img, self.modified_effects.upper_shift, self.modified_effects.lower_shift)
         return clean
 
-    def contrast(self,img):
+    def contrast(self, img):
         clean = increase_contrast(img, self.modified_effects.contrast_intensity)
         return clean
 
@@ -57,8 +58,9 @@ class EffectsController:
         else:
             img = self.contrast(self.parent.image_preview_view.controller.current_image)
             img = self.clean(img)
-            # img = QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))
-            img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image,self.modified_effects,img)
+            img = QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))
+            # img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image, self.modified_effects, img)
+            self.parent.image_preview_view.controller.current_image.history.append(img)
             self.parent.image_preview_view.controller.set_new_modified_image(img)
 
 

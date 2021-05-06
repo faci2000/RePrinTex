@@ -32,6 +32,7 @@ class ImagePreviewController:
         self.parent = parent
         self.view = view
         self.current_image: Image = None
+        self.current_modified = None
         self.active_area = Area.ORIGINAL
         self.original_zoom = 1
         self.modified_zoom = 1
@@ -39,6 +40,7 @@ class ImagePreviewController:
     def set_new_image(self, image: Image):
         self.current_image = image
         self.active_area = Area.ORIGINAL
+        self.current_modified = self.current_image.pixmap
 
         original_area_size = self.view.area_original.size()
         self.original_zoom = original_area_size.width() * 0.9 / image.pixmap.size().width()
@@ -59,6 +61,7 @@ class ImagePreviewController:
     def set_new_modified_image(self, image):
         size = self.get_size(self.modified_zoom)
         pixmap = image.scaled(size, Qt.KeepAspectRatio)
+        self.current_modified = image
         self.view.set_right_image(pixmap)
 
     def zoom(self, alpha):
@@ -69,7 +72,7 @@ class ImagePreviewController:
         else:
             self.modified_zoom = self.modified_zoom * (1 + alpha)
             size = self.get_size(self.modified_zoom)
-            self.view.set_right_image(self.current_image.pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+            self.view.set_right_image(self.current_modified.scaled(size, transformMode=Qt.SmoothTransformation))
 
     def zoom_in(self):
         self.zoom(0.07)
