@@ -48,13 +48,9 @@ class ImagePreviewView:
         self.set_right_image(pixmap)
 
     def set_left_image(self, pixmap: QPixmap):
-        label_size = self.label_original.size()
-        pixmap = pixmap.scaled(label_size.width(), label_size.height(), Qt.KeepAspectRatio)
         self.label_original.setPixmap(pixmap)
 
     def set_right_image(self, pixmap: QPixmap):
-        label_size = self.label_modified.size()
-        pixmap = pixmap.scaled(label_size.width(), label_size.height(), Qt.KeepAspectRatio)
         self.label_modified.setPixmap(pixmap)
 
     # move which
