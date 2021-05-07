@@ -17,7 +17,7 @@ class Worker(QtCore.QThread):
 
     def run(self):
         self.started.emit()
-        self._target(*self._args, **self._kwargs)
+git         self._target(*self._args, **self._kwargs)
         self.finished.emit()
 
     def before(self):
