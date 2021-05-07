@@ -1,8 +1,14 @@
 import cv2
+from PyQt5.QtCore import Qt
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWidgets import QDialog, QPushButton, QGridLayout
+
 from imgmaneng.recognize_letters import recognize_letters
 from imgmaneng.img_analyze import img_analyze
 import imgmaneng.lines_streightening as ls
 from PyQt5.QtGui import QImage, QPixmap
+
+from threads.worker_decorator import multi_thread_runner
 
 
 class ToolBarController:
@@ -39,4 +45,17 @@ class ToolBarController:
         image = img_collection.get_current_image()
         recognize_letters(image)
 
+    def helper(self):
+        dialog = QDialog(self.parent)
+        dialog.setWindowTitle("Help")
+        dialog.setWindowFlag(Qt.WindowContextHelpButtonHint, False)
+        webEngineView = QWebEngineView(dialog)
+
+        layout = QGridLayout()
+        dialog.setLayout(layout)
+        layout.addWidget(webEngineView)
+        with open('data/hHelp.html', 'r') as f:
+            html = f.read()
+            webEngineView.setHtml(html)
+        dialog.exec_()
 

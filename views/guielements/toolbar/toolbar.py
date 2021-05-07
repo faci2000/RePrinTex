@@ -12,11 +12,16 @@ class ToolBar:
         self.toolbar.addActions(self.get_actions())
 
     def get_actions(self):
-        actions = [self.zoom_in(), self.zoom_out(), self.undo(), self.redo()]
+        actions = [self.zoom_in(), self.zoom_out(), self.undo(), self.redo(), self.helper()]
         return actions
 
-    def undo(self):
+    def helper(self):
+        help_ = QAction(QIcon(get_icon("data/icons/help.png")), "&Help", self.parent)
+        help_.setStatusTip("Show help")
+        help_.triggered.connect(lambda: self.controller.helper())
+        return help_
 
+    def undo(self):
         undo = QAction(QIcon(get_icon("data/icons/undo.png")), "&Undo", self.parent)
         undo.setShortcut('Ctrl+z')
         undo.setStatusTip("Erases the last change done")

@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton
 
 from controllers.guielements.effects_controller import EffectsController
+from views.guielements.effects_layout import add_clean, add_stains, add_contrast
 
 
 class EffectsView:
@@ -14,69 +15,25 @@ class EffectsView:
         layout = QVBoxLayout(self.widget)
         layout.setAlignment(Qt.AlignTop)
 
-        # Sliders
-        self.clean_slider_light = create_slider(-50, 50, 0)
-        self.clean_slider_dark = create_slider(40, 80, 50)
-        self.contrast_slider = create_slider(1, 30, 10)
-        self.stains_slider = create_slider(1, 100, 20)
-
-        # Buttons
-        # self.straighten_button = self.create_button("Straighten lines", self.controller.straighten_lines)
-        self.clean_button = self.create_button("Clean page")
-        self.contrast_button = self.create_button("Change contrast")
-        self.stains_button = self.create_button("Removing stains", None, True)
         self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
         self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
         self.reset_button = self.create_button("Reset", lambda: self.controller.reset())
-        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
-        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
-        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
-        self.clean_button.clicked.connect(lambda: self.controller.updated_drawing_effects(False))
-
-        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
-        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
-        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
-        self.contrast_button.clicked.connect(lambda: self.controller.updated_drawing_effects(True))
-
         self.add_to_layout(layout)
 
         self.dock.setWidget(self.widget)
         self.widget.setLayout(layout)
 
     def add_to_layout(self, layout:QVBoxLayout):
-        # Labels
-        l1 = QLabel("Cleaning parameters")
-        l2 = QLabel("Light")
-        l3 = QLabel("Dark")
-        l4 = QLabel("Contrast parameters")
-        l5 = QLabel("Contrast intensity")
-        l6 = QLabel("Stain remover brush size")
-
-        # Clean
-        layout.addWidget(l1)
-        layout.addWidget(l2)
-        layout.addWidget(self.clean_slider_light)
-        layout.addWidget(l3)
-        layout.addWidget(self.clean_slider_dark)
-        layout.addWidget(self.clean_button)
-
-        # Contrast
-        layout.addWidget(l4)
-        layout.addWidget(l5)
-        layout.addWidget(self.contrast_slider)
-        layout.addWidget(self.contrast_button)
-
-        # Stains
-        layout.addWidget(l6)
-        layout.addWidget(self.stains_slider)
-        layout.addWidget(self.stains_button)
+        add_clean(self, self.widget, layout)
+        add_contrast(self, self.widget, layout)
+        add_stains(self, self.widget, layout)
 
         # Control
         layout.addWidget(self.apply_button)
         layout.addWidget(self.apply_all_button)
         layout.addWidget(self.reset_button)
 
-        #Checkboxes - lines control
+        # Checkboxes - lines control
         layout.addLayout(self.create_checkobxes())
 
     def get_view(self):

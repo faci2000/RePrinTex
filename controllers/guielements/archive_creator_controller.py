@@ -1,4 +1,6 @@
 from os import name
+
+from threads.worker_decorator import multi_thread_runner
 from views.guielements.docks.collection_view import CollectionView
 from PyQt5 import QtWidgets
 import json
@@ -45,7 +47,8 @@ class ArchiveCreatorController:
         with open('config.json', 'w') as outfile:
             json.dump(data, outfile)
 
-    def create_new_collection(self,path):
+    @multi_thread_runner
+    def create_new_collection(self, path):
         for coll in self.collection_view.controller.collections:
             if coll.path == path:
                 return

@@ -9,9 +9,16 @@ class EditMenu:
         self.parent = parent
 
         straighten_lines = QAction("&Straighten lines", self.parent)
+
         clean_page = QAction("&Clean page", self.parent)
+        clean_page.triggered.connect(lambda: self.controller.clean_page())
+
         contrast_page = QAction("&Increase contrast", self.parent)
+        contrast_page.triggered.connect(lambda: self.controller.increase_contrast())
+
         remove_stains = QAction("&Remove stains", self.parent)
+        remove_stains.triggered.connect(lambda: self.controller.remove_stains())
+
         undo = QAction("&Undo", self.parent)
         redo = QAction("&Redo", self.parent)
         apply = QAction("&Apply", self.parent)

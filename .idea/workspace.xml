@@ -2,9 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes">
+      <change afterPath="$PROJECT_DIR$/data/icons/help.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/image_preview_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/image_preview_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/central/image_preview_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/central/image_preview_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/archive_creator_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/archive_creator_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/status_bar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/status_bar_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgmaneng/img_cleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/imgmaneng/img_cleaner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/menu/edit_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/menu/edit_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/menu/help_menu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/status/status.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/status/status.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/toolbar/toolbar.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/toolbar/toolbar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/main_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +26,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -27,13 +40,15 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DronePoolMissionController" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\icons" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\views\guielements\toolbar" />
@@ -44,7 +59,7 @@
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.RePrinTexApp">
     <configuration name="RePrinTexApp" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="RePrinTex" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -67,6 +82,56 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Worker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RePrinTex" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/threads" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/threads/Worker.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="worker_decorator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RePrinTex" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/threads" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Alicja\Documents\GitHub\RePrinTex\threads\worker_decorator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.worker_decorator" />
+        <item itemvalue="Python.Worker" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -85,7 +150,11 @@
       <workItem from="1620207680236" duration="7178000" />
       <workItem from="1620215621612" duration="2668000" />
       <workItem from="1620236706106" duration="639000" />
-      <workItem from="1620284250426" duration="2998000" />
+      <workItem from="1620284250426" duration="18243000" />
+      <workItem from="1620371356317" duration="5717000" />
+      <workItem from="1620380164439" duration="148000" />
+      <workItem from="1620382646003" duration="43000" />
+      <workItem from="1620403573602" duration="7156000" />
     </task>
     <task id="LOCAL-00001" summary="effects and fixes">
       <created>1619124514533</created>
@@ -117,6 +186,8 @@
     <option name="LAST_COMMIT_MESSAGE" value="effects and fixes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1620288205228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1620410774979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/RePrinTex$Worker.coverage" NAME="Worker Coverage Results" MODIFIED="1620374187431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
+    <SUITE FILE_PATH="coverage/RePrinTex$Dec.coverage" NAME="Dec Coverage Results" MODIFIED="1620375755689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
   </component>
 </project>

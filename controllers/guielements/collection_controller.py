@@ -39,12 +39,9 @@ class CollectionController:
             self.view.add_image_icon(img.pixmap, img.name)
         print("changing image to: "+self.collections[self.active_collection].collection[0].name)
         self.change_image(self.collections[self.active_collection].collection[0])
-        
-
-
 
     def change_image(self,img=None):
-        if img==None:
+        if img is None:
             idx = self.view.files_list.currentIndex().row()
             picture = self.collections[self.active_collection].change_current_image(idx)
             self.parent.image_preview_view.controller.set_new_image(picture)

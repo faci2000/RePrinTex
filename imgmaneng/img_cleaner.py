@@ -3,9 +3,8 @@ from PIL import Image, ImageFilter, ImageEnhance
 import cv2
 
 
-def clean_page(image, upper_shift, lower_shift):
-    #image = cv2.imread(input_img.path)
-    cv2.imwrite("converted.png", image)
+def clean_page(input_img, upper_shift, lower_shift):
+    image = cv2.imread(input_img.path)
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     original = gray.copy()
