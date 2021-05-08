@@ -1,20 +1,23 @@
+from services.images_provider import ImagesProvider
+import models.image_collection as mic
+import views.guielements.docks.collection_view as vgdcv
 from typing import List
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
 
 from models.image import Image
-from models.image_collection import ImageCollection
 
 
 class CollectionController:
     def __init__(self, parent, view) -> None:
-        self.view = view
+        self.view:vgdcv.CollectionView = view
         self.parent = parent
         self.active_collection=None
-        self.collections:List[ImageCollection] = []   #ImageCollection(self.parent)
+        self.image_provider = ImagesProvider()
+        self.collections:List[mic.ImageCollection] = []   #ImageCollection(self.parent)
 
-    def get_collection(self) -> ImageCollection:
-        return self.collection
+    def get_collection(self) -> mic.ImageCollection:
+        return self.image_provider.get_current_collection()
 
     def create_collection(self, file_paths):
         self.view.clear()
@@ -33,13 +36,19 @@ class CollectionController:
             self.view.add_image_icon(pixmap, name)
 
     def add_collection(self,path):
-        self.collections.append(ImageCollection(self.parent,path))
-        self.active_collection=len(self.collections)-1
-        for img in self.collections[self.active_collection-1].collection:
+        changed_collection = self.image_provider.add_new_collection(mic.ImageCollection(self.parent,path))
+        if(not changed_collection):
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Question)
+            msg.setWindowTitle("Change current collection")
+            msg.setText("Do you want to change current collection to recently added?")
+            msg.setInformativeText("All changes made to currently edited collections will be saved.")
+            msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            msg.buttonClicked.connect(lambda button: (button==QMessageBox.Yes) and self.image_provider.change_current_collection_to_added_recently())
+
+        for img in self.image_provider.get_recently_added_collection():
             self.view.add_image_icon(img.pixmap, img.name)
-        print("changing image to: "+self.collections[self.active_collection].collection[0].name)
         self.change_image(self.collections[self.active_collection].collection[0])
-        
 
 
 

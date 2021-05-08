@@ -11,21 +11,25 @@ from views.guielements.menu.help_menu import HelpMenu
 from views.guielements.menu.view_menu import ViewMenu
 from views.guielements.toolbar.toolbar import ToolBar
 
-
+# Jak tak się zastanowić, to nie jest dobrym podejściem startować wszystko z
+# z widoku, jeśli zostanie czasu na rózne głupoty, to wartobyłoby to przerobić
+# żeby był jakiś przyzwoity konfigurator, który startuje i uzupełnia główne okno,
+# a także uruchamia poszczególne usługi tj. ImageProvider, który jest teraz 
+# startowany z CollectionView
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        
+
 
         # Geometry
         self.setGeometry(600, 300, 1080, 720)
         self.setWindowTitle("RePrinTex")
-        
+
         # Central widget
         self.image_preview_view = ImagePreviewView(self)
         self.setCentralWidget(self.image_preview_view.get_widget())
-        
+
         # Dock widgets
         self.collection_view = CollectionView(self)
         self.effects_view = EffectsView(self)
@@ -51,6 +55,5 @@ class MainWindow(QMainWindow):
         self.status_bar = QStatusBar()
         self.status_bar.addWidget(self.status_info)
         self.setStatusBar(self.status_bar)
-
 
         self.show()

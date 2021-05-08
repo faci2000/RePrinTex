@@ -1,3 +1,4 @@
+from models.effects import EffectType, Lines
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton
 
@@ -28,15 +29,23 @@ class EffectsView:
         self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
         self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
         self.reset_button = self.create_button("Reset", lambda: self.controller.reset())
-        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
-        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
-        self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
-        self.clean_button.clicked.connect(lambda: self.controller.updated_drawing_effects(False))
+        # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
+        # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
+        # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
 
-        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
-        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
-        self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
-        self.contrast_button.clicked.connect(lambda: self.controller.updated_drawing_effects(True))
+        self.clean_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'org':False,
+                                                                                  'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
+                                                                                            {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
+                                                                                            {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
+
+        self.contrast_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'org':False,
+                                                                                  'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
+                                                                                            {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
+                                                                                            {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
+        # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
+        # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
+        # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
+        # self.contrast_button.clicked.connect(lambda: self.controller.updated_drawing_effects(True))
 
         self.add_to_layout(layout)
 
@@ -92,62 +101,73 @@ class EffectsView:
         return button
 
     def create_checkobxes(self):
-        labels = [" ","Main lines","Minor lines","Text block","Words","Letters"]
+        # labels = [" ","Main lines","Minor lines","Text block","Words","Letters"]
         hbox = QHBoxLayout()
         vbox = QVBoxLayout()
-        for label in labels:
-            vbox.addWidget(QLabel(label))
+        vbox.addWidget(QLabel(' '))
+        for label in Lines:
+            vbox.addWidget(QLabel(label.value))
         hbox.addLayout(vbox)
-        
+
         vbox = QVBoxLayout()
         vbox.addWidget(QLabel("Original"))
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"main_lines",not self.controller.original_effects.main_lines))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"minor_lines",not self.controller.original_effects.minor_lines))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"text_block",not self.controller.original_effects.text_block))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"words",not self.controller.original_effects.words))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"letters",not self.controller.original_effects.letters))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
-        vbox.addWidget(chk)
+
+        for label in Lines:
+            chk = QCheckBox()
+            chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':label,'org':True,'value':chk.isChecked()}))
         hbox.addLayout(vbox)
+
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"minor_lines",not self.controller.original_effects.minor_lines))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"text_block",not self.controller.original_effects.text_block))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"words",not self.controller.original_effects.words))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"letters",not self.controller.original_effects.letters))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
+        # vbox.addWidget(chk)
+
 
         vbox = QVBoxLayout()
         vbox.addWidget(QLabel("Preview"))
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.modified_effects,"main_lines",not self.controller.modified_effects.main_lines))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"minor_lines",not self.controller.modified_effects.minor_lines))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"text_block",not self.controller.modified_effects.text_block))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"words",not self.controller.modified_effects.words))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
-        vbox.addWidget(chk)
-        chk = QCheckBox()
-        chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"letters",not self.controller.modified_effects.letters))
-        chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
-        vbox.addWidget(chk)
+
+        for label in Lines:
+            chk = QCheckBox()
+            chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':label,'org':False,'value':chk.isChecked()}))
         hbox.addLayout(vbox)
 
-        print("returnig vbox")
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.modified_effects,"main_lines",not self.controller.modified_effects.main_lines))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"minor_lines",not self.controller.modified_effects.minor_lines))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"text_block",not self.controller.modified_effects.text_block))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"words",not self.controller.modified_effects.words))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
+        # vbox.addWidget(chk)
+        # chk = QCheckBox()
+        # chk.stateChanged.connect(lambda: setattr(self.controller.original_effects,"letters",not self.controller.modified_effects.letters))
+        # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(False))
+        # vbox.addWidget(chk)
+        # hbox.addLayout(vbox)
+
+        # print("returnig vbox")
         return hbox
 
 

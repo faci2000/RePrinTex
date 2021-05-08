@@ -1,6 +1,7 @@
+from services.images_provider import ImagesProvider
 from imgmaneng.img_converter import QImage2CV, convert_QPixmap_to_cv2Image, convert_cv2Image_to_QPixmap
 from imgmaneng.lines_boundary_drawer import draw_lines_and_boundaries
-from models.effects import Effects
+from models.effects import EffectType, Effects, Lines
 import cv2
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QImage, QPixmap
@@ -21,8 +22,8 @@ class EffectsController:
     def __init__(self, parent, view) -> None:
         self.parent = parent
         self.view = view
-        self.original_effects:Effects = Effects()
-        self.modified_effects:Effects = Effects()
+        img = parent.image_preview_view.controller.current_image
+        self.image_provider = ImagesProvider()
 
     def clean(self,img):
         clean = clean_page(img, self.modified_effects.upper_shift, self.modified_effects.lower_shift)
@@ -50,8 +51,25 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
+    def change_effects(self,effects_to_change): # {effect_type:EffectType,type:Line,org:bool ,value:bool}
+        effects = self.image_provider.get_current_collection_effects()
+        if effects_to_change['org']:
+            if effects_to_change['value']:
+                self.image_provider.get_current_collection_org_lines().add(effects_to_change['type'])
+            else:
+                self.image_provider.get_current_collection_org_lines().remove(effects_to_change['type'])
+        elif effects_to_change['effects_type'] == EffectType.LINES:
+            if effects_to_change['value']:
+                effects.values[EffectType.LINES].add(effects_to_change['type'])
+            else:
+                effects.values[EffectType.LINES].remove(effects_to_change['type'])
+        else:
+            for eff in effects_to_change['values']:
+                effects.values[eff['type']] = eff['value']
+        self.image_provider.update_displayed_images(effects_to_change['org'])
+
     def updated_drawing_effects(self, update_org: bool):
-        if update_org:  
+        if update_org:
             img = draw_lines_and_boundaries(self.parent.image_preview_view.controller.current_image, self.original_effects)
             self.parent.image_preview_view.controller.view.set_left_image(img)
         else:
@@ -62,8 +80,5 @@ class EffectsController:
             self.parent.image_preview_view.controller.set_new_modified_image(img)
 
 
-
-
-    
 
 

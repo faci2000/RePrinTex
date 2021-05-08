@@ -1,3 +1,4 @@
+from models.effects import Effects
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
 
@@ -7,9 +8,12 @@ import os
 import re
 
 class ImageCollection:
-    def __init__(self, parent,path=None):
+    def __init__(self, name=None,parent=None,path=None):
         self.parent = parent
+        self.name=name
         self.collection = []
+        self.effects: Effects = Effects()
+        self.lines_on_org = {}
         self.current_image_id = None
         if path!=None:
             self.path=path

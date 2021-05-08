@@ -1,3 +1,4 @@
+from models.effects import Effects
 from models.page_info import PageInfo
 
 import re
@@ -10,7 +11,6 @@ class Image:
         self.path = path
         self.name = name
         self.pixmap = pixmap
-        self.history = None
         self.page_info: PageInfo = None
         self.modified_img = None
         self.zoom = 1

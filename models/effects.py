@@ -1,14 +1,37 @@
 
+from services.images_provider import ImagesProvider
 from PyQt5.QtGui import QPixmap
-
-
-class Effects: 
+class Effects:
     def __init__(self) -> None:
-        self.main_lines = False
-        self.minor_lines = False
-        self.text_block = False
-        self.words = False
-        self.letters = False
-        self.upper_shift = 0
-        self.lower_shift = 0
-        self.contrast_intensity = 0
+        self.values={}
+        self.values[EffectType.LINES]={}
+        self.values[EffectType.UPPER_SHIFT]=0
+        self.values[EffectType.LOWER_SHIFT]=0
+        self.values[EffectType.CONTRAST_INTENSITY]=0
+        self.values[EffectType.STRAIGHTENED]=False
+        self.values[EffectType.CORRECTIONS]={}
+        self.history = []
+        self.reworked_imgs = {}
+
+    def get_key(self, img_path):
+        return (img_path + str(self.values[EffectType.STRAIGHTENED]) + str(self.values[EffectType.CONTRAST_INTENSITY]) +
+                str(self.values[EffectType.UPPER_SHIFT]) + str(self.values[EffectType.LOWER_SHIFT]) +
+                str(self.values[EffectType.CORRECTIONS]))
+
+
+from enum import Enum
+class Lines(Enum):
+    __order__ = 'MAIN_LINES MINOR_LINES TEXT_BLOCK WORDS LETTERS'
+    MAIN_LINES='Main lines'
+    MINOR_LINES='Minor lines'
+    TEXT_BLOCK='Text block'
+    WORDS='Words'
+    LETTERS='Letters'
+
+class EffectType(Enum):
+    LINES='lines'
+    UPPER_SHIFT='upper_shift'
+    LOWER_SHIFT='lower_shift'
+    CONTRAST_INTENSITY='contrast_intensity'
+    CORRECTIONS='corrections'
+    STRAIGHTENED='straightened'

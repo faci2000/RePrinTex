@@ -1,3 +1,4 @@
+import views.guielements.central.image_preview_view as vgcipv
 from models.image import Image
 from PyQt5.QtCore import Qt
 from enum import Enum
@@ -30,7 +31,7 @@ class ImagePreviewController:
     """
     def __init__(self, parent, view) -> None:
         self.parent = parent
-        self.view = view
+        self.view:vgcipv.ImagePreviewView = view
         self.current_image: Image = None
         self.active_area = Area.ORIGINAL
         self.original_zoom = 1
