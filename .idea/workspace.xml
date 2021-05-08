@@ -2,21 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes">
-      <change afterPath="$PROJECT_DIR$/data/icons/help.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/archive_creator_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/archive_creator_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/status_bar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/status_bar_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgmaneng/img_cleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/imgmaneng/img_cleaner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threads/worker_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/threads/worker_decorator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/effects_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/effects_layout.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/guielements/menu/edit_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/menu/edit_menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/menu/help_menu.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/status/status.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/status/status.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/toolbar/toolbar.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/toolbar/toolbar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/main_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +35,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -154,7 +145,11 @@
       <workItem from="1620371356317" duration="5717000" />
       <workItem from="1620380164439" duration="148000" />
       <workItem from="1620382646003" duration="43000" />
-      <workItem from="1620403573602" duration="7156000" />
+      <workItem from="1620403573602" duration="7400000" />
+      <workItem from="1620411146020" duration="29000" />
+      <workItem from="1620411188846" duration="710000" />
+      <workItem from="1620418364251" duration="24000" />
+      <workItem from="1620469243934" duration="380000" />
     </task>
     <task id="LOCAL-00001" summary="effects and fixes">
       <created>1619124514533</created>
@@ -186,7 +181,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="effects and fixes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1620410774979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1620469545751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RePrinTex$Worker.coverage" NAME="Worker Coverage Results" MODIFIED="1620374187431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
     <SUITE FILE_PATH="coverage/RePrinTex$Dec.coverage" NAME="Dec Coverage Results" MODIFIED="1620375755689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
   </component>

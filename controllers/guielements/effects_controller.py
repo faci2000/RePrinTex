@@ -43,7 +43,6 @@ class EffectsController:
         img = QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))
         self.parent.image_preview_view.controller.set_new_modified_image(img)
 
-
     def straighten_lines(self):
         pass
 

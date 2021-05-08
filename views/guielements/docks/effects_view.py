@@ -8,13 +8,14 @@ from views.guielements.effects_layout import add_clean, add_stains, add_contrast
 class EffectsView:
     def __init__(self, parent) -> None:
         self.parent = parent
-        self.controller:EffectsController = EffectsController(parent, self)
+        self.controller: EffectsController = EffectsController(parent, self)
         self.dock = QDockWidget("Effects", self.parent)
         self.widget = QWidget(self.dock)
 
         layout = QVBoxLayout(self.widget)
         layout.setAlignment(Qt.AlignTop)
 
+        self.straighten_lines = self.create_button("Straighten lines", lambda: self.controller.straighten_lines())
         self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
         self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
         self.reset_button = self.create_button("Reset", lambda: self.controller.reset())
@@ -24,6 +25,8 @@ class EffectsView:
         self.widget.setLayout(layout)
 
     def add_to_layout(self, layout:QVBoxLayout):
+        # Effects
+        layout.addWidget(self.straighten_lines)
         add_clean(self, self.widget, layout)
         add_contrast(self, self.widget, layout)
         add_stains(self, self.widget, layout)

@@ -9,6 +9,7 @@ class EditMenu:
         self.parent = parent
 
         straighten_lines = QAction("&Straighten lines", self.parent)
+        straighten_lines.triggered.connect(lambda: self.controller.straighten_lines())
 
         clean_page = QAction("&Clean page", self.parent)
         clean_page.triggered.connect(lambda: self.controller.clean_page())
@@ -19,20 +20,15 @@ class EditMenu:
         remove_stains = QAction("&Remove stains", self.parent)
         remove_stains.triggered.connect(lambda: self.controller.remove_stains())
 
-        undo = QAction("&Undo", self.parent)
-        redo = QAction("&Redo", self.parent)
         apply = QAction("&Apply", self.parent)
         apply_to_all = QAction("&Apply to all", self.parent)
         reset = QAction("&Reset", self.parent)
-
-        # export_all_action.triggered.connect(lambda: self.controller.export_all_images)
-        # export_as_action = QAction("&Export as", self.parent, triggered=self.controller.export_image_as)
 
         effects_menu = QMenu("&Effects", self.parent)
         effects_menu.addActions([straighten_lines, clean_page, contrast_page, remove_stains])
 
         self.edit_menu = QMenu("&Edit", self.parent)
-        self.edit_menu.addActions([undo, redo, apply, apply_to_all, reset])
+        self.edit_menu.addActions([apply, apply_to_all, reset])
         self.edit_menu.addMenu(effects_menu)
 
     def get_edit_menu(self):

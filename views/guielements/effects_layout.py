@@ -46,8 +46,10 @@ def add_stains(parent, widget, layout):
     widget.stains_button = create_button(widget, "Removing stains", True)
     parent.stains_slider = create_slider(1, 100, 20)
     l1 = QLabel("Remove Stains")
+    l2 = QLabel("Brush size")
 
     layout.addWidget(l1)
+    layout.addWidget(l2)
     layout.addWidget(parent.stains_slider)
     layout.addWidget(widget.stains_button)
 
