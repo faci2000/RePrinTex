@@ -11,4 +11,4 @@ def save_collections(collections_list:List[ImageCollection])->bool:
                                         'path':save_collection(collection)})
 
 def save_collection(collection:ImageCollection)->str:
-    
+    pass

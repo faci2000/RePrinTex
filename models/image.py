@@ -1,4 +1,3 @@
-from models.effects import Effects
 from models.page_info import PageInfo
 
 import re

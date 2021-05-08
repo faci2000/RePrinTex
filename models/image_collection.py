@@ -1,6 +1,5 @@
 from models.effects import Effects
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QMessageBox
 
 from models.image import Image
 

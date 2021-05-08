@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStatusBar, QLabel
 
-from models.image_collection import ImageCollection
 from views.guielements.central.image_preview_view import ImagePreviewView
 from views.guielements.docks.collection_view import CollectionView
 from views.guielements.docks.effects_view import EffectsView

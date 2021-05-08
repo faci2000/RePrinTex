@@ -3,11 +3,11 @@ from imgmaneng.lines_boundary_drawer import draw_lines_and_boundaries
 from imgmaneng.lines_streightening import lines_streigtening
 from imgmaneng.img_cleaner import clean_page, increase_contrast, remove_stains
 import cv2
-from models.effects import EffectType, Effects
+import models.effects as me
 from controllers.guielements.image_preview_controller import ImagePreviewController
 from models.image import Image
 from typing import Any, List, Set
-from models.image_collection import ImageCollection
+import models.image_collection as mic
 from threading import Lock, Thread
 import numpy as np
 
@@ -32,24 +32,24 @@ class EmptyCollectionException(Exception):
 
 class ImagesProvider(metaclass=ImagesProviderMeta):
     def __init__(self,image_view:ImagePreviewController=None) -> None:
-        self.collections:List[ImageCollection] = []
+        self.collections:List[mic.ImageCollection] = []
         self.current_collection_index:int = None
         self.current_image_index:int = None
         self.image_view:ImagePreviewController = image_view
 
-    def get_recently_added_collection(self)->ImageCollection:
+    def get_recently_added_collection(self)->mic.ImageCollection:
         if len(self.collections)==0:
             raise EmptyCollectionsListException("List of collections is empty. Add some image collection first.")
         else:
             return self.collections[len(self.collections)-1]
 
-    def get_current_collection(self)->ImageCollection:
+    def get_current_collection(self)->mic.ImageCollection:
         if len(self.collections)==0:
             raise EmptyCollectionsListException("List of collections is empty. Add some image collection first.")
         else:
             return self.collections[self.current_collection_index]
 
-    def get_current_collection_effects(self)->Effects:
+    def get_current_collection_effects(self)->me.Effects:
         return self.get_current_collection().effects
 
     def get_current_collection_org_lines(self)->Set:
@@ -62,7 +62,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         else:
             return self.get_current_collection()[self.current_image_index]
 
-    def add_new_collection(self,new_image_collection:ImageCollection)->bool: # return true if changed current collection
+    def add_new_collection(self,new_image_collection:mic.ImageCollection)->bool: # return true if changed current collection
         self.collections.append(new_image_collection)                        # otherwise return false 
         if self.current_collection_index == None:
             self.current_collection_index = len(self.collections)-1
@@ -85,13 +85,13 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             if key in effects.reworked_imgs:
                 moded_img = effects.get_reworked_img[key]
                 # effects.history.append(key)
-                # self.set_mod_image(self.draw_lines(moded_img,effects.values[EffectType.LINES]))
+                # self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
                 # return True
             else:
                 moded_img = self.create_new_reworked_image()
                 effects.reworked_imgs[key]=moded_img
             effects.history.append(key)
-            self.set_mod_image(self.draw_lines(moded_img,effects.values[EffectType.LINES]))
+            self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
             return True
         else:
             self.set_org_image(self.draw_lines(cv2.imread(img.path),self.get_current_collection().lines_on_org))
@@ -99,14 +99,14 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
 
     def create_new_reworked_image(self)->np.ndarray:
         effects = self.get_current_collection().effects
-        if effects.values[EffectType.STRAIGHTENED]:
+        if effects.values[me.EffectType.STRAIGHTENED]:
             img = lines_streigtening(self.get_current_image())
         else:
             img = cv2.imread(self.get_current_image().path)
 
-        img = increase_contrast(img,effects.values[EffectType.CONTRAST_INTENSITY])
-        img = clean_page(img,effects.values[EffectType.UPPER_SHIFT],effects.values[EffectType.LOWER_SHIFT])
-        # for stain in effects.values[EffectType.CORRECTIONS]:
+        img = increase_contrast(img,effects.values[me.EffectType.CONTRAST_INTENSITY])
+        img = clean_page(img,effects.values[me.EffectType.UPPER_SHIFT],effects.values[me.EffectType.LOWER_SHIFT])
+        # for stain in effects.values[me.EffectType.CORRECTIONS]:
         #     img = remove_stains(img,stain['x'],stain['y'],stain['r'])
         return img
 

@@ -1,4 +1,4 @@
-from models.effects import Lines
+
 import numpy
 from imgmaneng.img_analyze import img_analyze
 import cv2
@@ -6,7 +6,7 @@ from models.image import Image
 import numpy as np
 
 def draw_lines_and_boundaries(image:Image,img:np.ndarray,lines)->numpy.ndarray:
-
+    from models.effects import Lines
     if image.page_info is None:
         img_analyze(image)
 

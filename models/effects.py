@@ -1,6 +1,21 @@
 
-from services.images_provider import ImagesProvider
-from PyQt5.QtGui import QPixmap
+
+from enum import Enum
+class Lines(Enum):
+    __order__ = 'MAIN_LINES MINOR_LINES TEXT_BLOCK WORDS LETTERS'
+    MAIN_LINES='Main lines'
+    MINOR_LINES='Minor lines'
+    TEXT_BLOCK='Text block'
+    WORDS='Words'
+    LETTERS='Letters'
+
+class EffectType(Enum):
+    LINES='lines'
+    UPPER_SHIFT='upper_shift'
+    LOWER_SHIFT='lower_shift'
+    CONTRAST_INTENSITY='contrast_intensity'
+    CORRECTIONS='corrections'
+    STRAIGHTENED='straightened'
 class Effects:
     def __init__(self) -> None:
         self.values={}
@@ -19,19 +34,3 @@ class Effects:
                 str(self.values[EffectType.CORRECTIONS]))
 
 
-from enum import Enum
-class Lines(Enum):
-    __order__ = 'MAIN_LINES MINOR_LINES TEXT_BLOCK WORDS LETTERS'
-    MAIN_LINES='Main lines'
-    MINOR_LINES='Minor lines'
-    TEXT_BLOCK='Text block'
-    WORDS='Words'
-    LETTERS='Letters'
-
-class EffectType(Enum):
-    LINES='lines'
-    UPPER_SHIFT='upper_shift'
-    LOWER_SHIFT='lower_shift'
-    CONTRAST_INTENSITY='contrast_intensity'
-    CORRECTIONS='corrections'
-    STRAIGHTENED='straightened'
