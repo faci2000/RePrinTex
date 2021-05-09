@@ -117,7 +117,7 @@ def img_analyze(input_img:models.image.Image):
     #     cv2.line(result_image, (0, y), (W, y), (0, 250, 250), 3)
 
     #cv2.imwrite("./tmp/result.png", result_image)
-    input_img.modified_img = result_image
+    # input_img.modified_img = result_image
     fill_lines(input_img,words,input_img.page_info.lines["uppers"],input_img.page_info.lines["lowers"])
     #final=move_letters(text_lines,img)
 

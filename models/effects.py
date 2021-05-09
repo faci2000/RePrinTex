@@ -25,6 +25,7 @@ class Effects:
         self.values[EffectType.CONTRAST_INTENSITY]=0
         self.values[EffectType.STRAIGHTENED]=False
         self.values[EffectType.CORRECTIONS]={}
+        self.current_history_index = 0
         self.history = []
         self.reworked_imgs = {}
 
@@ -32,5 +33,6 @@ class Effects:
         return (img_path + str(self.values[EffectType.STRAIGHTENED]) + str(self.values[EffectType.CONTRAST_INTENSITY]) +
                 str(self.values[EffectType.UPPER_SHIFT]) + str(self.values[EffectType.LOWER_SHIFT]) +
                 str(self.values[EffectType.CORRECTIONS]))
+        
 
 

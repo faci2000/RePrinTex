@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QPixmap
 from imgmaneng.img_converter import convert_cv2Image_to_QPixmap
 from imgmaneng.lines_boundary_drawer import draw_lines_and_boundaries
 from imgmaneng.lines_streightening import lines_streigtening
@@ -91,6 +92,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                 moded_img = self.create_new_reworked_image()
                 effects.reworked_imgs[key]=moded_img
             effects.history.append(key)
+            effects.current_history_index+=1 # dodać przycinanie historii oraz obecny index
             self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
             return True
         else:
@@ -115,9 +117,14 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
 
     def set_org_image(self,image:np.ndarray):
         pixmap = convert_cv2Image_to_QPixmap(image)
-        self.image_view.view.set_left_image(pixmap)
+        # self.image_view.view.set_left_image(pixmap)
+        self.image_view.set_new_org_image(pixmap)
 
     def set_mod_image(self,image:np.ndarray):
         pixmap = convert_cv2Image_to_QPixmap(image)
-        self.image_view.view.set_right_image(pixmap)
+        # self.image_view.view.set_right_image(pixmap)
+        self.image_view.set_new_modified_image(pixmap)
+
+    def get_current_mod_pixmap(self)->QPixmap:
+        
 

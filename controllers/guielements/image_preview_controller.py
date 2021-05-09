@@ -37,7 +37,7 @@ class ImagePreviewController:
         self.original_zoom = 1
         self.modified_zoom = 1
 
-    def set_new_image(self, image: Image):
+    def set_new_image(self, image: Image): # ustawia pierwszy raz nowe zdjecie
         self.current_image = image
         self.active_area = Area.ORIGINAL
 
@@ -57,10 +57,15 @@ class ImagePreviewController:
         size.setHeight(int(size.height() * zoom))
         return size
 
-    def set_new_modified_image(self, image):
+    def set_new_modified_image(self, image:QPixmap):
         size = self.get_size(self.modified_zoom)
         pixmap = image.scaled(size, Qt.KeepAspectRatio)
         self.view.set_right_image(pixmap)
+        
+    def set_new_org_image(self, image:QPixmap):
+        size = self.get_size(self.original_zoom)
+        pixmap = image.scaled(size, Qt.KeepAspectRatio)
+        self.view.set_left_image(pixmap)
 
     def zoom(self, alpha):
         if self.active_area == Area.ORIGINAL:
