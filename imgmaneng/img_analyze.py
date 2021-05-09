@@ -93,13 +93,13 @@ def img_analyze(input_img:models.image.Image):
     print(th_lose)
     # plt.show()
     H, W = img.shape[:2]
-    input_img.page_info.lines["upuppers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["upuppers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                              hist[y] <= th_lose and hist[y + 1] > th_lose]
-    input_img.page_info.lines["lolowers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["lolowers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                              hist[y] > th_lose and hist[y + 1] <= th_lose]
-    input_img.page_info.lines["uppers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["uppers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                            hist[y] <= th_strict and hist[y + 1] > th_strict]
-    input_img.page_info.lines["lowers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["lowers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                            hist[y] > th_strict and hist[y + 1] <= th_strict]
 
     # print(input_img.page_info.lines["lowers"])

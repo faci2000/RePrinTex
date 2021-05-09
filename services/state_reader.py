@@ -1,6 +1,7 @@
 
 
 import json
+from models.effects import EffectType
 import services.images_provider as sip
 from models.page_info import PageInfo
 from models.image import Image
@@ -20,19 +21,21 @@ def read_saved_collections()->List[ImageCollection]:
         return []
 
 def read_saved_collection_data(path:str)->ImageCollection:
-    print(path)
+    # print(path)
     path = './data/colldet/'+path
     with open(path,'r') as json_data:
         collection = json.load(json_data)
         img_coll = ImageCollection(name=collection['name'])
-        img_coll.detail_file_name = path[:-5]
+        img_coll.detail_file_name = path.split('/')[-1][:-5]
         img_coll.effects.values = collection['effects']
-        print(collection)
+        img_coll.effects.values[EffectType.LINES]={}
+        # print(collection)
         for img in collection['images']:
-            print(img)
+            # print(img)
             img_coll.add_image(Image(1,path=img['path'],name=img['name']))
-            img_coll.collection[len(img_coll.collection)-1].page_info=PageInfo()
+
             if 'page_info' in img:
+                img_coll.collection[len(img_coll.collection)-1].page_info=PageInfo()
                 img_coll.collection[len(img_coll.collection)-1].page_info.text_block=img['page_info']['text_block']
                 img_coll.collection[len(img_coll.collection)-1].page_info.letters=img['page_info']['letters']
                 img_coll.collection[len(img_coll.collection)-1].page_info.lines=img['page_info']['lines']

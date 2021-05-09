@@ -59,11 +59,12 @@ class EffectsController:
                 self.image_provider.get_current_collection_org_lines().add(effects_to_change['type'])
             else:
                 self.image_provider.get_current_collection_org_lines().remove(effects_to_change['type'])
-        elif effects_to_change['effects_type'] == EffectType.LINES:
-            if effects_to_change['value']:
-                effects.values[EffectType.LINES.value].add(effects_to_change['type'])
+        elif effects_to_change['effect_type'] == EffectType.LINES:
+            if effects_to_change['type'] not in effects.values[EffectType.LINES.value]:
+                effects.values[EffectType.LINES.value][effects_to_change['type']]=True
             else:
-                effects.values[EffectType.LINES.value].remove(effects_to_change['type'])
+                effects.values[EffectType.LINES.value].pop(effects_to_change['type'])
+            print(effects.values[EffectType.LINES.value])
         else:
             for eff in effects_to_change['values']:
                 effects.values[eff['type'].value] = eff['value']

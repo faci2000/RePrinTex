@@ -45,8 +45,8 @@ class ArchiveCreatorController:
         with open('config.json', 'w') as outfile:
             json.dump(data, outfile)
 
-    def create_new_collection(self,path):
+    def create_new_collection(self,path,name):
         for coll in self.collection_view.controller.collections:
             if coll.path == path:
                 return
-        self.collection_view.controller.add_collection(path)
+        self.collection_view.controller.add_collection(path,name)

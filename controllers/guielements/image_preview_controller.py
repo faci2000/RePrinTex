@@ -43,16 +43,20 @@ class ImagePreviewController:
         self.original_zoom = 1
         self.modified_zoom = 1
 
-    def set_new_image(self, image:np.ndarray): # ustawia pierwszy raz nowe zdjecie
+    def set_new_image(self): # ustawia pierwszy raz nowe zdjecie
         # image_provider.get_current_image() = image
-        
+
         self.active_area = Area.ORIGINAL
-        pixmap = convert_cv2Image_to_QPixmap(image)
+        pixmap = self.image_provider.get_current_pixmap(True)
+        print(self.image_provider.get_current_image())
+        print(self.image_provider.get_current_image().last_org_pixmap)
 
         original_area_size = self.view.area_original.size()
         self.original_zoom = original_area_size.width() * 0.9 / pixmap.size().width()
         size = self.get_size(self.original_zoom)
         self.view.set_left_image(pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+
+        pixmap = self.image_provider.get_current_pixmap(False)
 
         modified_area_size = self.view.area_modified.size()
         self.modified_zoom = modified_area_size.width() * 0.9 / pixmap.size().width()
@@ -60,7 +64,7 @@ class ImagePreviewController:
         self.view.set_right_image(pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
 
     def get_size(self, zoom):
-        size = self.image_provider.get_current_image().pixmap.size()
+        size = self.image_provider.get_current_pixmap(True).size()
         size.setWidth(int(size.width() * zoom))
         size.setHeight(int(size.height() * zoom))
         return size
@@ -79,11 +83,11 @@ class ImagePreviewController:
         if self.active_area == Area.ORIGINAL:
             self.original_zoom = self.original_zoom * (1 + alpha)
             size = self.get_size(self.original_zoom)
-            self.view.set_left_image(self.image_provider.get_current_image().pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+            self.view.set_left_image(self.image_provider.get_current_pixmap(True).scaled(size, transformMode=Qt.SmoothTransformation))
         else:
             self.modified_zoom = self.modified_zoom * (1 + alpha)
             size = self.get_size(self.modified_zoom)
-            self.view.set_right_image(self.image_provider.get_current_image().pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+            self.view.set_right_image(self.image_provider.get_current_pixmap(False).scaled(size, transformMode=Qt.SmoothTransformation))
 
     def zoom_in(self):
         self.zoom(0.07)

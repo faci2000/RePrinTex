@@ -9,7 +9,8 @@ class Image:
         # self.id = id_
         self.path = path
         self.name = name
-        self.pixmap = pixmap
+        self.last_org_pixmap = pixmap
+        self.last_mod_pixmap = None
         self.page_info: PageInfo = None
         # self.modified_img = None
         self.zoom = 1

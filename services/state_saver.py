@@ -17,12 +17,11 @@ def save_collections(collections_list:List[ImageCollection])->bool:
 
 def save_collection(collection:ImageCollection)->str:
     collection_save_form = {'name':collection.name}
-    print(collection_save_form['name'])
+    # print(collection_save_form['name'])
     collection_save_form['effects']=collection.effects.values
-    print(collection_save_form['effects'])
+    # print(collection_save_form['effects'])
     collection_save_form['images'] = []
     for img in collection.collection:
-        
         if(img.page_info!=None):
             collection_save_form['images'].append({'path':img.path,
                                                     'page_info':{
@@ -36,7 +35,8 @@ def save_collection(collection:ImageCollection)->str:
             collection_save_form['images'].append({'path':img.path,
                                                     'name':img.name})
     filename = collection.detail_file_name+'.json'
-    print(collection_save_form)
+    # print(collection_save_form)
+    # print(collection.detail_file_name)
     with open('./data/colldet/'+filename,"w") as outfile:
         json.dump(collection_save_form,outfile)
         return filename

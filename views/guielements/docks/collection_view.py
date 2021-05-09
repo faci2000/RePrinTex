@@ -1,13 +1,12 @@
-from services.images_provider import ImagesProvider
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QComboBox, QDockWidget, QListWidget, QListWidgetItem, QVBoxLayout, QWidget
 
-from controllers.guielements.collection_controller import CollectionController
 
 
 class CollectionView:
     def __init__(self, parent) -> None:
+        from controllers.guielements.collection_controller import CollectionController
         self.parent = parent
         self.controller = CollectionController(parent, self)
         self.dock = QDockWidget("Collections", self.parent)
@@ -15,6 +14,8 @@ class CollectionView:
         self.vbox = QVBoxLayout()
 
         self.collections_list = QComboBox(self.dock)
+        self.controller.fill_name_combobox()
+        self.collections_list.currentIndexChanged.connect(lambda i: self.controller.change_collection(i))
         self.vbox.addWidget(self.collections_list)
 
         self.files_list = QListWidget(self.dock)

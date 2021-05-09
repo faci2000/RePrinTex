@@ -17,7 +17,7 @@ class ImageCollection:
         self.detail_file_name = ''.join(random.choice(string.ascii_lowercase)for i in range(20))
         self.collection:List[Image] = []
         self.effects: Effects = Effects()
-        self.lines_on_org = {}
+        self.lines_on_org = set()
         self.current_image_id = None
         print(path)
         if path!=None:
