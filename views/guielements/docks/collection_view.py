@@ -8,8 +8,6 @@ from controllers.guielements.collection_controller import CollectionController
 
 class CollectionView:
     def __init__(self, parent) -> None:
-        # Initialzie ImageProvider
-        self.image_provider = ImagesProvider(self)
         self.parent = parent
         self.controller = CollectionController(parent, self)
         self.dock = QDockWidget("Collections", self.parent)

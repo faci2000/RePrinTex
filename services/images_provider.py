@@ -42,6 +42,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
     def load_data(self):
         import services.state_reader as ssr
         self.collections = ssr.read_saved_collections()
+        print(self.collections)
         ssr.read_view_config(self)
         try:
             self.set_image_to_display()
@@ -68,15 +69,26 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
 
     def get_current_image(self)->Image:
         collection = self.get_current_collection()
-        if len(collection)==0:
+        if len(collection.collection)==0:
             raise EmptyCollectionException("Image collection is empty. Add some images to collection first.")
         else:
-            return self.get_current_collection()[self.current_image_index]
+            return collection.collection[self.current_image_index]
+
+    def change_current_image(self,new_image_index:int)->Image:
+        old_index = self.current_image_index
+        try:
+            self.current_image_index = new_image_index
+        except IndexError:
+            print("Index out of bounds.")
+            self.current_image_index = old_index
+        return self.get_current_image()
 
     def add_new_collection(self,new_image_collection:mic.ImageCollection)->bool: # return true if changed current collection
         self.collections.append(new_image_collection)                        # otherwise return false 
         if self.current_collection_index == None:
             self.current_collection_index = len(self.collections)-1
+            if len(new_image_collection.collection)>0:
+                self.current_image_index = 0
             return True
         else:
             return False
@@ -86,10 +98,11 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         if len(self.get_current_collection())==0:
             self.current_image_index=None
         else:
-            self.current_image_index=1
+            self.current_image_index=0
 
     def set_image_to_display(self):
-        image = cv2.imread(self.get_current_image().path);
+        image = cv2.imread(self.get_current_image().path)
+        print(self.image_view)
         self.image_view.set_new_image(image)
 
     def update_displayed_images(self,update_org_image:bool):

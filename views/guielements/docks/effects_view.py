@@ -113,8 +113,10 @@ class EffectsView:
         vbox.addWidget(QLabel("Original"))
 
         for label in Lines:
+            print(label)
             chk = QCheckBox()
             chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':label,'org':True,'value':chk.isChecked()}))
+            vbox.addWidget(chk)
         hbox.addLayout(vbox)
 
         # chk.stateChanged.connect(lambda: self.controller.updated_drawing_effects(True))
@@ -143,6 +145,7 @@ class EffectsView:
         for label in Lines:
             chk = QCheckBox()
             chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':label,'org':False,'value':chk.isChecked()}))
+            vbox.addWidget(chk)
         hbox.addLayout(vbox)
 
         # chk = QCheckBox()

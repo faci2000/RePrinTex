@@ -36,7 +36,7 @@ class CollectionController:
             self.view.add_image_icon(pixmap, name)
 
     def add_collection(self,path):
-        changed_collection = self.image_provider.add_new_collection(mic.ImageCollection(self.parent,path))
+        changed_collection = self.image_provider.add_new_collection(mic.ImageCollection(parent=self.parent,path=path))
         if(not changed_collection):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Question)
@@ -46,17 +46,18 @@ class CollectionController:
             msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             msg.buttonClicked.connect(lambda button: (button==QMessageBox.Yes) and self.image_provider.change_current_collection_to_added_recently())
 
-        for img in self.image_provider.get_recently_added_collection():
+        for img in self.image_provider.get_recently_added_collection().collection:
             self.view.add_image_icon(img.pixmap, img.name)
-        self.change_image(self.collections[self.active_collection].collection[0])
+        # self.change_image(self.collections[self.active_collection].collection[0])
+        self.image_provider.set_image_to_display()
 
 
 
     def change_image(self,img=None):
         if img==None:
             idx = self.view.files_list.currentIndex().row()
-            picture = self.collections[self.active_collection].change_current_image(idx)
-            self.parent.image_preview_view.controller.set_new_image(picture)
+            picture = self.image_provider.change_current_image(idx)
+            self.image_provider.set_image_to_display()
         else:
             self.parent.image_preview_view.controller.set_new_image(img)
 

@@ -19,12 +19,12 @@ class EffectType(Enum):
 class Effects:
     def __init__(self) -> None:
         self.values={}
-        self.values[EffectType.LINES]={}
-        self.values[EffectType.UPPER_SHIFT]=0
-        self.values[EffectType.LOWER_SHIFT]=0
-        self.values[EffectType.CONTRAST_INTENSITY]=0
-        self.values[EffectType.STRAIGHTENED]=False
-        self.values[EffectType.CORRECTIONS]={}
+        self.values[EffectType.LINES.value]={}
+        self.values[EffectType.UPPER_SHIFT.value]=0
+        self.values[EffectType.LOWER_SHIFT.value]=0
+        self.values[EffectType.CONTRAST_INTENSITY.value]=0
+        self.values[EffectType.STRAIGHTENED.value]=False
+        self.values[EffectType.CORRECTIONS.value]={}
         self.current_history_index = 0
         self.history = []
         self.reworked_imgs = {}

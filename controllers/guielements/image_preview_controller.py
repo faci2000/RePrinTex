@@ -1,3 +1,4 @@
+import services.images_provider  as sip
 from imgmaneng.img_converter import convert_cv2Image_to_QPixmap
 import numpy as np
 import views.guielements.central.image_preview_view as vgcipv
@@ -33,14 +34,18 @@ class ImagePreviewController:
     """
     def __init__(self, parent, view) -> None:
         self.parent = parent
+        # Initialzie ImageProvider
+        self.image_provider = sip.ImagesProvider(self)
+        self.image_provider.image_view=self
         self.view:vgcipv.ImagePreviewView = view
-        self.current_image: Image = None
+        # image_provider.get_current_image(): Image = None
         self.active_area = Area.ORIGINAL
         self.original_zoom = 1
         self.modified_zoom = 1
 
     def set_new_image(self, image:np.ndarray): # ustawia pierwszy raz nowe zdjecie
-        # self.current_image = image
+        # image_provider.get_current_image() = image
+        
         self.active_area = Area.ORIGINAL
         pixmap = convert_cv2Image_to_QPixmap(image)
 
@@ -55,7 +60,7 @@ class ImagePreviewController:
         self.view.set_right_image(pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
 
     def get_size(self, zoom):
-        size = self.current_image.pixmap.size()
+        size = self.image_provider.get_current_image().pixmap.size()
         size.setWidth(int(size.width() * zoom))
         size.setHeight(int(size.height() * zoom))
         return size
@@ -74,11 +79,11 @@ class ImagePreviewController:
         if self.active_area == Area.ORIGINAL:
             self.original_zoom = self.original_zoom * (1 + alpha)
             size = self.get_size(self.original_zoom)
-            self.view.set_left_image(self.current_image.pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+            self.view.set_left_image(self.image_provider.get_current_image().pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
         else:
             self.modified_zoom = self.modified_zoom * (1 + alpha)
             size = self.get_size(self.modified_zoom)
-            self.view.set_right_image(self.current_image.pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+            self.view.set_right_image(self.image_provider.get_current_image().pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
 
     def zoom_in(self):
         self.zoom(0.07)
@@ -101,7 +106,7 @@ class ImagePreviewController:
         if self.active_area == Area.ORIGINAL:
             h = self.view.area_original.horizontalScrollBar().value()
             v = self.view.area_original.verticalScrollBar().value()
-            zoom = self.current_image.zoom
+            zoom = self.image_provider.get_current_image().zoom
         else:
             h = self.view.area_modified.horizontalScrollBar().value()
             v = self.view.area_modified.verticalScrollBar().value()
@@ -113,7 +118,7 @@ class ImagePreviewController:
 
         if self.parent.effects_view.controller.is_brush_active():
             radius = self.parent.effects_view.controller.get_brush_radius()
-            clean = remove_stains(self.current_image, rx, ry, radius)
+            clean = remove_stains(self.image_provider.get_current_image(), rx, ry, radius)
             pixmap = QPixmap(QImage(clean, clean.shape[1], clean.shape[0], clean.shape[1] * 3, QImage.Format_RGB888))
             self.set_new_modified_image(pixmap)
 

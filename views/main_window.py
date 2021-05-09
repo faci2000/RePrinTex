@@ -1,3 +1,5 @@
+from services.state_saver import save_collections, save_view_config
+from PyQt5 import QtGui
 from services.images_provider import ImagesProvider
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStatusBar, QLabel
@@ -59,3 +61,8 @@ class MainWindow(QMainWindow):
         ImagesProvider().load_data()
 
         self.show()
+
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        img_prov = ImagesProvider()
+        save_collections(img_prov.collections)
+        save_view_config(img_prov)

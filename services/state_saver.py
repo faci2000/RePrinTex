@@ -17,19 +17,27 @@ def save_collections(collections_list:List[ImageCollection])->bool:
 
 def save_collection(collection:ImageCollection)->str:
     collection_save_form = {'name':collection.name}
+    print(collection_save_form['name'])
     collection_save_form['effects']=collection.effects.values
-    collection_save_form['images']={}
+    print(collection_save_form['effects'])
+    collection_save_form['images'] = []
     for img in collection.collection:
-        collection_save_form['images'].append({'path':img.path,
-                                                'page_info':{
-                                                    'text_lines':img.page_info.text_lines,
-                                                    'letters':img.page_info.letters,
-                                                    'lines':img.page_info.lines,
-                                                    'text_block':img.page_info.text_block
-                                                    },
-                                                'name':img.name})
+        
+        if(img.page_info!=None):
+            collection_save_form['images'].append({'path':img.path,
+                                                    'page_info':{
+                                                        'text_lines':img.page_info.text_lines,
+                                                        'letters':img.page_info.letters,
+                                                        'lines':img.page_info.lines,
+                                                        'text_block':img.page_info.text_block
+                                                        },
+                                                    'name':img.name})
+        else:
+            collection_save_form['images'].append({'path':img.path,
+                                                    'name':img.name})
     filename = collection.detail_file_name+'.json'
-    with open('./data/'+filename,"w") as outfile:
+    print(collection_save_form)
+    with open('./data/colldet/'+filename,"w") as outfile:
         json.dump(collection_save_form,outfile)
         return filename
     # raise IOError

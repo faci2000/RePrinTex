@@ -32,7 +32,7 @@ class ArchiveCreatorController:
         print(value)
         if value!="" and value!=None and value in  self.collections:
             name_box.setText(self.collections[value])
-        elif name_box.text() != "" and value!="": 
+        elif name_box.text() != "" and value!="":
             self.collections[value] = name_box.text()
 
     def save_config(self):
