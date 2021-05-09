@@ -26,15 +26,15 @@ class EffectsView:
         # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
         # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
 
-        self.clean_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LOWER_SHIFT,'org':False,
+        self.apply_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LOWER_SHIFT,'org':False,
                                                                                   'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
                                                                                             {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
                                                                                             {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
 
-        self.contrast_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.CONTRAST_INTENSITY,'org':False,
-                                                                                  'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
-                                                                                            {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
-                                                                                            {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
+        # self.contrast_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.CONTRAST_INTENSITY,'org':False,
+        #                                                                           'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
+        #                                                                                     {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
+        #                                                                                     {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
         # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
         # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
         # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))

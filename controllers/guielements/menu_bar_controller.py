@@ -1,9 +1,7 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWidgets import QFileDialog
 
 from threads.worker_decorator import multi_thread_runner
 from views.archive_creator import ArchiveCreator
-from PyQt5.QtWidgets import QFileDialog, QDialog, QGridLayout
 
 from views.guielements.menu.dialogs import Dialogs
 
@@ -21,7 +19,7 @@ class MenuBarController:
     def create_archive(self, collection_view):
         create_archive_dialog = ArchiveCreator(collection_view)
         create_archive_dialog.exec_()
-    
+
     def save_image(self):
         pass
 

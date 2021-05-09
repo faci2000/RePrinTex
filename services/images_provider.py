@@ -124,7 +124,6 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
 
     def set_image_to_display(self):
         image = cv2.imread(self.get_current_image().path)
-        
         self.get_current_image().last_org_pixmap = convert_cv2Image_to_QPixmap(image)
         print(self.get_current_image())
         print(self.get_current_image().last_org_pixmap)
@@ -138,7 +137,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         img = self.get_current_image()
         if not update_org_image:
             effects = self.get_current_collection().effects
-            if effects.current_history_index == len(effects.history)-1:
+            if effects.current_history_index == len(effects.history)-1 or len(effects.history)==0:
                 key = effects.get_key(img.path)
             else:
                 key = effects.history[effects.current_history_index]
