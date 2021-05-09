@@ -1,3 +1,4 @@
+from services.images_provider import ImagesProvider
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStatusBar, QLabel
 
@@ -54,5 +55,7 @@ class MainWindow(QMainWindow):
         self.status_bar = QStatusBar()
         self.status_bar.addWidget(self.status_info)
         self.setStatusBar(self.status_bar)
+
+        ImagesProvider().load_data()
 
         self.show()

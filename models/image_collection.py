@@ -1,3 +1,4 @@
+from typing import List
 from models.effects import Effects
 from PyQt5.QtGui import QImage, QPixmap
 
@@ -5,12 +6,16 @@ from models.image import Image
 
 import os
 import re
+import random
+import string
 
 class ImageCollection:
     def __init__(self, name=None,parent=None,path=None):
         self.parent = parent
         self.name=name
-        self.collection = []
+        
+        self.detail_file_name = ''.join(random.choice(string.ascii_lowercase)for i in range(20))
+        self.collection:List[Image] = []
         self.effects: Effects = Effects()
         self.lines_on_org = {}
         self.current_image_id = None

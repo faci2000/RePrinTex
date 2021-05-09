@@ -1,3 +1,5 @@
+from imgmaneng.img_converter import convert_cv2Image_to_QPixmap
+import numpy as np
 import views.guielements.central.image_preview_view as vgcipv
 from models.image import Image
 from PyQt5.QtCore import Qt
@@ -37,19 +39,20 @@ class ImagePreviewController:
         self.original_zoom = 1
         self.modified_zoom = 1
 
-    def set_new_image(self, image: Image): # ustawia pierwszy raz nowe zdjecie
-        self.current_image = image
+    def set_new_image(self, image:np.ndarray): # ustawia pierwszy raz nowe zdjecie
+        # self.current_image = image
         self.active_area = Area.ORIGINAL
+        pixmap = convert_cv2Image_to_QPixmap(image)
 
         original_area_size = self.view.area_original.size()
-        self.original_zoom = original_area_size.width() * 0.9 / image.pixmap.size().width()
+        self.original_zoom = original_area_size.width() * 0.9 / pixmap.size().width()
         size = self.get_size(self.original_zoom)
-        self.view.set_left_image(self.current_image.pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+        self.view.set_left_image(pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
 
         modified_area_size = self.view.area_modified.size()
-        self.modified_zoom = modified_area_size.width() * 0.9 / image.pixmap.size().width()
+        self.modified_zoom = modified_area_size.width() * 0.9 / pixmap.size().width()
         size = self.get_size(self.modified_zoom)
-        self.view.set_right_image(self.current_image.pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
+        self.view.set_right_image(pixmap.scaled(size, transformMode=Qt.SmoothTransformation))
 
     def get_size(self, zoom):
         size = self.current_image.pixmap.size()

@@ -1,3 +1,4 @@
+
 from PyQt5.QtGui import QPixmap
 from imgmaneng.img_converter import convert_cv2Image_to_QPixmap
 from imgmaneng.lines_boundary_drawer import draw_lines_and_boundaries
@@ -38,6 +39,15 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         self.current_image_index:int = None
         self.image_view:ImagePreviewController = image_view
 
+    def load_data(self):
+        import services.state_reader as ssr
+        self.collections = ssr.read_saved_collections()
+        ssr.read_view_config(self)
+        try:
+            self.set_image_to_display()
+        except:
+            pass
+
     def get_recently_added_collection(self)->mic.ImageCollection:
         if len(self.collections)==0:
             raise EmptyCollectionsListException("List of collections is empty. Add some image collection first.")
@@ -77,6 +87,10 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             self.current_image_index=None
         else:
             self.current_image_index=1
+
+    def set_image_to_display(self):
+        image = cv2.imread(self.get_current_image().path);
+        self.image_view.set_new_image(image)
 
     def update_displayed_images(self,update_org_image:bool):
         img = self.get_current_image()
@@ -126,5 +140,5 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         self.image_view.set_new_modified_image(pixmap)
 
     def get_current_mod_pixmap(self)->QPixmap:
-        
+        pass
 
