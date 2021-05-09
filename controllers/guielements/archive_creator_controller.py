@@ -7,12 +7,12 @@ import json
 
 
 class ArchiveCreatorController:
-    
+
     def __init__(self,archive_creator,collection_view) -> None:
         self.archive_creator = archive_creator
         self.collections={}
         self.collection_view:CollectionView = collection_view
-    
+
     def open_file_browser(self,path_box:QtWidgets.QComboBox):
         directory = str(QtWidgets.QFileDialog.getExistingDirectory())
         path_box.addItem('{}'.format(directory))
@@ -34,7 +34,7 @@ class ArchiveCreatorController:
         print(value)
         if value!="" and value!=None and value in  self.collections:
             name_box.setText(self.collections[value])
-        elif name_box.text() != "" and value!="": 
+        elif name_box.text() != "" and value!="":
             self.collections[value] = name_box.text()
 
     def save_config(self):
@@ -52,4 +52,4 @@ class ArchiveCreatorController:
         for coll in self.collection_view.controller.collections:
             if coll.path == path:
                 return
-        self.collection_view.controller.add_collection(path)
+        self.collection_view.controller.add_collection(path,name)

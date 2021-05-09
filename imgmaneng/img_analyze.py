@@ -93,13 +93,13 @@ def img_analyze(input_img:models.image.Image):
     print(th_lose)
     # plt.show()
     H, W = img.shape[:2]
-    input_img.page_info.lines["upuppers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["upuppers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                              hist[y] <= th_lose and hist[y + 1] > th_lose]
-    input_img.page_info.lines["lolowers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["lolowers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                              hist[y] > th_lose and hist[y + 1] <= th_lose]
-    input_img.page_info.lines["uppers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["uppers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                            hist[y] <= th_strict and hist[y + 1] > th_strict]
-    input_img.page_info.lines["lowers"] = [y for y in range(text_block_y, text_block_y + text_block_h, 1) if
+    input_img.page_info.lines["lowers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
                                            hist[y] > th_strict and hist[y + 1] <= th_strict]
 
     # print(input_img.page_info.lines["lowers"])
@@ -117,7 +117,7 @@ def img_analyze(input_img:models.image.Image):
     #     cv2.line(result_image, (0, y), (W, y), (0, 250, 250), 3)
 
     #cv2.imwrite("./tmp/result.png", result_image)
-    input_img.modified_img = result_image
+    # input_img.modified_img = result_image
     fill_lines(input_img,words,input_img.page_info.lines["uppers"],input_img.page_info.lines["lowers"])
     #final=move_letters(text_lines,img)
 

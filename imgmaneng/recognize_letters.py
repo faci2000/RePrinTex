@@ -5,10 +5,10 @@ import cv2
 
 
 def recognize_letters(input_image:Image):
-    
+
     if input_image.page_info is None:
         img_analyze(input_image)
-    
+
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 
     img = cv2.imread(input_image.path)

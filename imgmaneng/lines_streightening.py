@@ -17,7 +17,7 @@ def lines_streigtening(img:Image):
 
     final = cv2.imread(img.path).copy()
     for line in img.page_info.text_lines:
-        #print(line["uppers"])
+        # print(line["uppers"])
         for word in line["words"]:
             offsets=[]
             the_biggest=0
@@ -26,13 +26,12 @@ def lines_streigtening(img:Image):
                 if letter["h"]>the_biggest:
                     the_biggest=letter["h"]
             for letter in word["letters"]:
-               
-                if letter["h"]>((the_biggest)*0.6) and letter["y"]>line["uppers"] and is_not_a_sign(letter): 
+                if letter["h"]>((the_biggest)*0.6) and letter["y"]>line["uppers"] and is_not_a_sign(letter): # consider adding statistic test
                     print(letter["h"],((the_biggest)/2),letter["y"],line["uppers"])
                     offsets.append(letter["y"]-line["uppers"])
             if(len(offsets)==0):
                 continue
-            #print(offsets)
+            # print(offsets)
             offset_f=np.mean(offsets)
             offset=int(offset_f)
             print(offset)
@@ -43,4 +42,4 @@ def lines_streigtening(img:Image):
             roi=final[y:h,x:w]
             print(roi.shape,w,y,h)
             final[(y-offset):(h-offset),x:w]=roi
-    img.modified_img=final
+    return final

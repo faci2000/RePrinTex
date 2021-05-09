@@ -40,7 +40,7 @@ class ArchiveCreator(QDialog):
         buttons.accepted.connect(self.accept)
         buttons.accepted.connect(lambda: self.controller.set_name(str(path_box.currentText()),name_box))
         buttons.accepted.connect(lambda: self.controller.save_config())
-        buttons.accepted.connect(lambda: self.controller.create_new_collection(str(path_box.currentText())))
+        buttons.accepted.connect(lambda: self.controller.create_new_collection(str(path_box.currentText()),name_box.text()))
         buttons.rejected.connect(self.reject)
         layout.addWidget(buttons)
         self.controller.on_start(path_box)

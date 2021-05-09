@@ -1,7 +1,9 @@
+from services.state_saver import save_collections, save_view_config
+from PyQt5 import QtGui
+from services.images_provider import ImagesProvider
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStatusBar, QLabel
 
-from models.image_collection import ImageCollection
 from views.guielements.central.image_preview_view import ImagePreviewView
 from views.guielements.docks.collection_view import CollectionView
 from views.guielements.docks.effects_view import EffectsView
@@ -11,21 +13,25 @@ from views.guielements.menu.view_menu import ViewMenu
 from views.guielements.status.status import StatusBarView
 from views.guielements.toolbar.toolbar import ToolBar
 
-
+# Jak tak się zastanowić, to nie jest dobrym podejściem startować wszystko z
+# z widoku, jeśli zostanie czasu na rózne głupoty, to wartobyłoby to przerobić
+# żeby był jakiś przyzwoity konfigurator, który startuje i uzupełnia główne okno,
+# a także uruchamia poszczególne usługi tj. ImageProvider, który jest teraz 
+# startowany z CollectionView
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        
+
 
         # Geometry
         self.setGeometry(600, 300, 1080, 720)
         self.setWindowTitle("RePrinTex")
-        
+
         # Central widget
         self.image_preview_view = ImagePreviewView(self)
         self.setCentralWidget(self.image_preview_view.get_widget())
-        
+
         # Dock widgets
         self.collection_view = CollectionView(self)
         self.effects_view = EffectsView(self)
@@ -46,6 +52,16 @@ class MainWindow(QMainWindow):
 
         # Statusbar
         self.statusbar = StatusBarView(self)
-        self.setStatusBar(self.statusbar.get_statusbar())
+        self.status_info = QLabel()
+        self.status_bar = QStatusBar()
+        self.status_bar.addWidget(self.status_info)
+        self.setStatusBar(self.status_bar)
+
+        ImagesProvider().load_data()
 
         self.show()
+
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        img_prov = ImagesProvider()
+        save_collections(img_prov.collections)
+        save_view_config(img_prov)

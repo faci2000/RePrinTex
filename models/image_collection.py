@@ -1,21 +1,31 @@
+from typing import List
+from models.effects import Effects
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QMessageBox
 
 from models.image import Image
 
 import os
 import re
+import random
+import string
 
 class ImageCollection:
-    def __init__(self, parent,path=None):
+    def __init__(self, name=None,parent=None,path=None):
         self.parent = parent
-        self.collection = []
+        self.name=name
+
+        self.detail_file_name = ''.join(random.choice(string.ascii_lowercase)for i in range(20))
+        self.collection:List[Image] = []
+        self.effects: Effects = Effects()
+        self.lines_on_org = set()
         self.current_image_id = None
+        print(path)
         if path!=None:
             self.path=path
             self.detect_images()
 
     def detect_images(self):
+        print("Detecting images")
         filenames = os.listdir(self.path)
         img_files = [file for file in filenames if self.check_img_ext(file)]
         for img in img_files:

@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QScrollArea, QLabel, QHBoxLayout, QWidget, QSplitter
 
-from controllers.guielements.image_preview_controller import ImagePreviewController
+import controllers.guielements.image_preview_controller as cgipc
 
 
 def create_label(parent):
@@ -16,7 +16,7 @@ def create_label(parent):
 class ImagePreviewView:
     def __init__(self, parent):
         self.parent = parent
-        self.controller = ImagePreviewController(self.parent, self)
+        self.controller = cgipc.ImagePreviewController(self.parent, self)
 
         self.layout = QHBoxLayout()
         self.central_widget = QWidget()
