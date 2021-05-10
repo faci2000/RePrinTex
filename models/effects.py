@@ -30,7 +30,7 @@ class Effects:
         self.reworked_imgs = {}
 
     def get_key(self, img_path):
-        return (img_path + '|' + str(self.values[EffectType.STRAIGHTENED.value]) + '|' + str(self.values[EffectType.CONTRAST_INTENSITY.value]) +
+        return (img_path + '|' + str(self.values[EffectType.STRAIGHTENED.value]) + '|' + str(self.values[EffectType.CONTRAST_INTENSITY.value]) + '|'  +
                 str(self.values[EffectType.UPPER_SHIFT.value]) + '|' + str(self.values[EffectType.LOWER_SHIFT.value]) + '|' +
                 str(self.values[EffectType.CORRECTIONS.value]))
 
