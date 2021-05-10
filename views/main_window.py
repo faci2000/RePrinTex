@@ -10,6 +10,7 @@ from views.guielements.docks.effects_view import EffectsView
 from views.guielements.menu.edit_menu import EditMenu
 from views.guielements.menu.file_menu import FileMenu
 from views.guielements.menu.view_menu import ViewMenu
+from views.guielements.messagebox.errorbox import ErrorBox
 from views.guielements.status.status import StatusBarView
 from views.guielements.toolbar.toolbar import ToolBar
 
@@ -58,6 +59,9 @@ class MainWindow(QMainWindow):
         self.setStatusBar(self.status_bar)
 
         ImagesProvider().load_data()
+
+        # Error handling
+        self.errorbox = ErrorBox(self)
 
         self.show()
 

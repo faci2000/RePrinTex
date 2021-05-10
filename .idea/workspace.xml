@@ -2,12 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes">
+      <change afterPath="$PROJECT_DIR$/views/guielements/messagebox/errorbox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/threads/worker_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/threads/worker_decorator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/image_preview_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/image_preview_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/hHelp.html" beforeDir="false" afterPath="$PROJECT_DIR$/data/help/help.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/help.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/help1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/central/image_preview_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/central/image_preview_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/guielements/effects_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/effects_layout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/menu/edit_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/menu/edit_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/menu/dialogs.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/menu/dialogs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/main_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +32,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1rVufteFl3Tr3sefUi0IC0XdQYJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,19 +50,22 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MoveDetection" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\cursors" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\icons" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\views\guielements\toolbar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\views\guielements\errorbox" />
+      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\help" />
+      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\cursors" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\icons" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data" />
-      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex" />
     </key>
   </component>
   <component name="RunManager" selected="Python.RePrinTexApp">
@@ -149,7 +167,10 @@
       <workItem from="1620411146020" duration="29000" />
       <workItem from="1620411188846" duration="710000" />
       <workItem from="1620418364251" duration="24000" />
-      <workItem from="1620469243934" duration="380000" />
+      <workItem from="1620469243934" duration="439000" />
+      <workItem from="1620473952590" duration="10186000" />
+      <workItem from="1620545832374" duration="5423000" />
+      <workItem from="1620559095303" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="effects and fixes">
       <created>1619124514533</created>
@@ -181,7 +202,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="effects and fixes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1620469545751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1620551970292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RePrinTex$Worker.coverage" NAME="Worker Coverage Results" MODIFIED="1620374187431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
     <SUITE FILE_PATH="coverage/RePrinTex$Dec.coverage" NAME="Dec Coverage Results" MODIFIED="1620375755689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
   </component>
