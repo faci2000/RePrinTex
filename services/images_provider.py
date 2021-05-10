@@ -140,8 +140,10 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             print(effects.history,effects.current_history_index)
             if  len(effects.history)==0 or effects.current_history_index == len(effects.history)-1:
                 key = effects.get_key(img.path)
-            else:
+            elif img.path==effects.history[effects.current_history_index-1].split('|')[0]:
                 key = effects.history[effects.current_history_index-1]
+            else:
+                key = effects.get_key(img.path)
             if key in effects.reworked_imgs:
                 moded_img = effects.reworked_imgs[key]
                 cv2.imshow("read from history",moded_img)
