@@ -69,7 +69,10 @@ class EffectsController:
             print(effects.values[EffectType.LINES.value])
         else:
             for eff in effects_to_change['values']:
-                effects.values[eff['type'].value] = eff['value']
+                if eff['type'] == EffectType.CORRECTIONS:
+                    effects.values[eff['type'].value].append(eff['value'])
+                else:
+                    effects.values[eff['type'].value] = eff['value']
         self.image_provider.update_displayed_images(effects_to_change['org'])
 
     def change_cursor(self):

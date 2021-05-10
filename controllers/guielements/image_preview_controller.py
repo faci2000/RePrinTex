@@ -2,6 +2,7 @@ import services.images_provider  as sip
 from imgmaneng.img_converter import convert_cv2Image_to_QPixmap
 import numpy as np
 import views.guielements.central.image_preview_view as vgcipv
+from models.effects import EffectType
 from models.image import Image
 from PyQt5.QtCore import Qt
 from enum import Enum

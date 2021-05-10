@@ -20,6 +20,7 @@ class EffectsView:
 
         self.straighten_lines = QRadioButton('Straighten lines')
         self.unstraighten_lines = QRadioButton('Unstraighten lines')
+        self.unstraighten_lines.setChecked(True)
 
         self.straighten_lines.toggled.connect(lambda: self.controller.change_effects({'effect_type': EffectType.STRAIGHTENED,
                                                   'org': False,

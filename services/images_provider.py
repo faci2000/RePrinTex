@@ -141,8 +141,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         img = self.get_current_image()
         if not update_org_image:
             effects = self.get_current_collection().effects
-            print(effects.history,effects.current_history_index)
-            if  len(effects.history)==0 or effects.current_history_index == len(effects.history)-1:
+            print(effects.history, effects.current_history_index)
+            if len(effects.history) == 0 or effects.current_history_index == len(effects.history)-1:
                 key = effects.get_key(img.path)
             elif img.path==effects.history[effects.current_history_index-1].split('|')[0]:
                 key = effects.history[effects.current_history_index-1]
@@ -178,13 +178,14 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             img = cv2.imread(self.get_current_image().path)
         # cv2.imshow("read from path",img)
         if effects.values[me.EffectType.CONTRAST_INTENSITY.value]:
-            img = increase_contrast(img,effects.values[me.EffectType.CONTRAST_INTENSITY.value])
+            img = increase_contrast(img, effects.values[me.EffectType.CONTRAST_INTENSITY.value])
         # cv2.imshow("after contrast",img)
         if effects.values[me.EffectType.UPPER_SHIFT.value] and effects.values[me.EffectType.LOWER_SHIFT.value]:
             img = clean_page(img,effects.values[me.EffectType.UPPER_SHIFT.value],effects.values[me.EffectType.LOWER_SHIFT.value])
         # cv2.imshow("after cleaning",img)
-        # for stain in effects.values[me.EffectType.CORRECTIONS]:
-        #     img = remove_stains(img,stain['x'],stain['y'],stain['r'])
+        if effects.values[me.EffectType.CORRECTIONS.value]:
+            for stain in effects.values[me.EffectType.CORRECTIONS.value]:
+                img = remove_stains(img, stain['x'], stain['y'], stain['r'])
         return img
 
     def draw_lines(self,image:np.ndarray,lines:Set)->np.ndarray:

@@ -20,9 +20,6 @@ class MenuBarController:
         create_archive_dialog = ArchiveCreator(collection_view)
         create_archive_dialog.exec_()
 
-    def straighten_lines(self):
-        self.dialogs.controller.straighten_lines()
-
     def save_image(self):
         pass
 
