@@ -19,7 +19,7 @@ def save_collection(collection:ImageCollection)->str:
     collection_save_form = {'name':collection.name}
     # print(collection_save_form['name'])
     collection_save_form['effects']=collection.effects.values
-    # print(collection_save_form['effects'])
+    print(collection_save_form['effects'])
     collection_save_form['images'] = []
     for img in collection.collection:
         if(img.page_info!=None):
