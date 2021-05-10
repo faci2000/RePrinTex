@@ -9,13 +9,14 @@ import re
 import random
 import string
 
+
 class ImageCollection:
     def __init__(self, name=None,parent=None,path=None):
         self.parent = parent
         self.name=name
 
         self.detail_file_name = ''.join(random.choice(string.ascii_lowercase)for i in range(20))
-        self.collection:List[Image] = []
+        self.collection: List[Image] = []
         self.effects: Effects = Effects()
         self.lines_on_org = set()
         self.current_image_id = None

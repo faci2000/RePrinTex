@@ -5,6 +5,7 @@ class Image:
     img_ext = [".jpg$",".jpeg$",".png$",".bmp$", ".dib$",".jpe$",",jp2$",".webp$",
                 ".pbm$", ".pgm$", ".ppm" ".pxm$", ".pnm$", ".pfm$",".sr$", ".ras$",
                 ".tiff$", ".tif$",".exr$", ".hdr$", ".pic$"]
+
     def __init__(self, id_, path, name, pixmap=None):
         # self.id = id_
         self.path = path

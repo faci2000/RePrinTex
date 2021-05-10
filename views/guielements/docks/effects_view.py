@@ -1,7 +1,7 @@
 from services.images_provider import ImagesProvider
 from models.effects import EffectType, Lines
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton
+from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton, QRadioButton
 
 from controllers.guielements.effects_controller import EffectsController
 from views.guielements.effects_layout import add_clean, add_stains, add_contrast
@@ -13,32 +13,29 @@ class EffectsView:
         self.controller: EffectsController = EffectsController(parent, self)
         self.dock = QDockWidget("Effects", self.parent)
         self.widget = QWidget(self.dock)
-        ImagesProvider().effects_view=self
+        ImagesProvider().effects_view = self
 
         layout = QVBoxLayout(self.widget)
         layout.setAlignment(Qt.AlignTop)
 
-        self.straighten_lines = self.create_button("Straighten lines", lambda: self.controller.straighten_lines())
+        self.straighten_lines = QRadioButton('Straighten lines')
+        self.unstraighten_lines = QRadioButton('Unstraighten lines')
+
+        self.straighten_lines.toggled.connect(lambda: self.controller.change_effects({'effect_type': EffectType.STRAIGHTENED,
+                                                  'org': False,
+                                                  'values': [{'type': EffectType.STRAIGHTENED, 'value': True}]}))
+        self.unstraighten_lines.toggled.connect(lambda: self.controller.change_effects({'effect_type': EffectType.STRAIGHTENED,
+                                                  'org': False,
+                                                  'values': [{'type': EffectType.STRAIGHTENED, 'value':False}]}))
+
         self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
         self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
         self.reset_button = self.create_button("Reset", lambda: self.controller.reset())
-        # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
-        # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
-        # self.clean_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
 
         self.apply_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LOWER_SHIFT,'org':False,
                                                                                   'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
                                                                                             {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
                                                                                             {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
-
-        # self.contrast_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.CONTRAST_INTENSITY,'org':False,
-        #                                                                           'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
-        #                                                                                     {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
-        #                                                                                     {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
-        # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"upper_shift",self.clean_slider_light.value()))
-        # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"lower_shift",self.clean_slider_dark.value()))
-        # self.contrast_button.clicked.connect(lambda: setattr(self.controller.modified_effects,"contrast_intensity",self.contrast_slider.value()* 1.0 / 10))
-        # self.contrast_button.clicked.connect(lambda: self.controller.updated_drawing_effects(True))
 
         self.add_to_layout(layout)
 
@@ -48,6 +45,7 @@ class EffectsView:
     def add_to_layout(self, layout:QVBoxLayout):
         # Effects
         layout.addWidget(self.straighten_lines)
+        layout.addWidget(self.unstraighten_lines)
         add_clean(self, self.widget, layout)
         add_contrast(self, self.widget, layout)
         add_stains(self, self, layout)

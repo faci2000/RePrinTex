@@ -1,6 +1,7 @@
 import numpy as np
-
 from enum import Enum
+
+
 class Lines(Enum):
     __order__ = 'MAIN_LINES MINOR_LINES TEXT_BLOCK WORDS LETTERS'
     MAIN_LINES='Main lines'
@@ -9,6 +10,7 @@ class Lines(Enum):
     WORDS='Words'
     LETTERS='Letters'
 
+
 class EffectType(Enum):
     LINES='lines'
     UPPER_SHIFT='upper_shift'
@@ -16,6 +18,8 @@ class EffectType(Enum):
     CONTRAST_INTENSITY='contrast_intensity'
     CORRECTIONS='corrections'
     STRAIGHTENED='straightened'
+
+
 class Effects:
     def __init__(self) -> None:
         self.values={}

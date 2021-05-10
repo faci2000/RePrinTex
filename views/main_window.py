@@ -62,7 +62,6 @@ class MainWindow(QMainWindow):
 
         # Error handling
         self.errorbox = ErrorBox(self)
-
         self.show()
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
