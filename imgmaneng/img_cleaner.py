@@ -3,7 +3,7 @@ from PIL import Image, ImageFilter, ImageEnhance
 import cv2
 
 
-def clean_page(image, upper_shift, lower_shift)->np.ndarray:
+def clean_page(image, upper_shift, lower_shift) -> np.ndarray:
     #image = cv2.imread(input_img.path)
     cv2.imwrite("converted.png", image)
 
@@ -24,18 +24,17 @@ def clean_page(image, upper_shift, lower_shift)->np.ndarray:
     return image_finished
 
 
-def remove_stains(image, x, y, r)->np.ndarray:
+def remove_stains(image, x, y, r) -> np.ndarray:
     # image = cv2.imread(input_img.path)
-
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
     cv2.circle(mask, (x, y), r, (255, 255, 255), -1)
     cleaned = cv2.inpaint(image, mask, 20, cv2.INPAINT_TELEA)
     return cleaned
 
 
-def increase_contrast(input_img, intensity=1.3)->np.ndarray:
-    #image = cv2.imread(input_img.path)
-    image_pil = Image.fromarray(input_img)
+def increase_contrast(input_img, intensity=1.3) -> np.ndarray:
+    # image = cv2.imread(input_img.path)
+    image_pil = Image.fromarray(image)
 
     image_pil = image_pil.filter(ImageFilter.MedianFilter())
     enhancer = ImageEnhance.Contrast(image_pil)

@@ -9,7 +9,7 @@ class EditMenu:
         self.parent = parent
 
         straighten_lines = QAction("&Straighten lines", self.parent)
-        straighten_lines.triggered.connect(lambda: self.controller.straighten_lines())
+        straighten_lines.triggered.connect(lambda: self.parent.effects_view.straighten_lines.setChecked(True))
 
         clean_page = QAction("&Clean page", self.parent)
         clean_page.triggered.connect(lambda: self.controller.clean_page())

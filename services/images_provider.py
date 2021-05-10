@@ -27,20 +27,23 @@ class ImagesProviderMeta(type):
                 self._instances[self] = instance
         return self._instances[self]
 
+
 class EmptyCollectionsListException(Exception):
     pass
+
 
 class EmptyCollectionException(Exception):
     pass
 
+
 class ImagesProvider(metaclass=ImagesProviderMeta):
-    def __init__(self,image_view:ImagePreviewController=None) -> None:
+    def __init__(self, image_view: ImagePreviewController=None) -> None:
         import controllers.guielements.collection_controller as cgcc
-        self.collections:List[mic.ImageCollection] = []
-        self.current_collection_index:int = None
-        self.current_image_index:int = None
-        self.image_view:ImagePreviewController = image_view
-        self.image_selector:cgcc.CollectionController = None
+        self.collections: List[mic.ImageCollection] = []
+        self.current_collection_index: int = None
+        self.current_image_index: int = None
+        self.image_view: ImagePreviewController = image_view
+        self.image_selector: cgcc.CollectionController = None
 
     def load_data(self):
         import services.state_reader as ssr
@@ -61,8 +64,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         else:
             return self.collections[len(self.collections)-1]
 
-    def get_current_collection(self)->mic.ImageCollection:
-        if len(self.collections)==0:
+    def get_current_collection(self) -> mic.ImageCollection:
+        if len(self.collections) == 0:
             raise EmptyCollectionsListException("List of collections is empty. Add some image collection first.")
         else:
             return self.collections[self.current_collection_index]
@@ -117,7 +120,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         else:
             return False
 
-    def add_new_image(self,image:Image)->bool:
+    def add_new_image(self, image:Image)->bool:
         self.get_current_collection().add_image(Image)
         self.change_current_image(len(self.get_current_collection().collection)-1)
         self.set_image_to_display()
@@ -140,8 +143,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         img = self.get_current_image()
         if not update_org_image:
             effects = self.get_current_collection().effects
-            print(effects.history,effects.current_history_index)
-            if  len(effects.history)==0 or effects.current_history_index == len(effects.history)-1:
+            print(effects.history, effects.current_history_index)
+            if len(effects.history) == 0 or effects.current_history_index == len(effects.history)-1:
                 key = effects.get_key(img.path)
             elif img.path==effects.history[effects.current_history_index-1].split('|')[0]:
                 key = effects.history[effects.current_history_index-1]
@@ -149,22 +152,22 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                 key = effects.get_key(img.path)
             if key in effects.reworked_imgs:
                 moded_img = effects.reworked_imgs[key]
-                cv2.imshow("read from history",moded_img)
+                cv2.imshow("read from history", moded_img)
                 # effects.history.append(key)
                 # self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
                 # return True
             else:
                 moded_img = self.create_new_reworked_image()
                 # cv2.imshow("created new",moded_img)
-                effects.reworked_imgs[key]=moded_img.copy()
+                effects.reworked_imgs[key] = moded_img.copy()
             effects.add_new_key_to_history(key)
-            effects.current_history_index+=1 # dodać przycinanie historii oraz obecny index
-            img_with_drawings=self.draw_lines(moded_img,effects.values[me.EffectType.LINES.value])
+            effects.current_history_index += 1  # dodać przycinanie historii oraz obecny index
+            img_with_drawings = self.draw_lines(moded_img, effects.values[me.EffectType.LINES.value])
             img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
             self.set_mod_image(img_with_drawings)
             return True
         else:
-            img_with_drawings = self.draw_lines(cv2.imread(img.path),self.get_current_collection().lines_on_org)
+            img_with_drawings = self.draw_lines(cv2.imread(img.path), self.get_current_collection().lines_on_org)
             img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
             self.set_org_image(img_with_drawings)
             return True
@@ -177,13 +180,14 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             img = cv2.imread(self.get_current_image().path)
         # cv2.imshow("read from path",img)
         if effects.values[me.EffectType.CONTRAST_INTENSITY.value]:
-            img = increase_contrast(img,effects.values[me.EffectType.CONTRAST_INTENSITY.value])
+            img = increase_contrast(img, effects.values[me.EffectType.CONTRAST_INTENSITY.value])
         # cv2.imshow("after contrast",img)
         if effects.values[me.EffectType.UPPER_SHIFT.value] and effects.values[me.EffectType.LOWER_SHIFT.value]:
             img = clean_page(img,effects.values[me.EffectType.UPPER_SHIFT.value],effects.values[me.EffectType.LOWER_SHIFT.value])
         # cv2.imshow("after cleaning",img)
-        # for stain in effects.values[me.EffectType.CORRECTIONS]:
-        #     img = remove_stains(img,stain['x'],stain['y'],stain['r'])
+        if effects.values[me.EffectType.CORRECTIONS.value]:
+            for stain in effects.values[me.EffectType.CORRECTIONS.value]:
+                img = remove_stains(img, stain['x'], stain['y'], stain['r'])
         return img
 
     def draw_lines(self,image:np.ndarray,lines:Set)->np.ndarray:
@@ -194,12 +198,12 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         # self.image_view.view.set_left_image(pixmap)
         self.image_view.set_new_org_image(pixmap)
 
-    def set_mod_image(self,image:np.ndarray):
+    def set_mod_image(self, image: np.ndarray):
         pixmap = convert_cv2Image_to_QPixmap(image)
         # self.image_view.view.set_right_image(pixmap)
         self.image_view.set_new_modified_image(pixmap)
 
-    def get_current_pixmap(self,org:bool)->QPixmap:
+    def get_current_pixmap(self, org: bool) -> QPixmap:
         if org:
             return self.get_current_image().last_org_pixmap
         else:
@@ -219,4 +223,5 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         effects = self.get_current_collection().effects
         effects.reset()
         self.update_displayed_images(False)
+
 

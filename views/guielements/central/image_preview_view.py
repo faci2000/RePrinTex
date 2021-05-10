@@ -6,9 +6,10 @@ from PyQt5.QtWidgets import QScrollArea, QLabel, QHBoxLayout, QWidget, QSplitter
 import controllers.guielements.image_preview_controller as cgipc
 
 
-def create_label(parent):
+def create_label(parent, controller):
     label = QLabel(parent)
     label.setAlignment(Qt.AlignCenter)
+    label.mouseReleaseEvent = controller
     parent.setWidget(label)
     return label
 
@@ -22,22 +23,21 @@ class ImagePreviewView:
         self.central_widget = QWidget()
         self.central_widget.setLayout(self.layout)
 
-        self.area_original = self.create_area(self.controller.clicked_original_action)
-        self.area_modified = self.create_area(self.controller.clicked_modified_action)
+        self.area_original = self.create_area()
+        self.area_modified = self.create_area()
 
-        self.label_original = create_label(self.area_original)
-        self.label_modified = create_label(self.area_modified)
+        self.label_original = create_label(self.area_original, self.controller.clicked_original_action)
+        self.label_modified = create_label(self.area_modified, self.controller.clicked_modified_action)
 
-        splitter = QSplitter(Qt.Horizontal)
-        splitter.addWidget(self.area_original)
-        splitter.addWidget(self.area_modified)
+        self.splitter = QSplitter(Qt.Horizontal)
+        self.splitter.addWidget(self.area_original)
+        self.splitter.addWidget(self.area_modified)
 
-        self.layout.addWidget(splitter)
+        self.layout.addWidget(self.splitter)
 
-    def create_area(self, controller):
+    def create_area(self):
         area = QScrollArea(self.central_widget)
         area.setWidgetResizable(True)
-        area.mouseReleaseEvent = controller
         return area
 
     def get_widget(self):

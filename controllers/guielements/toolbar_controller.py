@@ -54,8 +54,8 @@ class ToolBarController:
         layout = QGridLayout()
         dialog.setLayout(layout)
         layout.addWidget(webEngineView)
-        with open('data/hHelp.html', 'r') as f:
+        with open('data/help/help.html', 'r') as f:
             html = f.read()
             webEngineView.setHtml(html)
-        dialog.exec_()
+        dialog.show()
 

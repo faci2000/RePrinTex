@@ -2,7 +2,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QGridLayout, QWidget
 
 from controllers.guielements.effects_controller import EffectsController
-from threads.worker_decorator import multi_thread_runner
 from views.guielements.effects_layout import add_clean, add_contrast, add_stains
 
 
