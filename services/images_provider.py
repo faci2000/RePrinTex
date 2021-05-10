@@ -112,7 +112,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             return True
         else:
             return False
-    def add_new_image(self,image:Image)->bool:
+
+    def add_new_image(self, image:Image)->bool:
         self.get_current_collection().add_image(Image)
         self.change_current_image(len(self.get_current_collection().collection)-1)
         self.set_image_to_display()
@@ -194,12 +195,12 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         # self.image_view.view.set_left_image(pixmap)
         self.image_view.set_new_org_image(pixmap)
 
-    def set_mod_image(self,image:np.ndarray):
+    def set_mod_image(self, image: np.ndarray):
         pixmap = convert_cv2Image_to_QPixmap(image)
         # self.image_view.view.set_right_image(pixmap)
         self.image_view.set_new_modified_image(pixmap)
 
-    def get_current_pixmap(self,org:bool)->QPixmap:
+    def get_current_pixmap(self, org: bool) -> QPixmap:
         if org:
             return self.get_current_image().last_org_pixmap
         else:

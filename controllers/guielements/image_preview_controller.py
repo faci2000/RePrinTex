@@ -111,20 +111,37 @@ class ImagePreviewController:
         y = event.pos().y()
 
         if self.active_area == Area.ORIGINAL:
-            h = self.view.area_original.horizontalScrollBar().value()
-            v = self.view.area_original.verticalScrollBar().value()
-            zoom = self.image_provider.get_current_image().zoom
-        else:
-            h = self.view.area_modified.horizontalScrollBar().value()
-            v = self.view.area_modified.verticalScrollBar().value()
-            zoom = self.modified_zoom
+            pixmap = self.image_provider.get_current_pixmap(True)
+            height = self.view.label_original.height()
+            width = self.view.label_original.width()
+            zoom = self.original_zoom
+            h_ratio = (self.view.area_original.horizontalScrollBar().value() * 1.0 / max(
+                self.view.area_original.horizontalScrollBar().maximum(), 1))
+            v_ratio = (self.view.area_original.verticalScrollBar().value() * 1.0 / max(
+                self.view.area_original.verticalScrollBar().maximum(), 1))
 
-        rx = int((x + h) * 1 / zoom)
-        ry = int((y + v) * 1 / zoom)
+        else:
+            pixmap = self.image_provider.get_current_pixmap(False)
+            height = self.view.label_modified.height()
+            width = self.view.label_modified.width()
+            zoom = self.modified_zoom
+            h_ratio = self.view.area_modified.horizontalScrollBar().value() * 1.0 / max(
+                self.view.area_modified.horizontalScrollBar().maximum(), 1)
+            v_ratio = self.view.area_modified.verticalScrollBar().value() * 1.0 / max(
+                self.view.area_modified.verticalScrollBar().maximum(), 1)
+
+        h_res = x + h_ratio * max(0, zoom*pixmap.width() - width) - max(0, width - zoom*pixmap.width()) // 2
+        v_res = y + v_ratio * max(0, zoom*pixmap.height() - height) - max(0, height - zoom*pixmap.height()) // 2
+
+        rx = int(h_res * 1.0 / zoom)
+        ry = int(v_res * 1.0 / zoom)
         print(rx, ry)  # position from real image in pixels
 
-        if self.parent.effects_view.controller.is_brush_active():
+        if self.parent.effects_view.controller.is_brush_active() and rx >= 0 and ry >= 0 and rx < pixmap.width() and ry < pixmap.height():
             radius = self.parent.effects_view.controller.get_brush_radius()
-            clean = remove_stains(self.image_provider.get_current_image(), rx, ry, radius)
-            pixmap = QPixmap(QImage(clean, clean.shape[1], clean.shape[0], clean.shape[1] * 3, QImage.Format_RGB888))
-            self.set_new_modified_image(pixmap)
+            # clean = remove_stains(self.image_provider.get_current_image(), rx, ry, radius)
+            self.parent.effects_view.controller.change_effects({'effect_type': EffectType.CORRECTIONS,
+                                                'org': False,
+                                                'values': [{'type': EffectType.CORRECTIONS, 'x': rx, 'y': ry, 'r': radius}]})
+            # pixmap = QPixmap(QImage(clean, clean.shape[1], clean.shape[0], clean.shape[1] * 3, QImage.Format_RGB888))
+            # self.set_new_modified_image(pixmap)
