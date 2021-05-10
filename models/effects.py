@@ -20,9 +20,9 @@ class Effects:
     def __init__(self) -> None:
         self.values={}
         self.values[EffectType.LINES.value]={}
-        self.values[EffectType.UPPER_SHIFT.value]=0
-        self.values[EffectType.LOWER_SHIFT.value]=0
-        self.values[EffectType.CONTRAST_INTENSITY.value]=0
+        self.values[EffectType.UPPER_SHIFT.value]=None
+        self.values[EffectType.LOWER_SHIFT.value]=None
+        self.values[EffectType.CONTRAST_INTENSITY.value]=None
         self.values[EffectType.STRAIGHTENED.value]=False
         self.values[EffectType.CORRECTIONS.value]={}
         self.current_history_index = 0
