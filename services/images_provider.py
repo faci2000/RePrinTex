@@ -137,10 +137,11 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         img = self.get_current_image()
         if not update_org_image:
             effects = self.get_current_collection().effects
-            if effects.current_history_index == len(effects.history)-1 or len(effects.history)==0:
+            print(effects.history,effects.current_history_index)
+            if  len(effects.history)==0 or effects.current_history_index == len(effects.history)-1:
                 key = effects.get_key(img.path)
             else:
-                key = effects.history[effects.current_history_index]
+                key = effects.history[effects.current_history_index-1]
             if key in effects.reworked_imgs:
                 moded_img = effects.reworked_imgs[key]
                 cv2.imshow("read from history",moded_img)
@@ -149,7 +150,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                 # return True
             else:
                 moded_img = self.create_new_reworked_image()
-                cv2.imshow("created new",moded_img)
+                # cv2.imshow("created new",moded_img)
                 effects.reworked_imgs[key]=moded_img.copy()
             effects.add_new_key_to_history(key)
             effects.current_history_index+=1 # dodać przycinanie historii oraz obecny index
@@ -169,11 +170,13 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             img = lines_streigtening(self.get_current_image())
         else:
             img = cv2.imread(self.get_current_image().path)
-        cv2.imshow("read from path",img)
-        img = increase_contrast(img,effects.values[me.EffectType.CONTRAST_INTENSITY.value])
-        cv2.imshow("after contrast",img)
-        img = clean_page(img,effects.values[me.EffectType.UPPER_SHIFT.value],effects.values[me.EffectType.LOWER_SHIFT.value])
-        cv2.imshow("after cleaning",img)
+        # cv2.imshow("read from path",img)
+        if effects.values[me.EffectType.CONTRAST_INTENSITY.value]:
+            img = increase_contrast(img,effects.values[me.EffectType.CONTRAST_INTENSITY.value])
+        # cv2.imshow("after contrast",img)
+        if effects.values[me.EffectType.UPPER_SHIFT.value] and effects.values[me.EffectType.LOWER_SHIFT.value]:
+            img = clean_page(img,effects.values[me.EffectType.UPPER_SHIFT.value],effects.values[me.EffectType.LOWER_SHIFT.value])
+        # cv2.imshow("after cleaning",img)
         # for stain in effects.values[me.EffectType.CORRECTIONS]:
         #     img = remove_stains(img,stain['x'],stain['y'],stain['r'])
         return img
