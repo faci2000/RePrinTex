@@ -54,7 +54,7 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
-    
+
     def change_effects(self,effects_to_change): # {effect_type:EffectType,type:Line,org:bool ,value:bool}
         print(effects_to_change)
         effects = self.image_provider.get_current_collection_effects()
@@ -71,7 +71,10 @@ class EffectsController:
             print(effects.values[EffectType.LINES.value])
         else:
             for eff in effects_to_change['values']:
-                effects.values[eff['type'].value] = eff['value']
+                if eff['type']==EffectType.CORRECTIONS:
+                    effects.values[eff['type'].value].append(eff['value'])
+                else:
+                    effects.values[eff['type'].value] = eff['value']
         self.image_provider.update_displayed_images(effects_to_change['org'])
 
     @multi_thread_runner

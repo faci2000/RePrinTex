@@ -15,7 +15,7 @@ class CollectionView:
 
         self.collections_list = QComboBox(self.dock)
         self.controller.fill_name_combobox()
-        self.collections_list.currentIndexChanged.connect(lambda i: self.controller.change_collection(i))
+        self.collections_list.currentTextChanged.connect(lambda i: self.controller.change_collection(text=i))
         self.vbox.addWidget(self.collections_list)
 
         self.files_list = QListWidget(self.dock)

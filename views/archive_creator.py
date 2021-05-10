@@ -26,7 +26,7 @@ class ArchiveCreator(QDialog):
 
         layout.addWidget(path_label)
         path_box = QtWidgets.QComboBox()
-        path_box.currentTextChanged.connect(lambda: self.controller.set_name(str(path_box.currentText()),name_box))
+        # path_box.currentTextChanged.connect(lambda: self.controller.set_name(str(path_box.currentText()),name_box))
         layout.addWidget(path_box)
 
         browse_button = QtWidgets.QToolButton()

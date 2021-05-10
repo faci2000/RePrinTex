@@ -50,6 +50,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         try:
             self.image_selector.fill_name_combobox()
             self.image_selector.view.collections_list.setCurrentIndex(self.current_collection_index)
+            self.image_selector.fill_collection_list_view(self.get_current_collection())
             self.set_image_to_display()
         except Exception:
             traceback.print_exc()
@@ -89,10 +90,16 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             self.current_image_index = old_index
             return self.get_current_image()
 
-    def change_current_collection(self, new_collection_index:int)->mic.ImageCollection:
+    def change_current_collection(self, new_collection_index:int=None,new_collection_text:str=None)->mic.ImageCollection:
         old_index = self.current_collection_index
         try:
-            self.current_collection_index = new_collection_index
+            if new_collection_index:
+                self.current_collection_index = new_collection_index
+            else:
+                for i in range(len(self.collections)):
+                    if self.collections[i].name==new_collection_text:
+                        self.current_collection_index = i
+                        break
             return self.get_current_collection()
         except:
             print("Index out of bounds.")
@@ -100,27 +107,23 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             return self.get_current_collection()
 
     def add_new_collection(self,new_image_collection:mic.ImageCollection)->bool: # return true if changed current collection
+        print(new_image_collection.name)
         self.collections.append(new_image_collection)                        # otherwise return false 
         if self.current_collection_index == None:
             self.current_collection_index = len(self.collections)-1
             self.image_selector.view.collections_list.setCurrentIndex(self.current_collection_index)
-            if len(new_image_collection.collection)>0:
-                self.current_image_index = 0
+            self.image_selector.change_collection(new_image_collection.name)
             return True
         else:
             return False
+
     def add_new_image(self,image:Image)->bool:
         self.get_current_collection().add_image(Image)
         self.change_current_image(len(self.get_current_collection().collection)-1)
         self.set_image_to_display()
 
     def change_current_collection_to_added_recently(self)->None:
-        self.current_collection_index = len(self.collections)-1
-        self.image_selector.view.collections_list.setCurrentIndex(self.current_collection_index)
-        if len(self.get_current_collection())==0:
-            self.current_image_index=None
-        else:
-            self.current_image_index=0
+        self.image_selector.change_collection(self.collections[len(self.collections)-1].name)
 
     def set_image_to_display(self):
         image = cv2.imread(self.get_current_image().path)

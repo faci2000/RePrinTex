@@ -16,6 +16,7 @@ class ArchiveCreatorController:
     def open_file_browser(self,path_box:QtWidgets.QComboBox):
         directory = str(QtWidgets.QFileDialog.getExistingDirectory())
         path_box.addItem('{}'.format(directory))
+        path_box.setCurrentIndex(path_box.count()-1)
 
     def on_start(self,path_box:QtWidgets.QComboBox):
         try:
@@ -47,7 +48,6 @@ class ArchiveCreatorController:
         with open('config.json', 'w') as outfile:
             json.dump(data, outfile)
 
-    @multi_thread_runner
     def create_new_collection(self, path,name):
         for coll in self.collection_view.controller.collections:
             if coll.path == path:

@@ -24,7 +24,7 @@ class Effects:
         self.values[EffectType.LOWER_SHIFT.value]=None
         self.values[EffectType.CONTRAST_INTENSITY.value]=None
         self.values[EffectType.STRAIGHTENED.value]=False
-        self.values[EffectType.CORRECTIONS.value]={}
+        self.values[EffectType.CORRECTIONS.value]=[]
         self.current_history_index = 0
         self.history = []
         self.reworked_imgs = {}
