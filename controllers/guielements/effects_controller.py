@@ -6,6 +6,7 @@ from models.effects import EffectType, Effects, Lines
 import cv2
 from PyQt5.QtCore import QRect, QThread, pyqtSignal, QObject
 from PyQt5.QtGui import QImage, QPixmap, QCursor
+from PyQt5 import QtCore
 
 from imgmaneng.img_cleaner import clean_page, increase_contrast
 from threads.worker_decorator import multi_thread_runner

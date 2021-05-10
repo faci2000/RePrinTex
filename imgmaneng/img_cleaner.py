@@ -34,7 +34,7 @@ def remove_stains(image, x, y, r) -> np.ndarray:
 
 def increase_contrast(input_img, intensity=1.3) -> np.ndarray:
     # image = cv2.imread(input_img.path)
-    image_pil = Image.fromarray(image)
+    image_pil = Image.fromarray(input_img)
 
     image_pil = image_pil.filter(ImageFilter.MedianFilter())
     enhancer = ImageEnhance.Contrast(image_pil)

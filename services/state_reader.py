@@ -29,6 +29,7 @@ def read_saved_collection_data(path:str)->ImageCollection:
         img_coll.detail_file_name = path.split('/')[-1][:-5]
         img_coll.effects.values = collection['effects']
         img_coll.effects.values[EffectType.LINES.value]={}
+        img_coll.effects.values[EffectType.LINES.value]=[]
         # print(collection)
         for img in collection['images']:
             # print(img)
