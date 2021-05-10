@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes">
-      <change afterPath="$PROJECT_DIR$/data/cursors/circle_cursor.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/image_preview_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/image_preview_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/effects.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/effects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/image_collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/image_collection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/images_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/images_provider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/effects_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/effects_layout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/main_window.py" afterDir="false" />
-    </list>
+    <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,11 +40,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\cursor" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\cursors" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\icons" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex" />
-      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\views\guielements\toolbar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\views\guielements\errorbox" />
