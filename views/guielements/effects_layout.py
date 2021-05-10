@@ -1,3 +1,4 @@
+from models.effects import EffectType
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QSlider, QPushButton
 
@@ -19,11 +20,10 @@ def add_clean(parent, widget, layout):
     layout.addWidget(widget.clean_button)
 
     widget.clean_button.clicked.connect(
-        lambda: setattr(parent.controller.modified_effects, "upper_shift", parent.clean_slider_light.value()))
-    widget.clean_button.clicked.connect(
-        lambda: setattr(parent.controller.modified_effects, "lower_shift", parent.clean_slider_dark.value()))
-    widget.clean_button.clicked.connect(lambda: parent.controller.clean())
-
+        lambda: parent.controller.change_effects({'effect_type':EffectType.LOWER_SHIFT,'org':False,
+                                                    'values':[{'type':EffectType.LOWER_SHIFT, 'value':parent.clean_slider_dark.value()},
+                                                            {'type':EffectType.UPPER_SHIFT, 'value':parent.clean_slider_light.value()},
+                                                            {'type':EffectType.CONTRAST_INTENSITY, 'value':parent.contrast_slider.value()* 1.0 / 10}]}))
 
 def add_contrast(parent, widget, layout):
     l1 = QLabel("Contrast parameters")
