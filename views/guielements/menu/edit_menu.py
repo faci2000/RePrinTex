@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QAction, QMenu
 
 from controllers.guielements.menu_bar_controller import MenuBarController
+from services.images_provider import ImagesProvider
 
 
 class EditMenu:
@@ -21,8 +22,11 @@ class EditMenu:
         remove_stains.triggered.connect(lambda: self.controller.remove_stains())
 
         apply = QAction("&Apply", self.parent)
+
         apply_to_all = QAction("&Apply to all", self.parent)
+
         reset = QAction("&Reset", self.parent)
+        reset.triggered.connect(lambda: ImagesProvider().reset())
 
         effects_menu = QMenu("&Effects", self.parent)
         effects_menu.addActions([straighten_lines, clean_page, contrast_page, remove_stains])

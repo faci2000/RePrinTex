@@ -3,7 +3,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QComboBox, QDockWidget, QListWidget, QListWidgetItem, QVBoxLayout, QWidget
 
 
-
 class CollectionView:
     def __init__(self, parent) -> None:
         from controllers.guielements.collection_controller import CollectionController

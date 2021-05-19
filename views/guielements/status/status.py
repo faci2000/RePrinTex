@@ -16,4 +16,3 @@ class StatusBarView:
 
     def setText(self, msg):
         self.status_info.setText(msg)
-

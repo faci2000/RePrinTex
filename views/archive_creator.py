@@ -1,9 +1,8 @@
-from controllers.guielements.archive_creator_controller import ArchiveCreatorController
-import typing
-from PyQt5 import QtCore
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QCoreApplication,Qt
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QBoxLayout, QDialog, QDialogButtonBox
+
+from controllers.guielements.archive_creator_controller import ArchiveCreatorController
 
 
 class ArchiveCreator(QDialog):
@@ -38,9 +37,10 @@ class ArchiveCreator(QDialog):
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
             Qt.Horizontal, self)
         buttons.accepted.connect(self.accept)
-        buttons.accepted.connect(lambda: self.controller.set_name(str(path_box.currentText()),name_box))
+        buttons.accepted.connect(lambda: self.controller.set_name(str(path_box.currentText()), name_box))
         buttons.accepted.connect(lambda: self.controller.save_config())
-        buttons.accepted.connect(lambda: self.controller.create_new_collection(str(path_box.currentText()),name_box.text()))
+        buttons.accepted.connect(
+            lambda: self.controller.create_new_collection(str(path_box.currentText()), name_box.text()))
         buttons.rejected.connect(self.reject)
         layout.addWidget(buttons)
         self.controller.on_start(path_box)

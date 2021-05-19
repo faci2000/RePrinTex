@@ -1,28 +1,28 @@
 import cv2
-from PyQt5.QtCore import Qt
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtWidgets import QDialog, QPushButton, QGridLayout
-
-from imgmaneng.recognize_letters import recognize_letters
-from imgmaneng.img_analyze import img_analyze
-import imgmaneng.lines_streightening as ls
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWidgets import QDialog, QGridLayout
 
-from threads.worker_decorator import multi_thread_runner
+import imgmaneng.lines_streightening as ls
+from imgmaneng.img_analyze import img_analyze
+from imgmaneng.recognize_letters import recognize_letters
+from services.images_provider import ImagesProvider
 
 
 class ToolBarController:
     def __init__(self, parent) -> None:
         self.parent = parent
+        self.in_timer = QTimer()
+        self.out_timer = QTimer()
+        self.in_timer.timeout.connect(self.zoom_in)
+        self.out_timer.timeout.connect(self.zoom_out)
 
     def zoom_in(self):
         self.parent.image_preview_view.controller.zoom_in()
 
     def zoom_out(self):
         self.parent.image_preview_view.controller.zoom_out()
-
-    def undo(self):
-        pass
 
     def analyze_text(self):
         img_collection = self.parent.collection_view.controller.get_collection()
@@ -59,3 +59,14 @@ class ToolBarController:
             webEngineView.setHtml(html)
         dialog.show()
 
+    def zoom_pressed(self, zoom_in):
+        if zoom_in:
+            self.in_timer.start(50)
+        else:
+            self.out_timer.start(50)
+
+    def zoom_released(self, zoom_in):
+        if zoom_in:
+            self.in_timer.stop()
+        else:
+            self.out_timer.stop()

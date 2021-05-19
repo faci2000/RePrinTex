@@ -1,6 +1,7 @@
-from models.effects import EffectType
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QSlider, QPushButton
+
+from models.effects import EffectType
 
 
 def add_clean(parent, widget, layout):
@@ -22,8 +23,10 @@ def add_clean(parent, widget, layout):
     widget.clean_button.clicked.connect(
         lambda: parent.controller.change_effects({'effect_type': EffectType.LOWER_SHIFT,
                                                   'org': False,
-                                                  'values': [{'type': EffectType.LOWER_SHIFT, 'value': parent.clean_slider_dark.value()},
-                                                            {'type': EffectType.UPPER_SHIFT, 'value': parent.clean_slider_light.value()}]}))
+                                                  'values': [{'type': EffectType.LOWER_SHIFT,
+                                                              'value': parent.clean_slider_dark.value()},
+                                                             {'type': EffectType.UPPER_SHIFT,
+                                                              'value': parent.clean_slider_light.value()}]}))
 
 
 def add_contrast(parent, widget, layout):
@@ -39,9 +42,9 @@ def add_contrast(parent, widget, layout):
     layout.addWidget(widget.contrast_button)
 
     widget.contrast_button.clicked.connect(lambda: parent.controller.change_effects(
-                                                {'effect_type': EffectType.CONTRAST_INTENSITY,
-                                                'org': False,
-                                                'values': [{'type': EffectType.CONTRAST_INTENSITY, 'value': parent.contrast_slider.value()*1.0 / 10}]}))
+        {'effect_type': EffectType.CONTRAST_INTENSITY,
+         'org': False,
+         'values': [{'type': EffectType.CONTRAST_INTENSITY, 'value': parent.contrast_slider.value() * 1.0 / 10}]}))
 
 
 def add_stains(parent, widget, layout):

@@ -1,4 +1,5 @@
 from functools import wraps
+
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 
@@ -34,4 +35,5 @@ def multi_thread_runner(func):
         worker = Worker(func, *args, **kwargs)
         func.__worker = worker
         worker.start()
+
     return async_func

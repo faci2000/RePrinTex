@@ -1,5 +1,3 @@
-
-
 class StatusBarController:
     def __init__(self, parent, statusbar) -> None:
         self.parent = parent

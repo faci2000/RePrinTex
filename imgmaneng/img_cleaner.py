@@ -1,10 +1,10 @@
+import cv2
 import numpy as np
 from PIL import Image, ImageFilter, ImageEnhance
-import cv2
 
 
 def clean_page(image, upper_shift, lower_shift) -> np.ndarray:
-    #image = cv2.imread(input_img.path)
+    # image = cv2.imread(input_img.path)
     cv2.imwrite("converted.png", image)
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -75,7 +75,7 @@ def _get_peaks(image):
         lower = peaks[1][0]
 
         i = 0
-        while lower > 120:
+        while lower > 120 and i < 256:
             lower = peaks[i][0]
             i += 1
 

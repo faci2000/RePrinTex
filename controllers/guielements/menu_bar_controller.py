@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import QFileDialog
-
-from threads.worker_decorator import multi_thread_runner
+import os
+from services.images_provider import ImagesProvider
 from views.archive_creator import ArchiveCreator
-
 from views.guielements.menu.dialogs import Dialogs
 
 
@@ -19,6 +18,12 @@ class MenuBarController:
     def create_archive(self, collection_view):
         create_archive_dialog = ArchiveCreator(collection_view)
         create_archive_dialog.exec_()
+
+    def remove_image(self):
+        pass
+
+    def remove_collection(self):
+        pass
 
     def save_image(self):
         pass
@@ -43,3 +48,16 @@ class MenuBarController:
 
     def remove_stains(self):
         self.dialogs.open_stains()
+
+    def change_style(self, dark):
+        if dark:
+            f = open("dark", "w+")
+            f.close()
+            self.parent.view_menu.dark.setChecked(True)
+            self.parent.view_menu.light.setChecked(False)
+        else:
+            if os.path.isfile("dark"):
+                os.remove("dark")
+            self.parent.view_menu.light.setChecked(True)
+            self.parent.view_menu.dark.setChecked(False)
+        self.dialogs.open_style()

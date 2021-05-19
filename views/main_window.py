@@ -1,9 +1,9 @@
-from services.state_saver import save_collections, save_view_config
 from PyQt5 import QtGui
-from services.images_provider import ImagesProvider
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStatusBar, QLabel
 
+from services.images_provider import ImagesProvider
+from services.state_saver import save_collections, save_view_config
 from views.guielements.central.image_preview_view import ImagePreviewView
 from views.guielements.docks.collection_view import CollectionView
 from views.guielements.docks.effects_view import EffectsView
@@ -14,6 +14,7 @@ from views.guielements.messagebox.errorbox import ErrorBox
 from views.guielements.status.status import StatusBarView
 from views.guielements.toolbar.toolbar import ToolBar
 
+
 # Jak tak się zastanowić, to nie jest dobrym podejściem startować wszystko z
 # z widoku, jeśli zostanie czasu na rózne głupoty, to wartobyłoby to przerobić
 # żeby był jakiś przyzwoity konfigurator, który startuje i uzupełnia główne okno,
@@ -23,7 +24,6 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-
 
         # Geometry
         self.setGeometry(600, 300, 1080, 720)
@@ -42,10 +42,10 @@ class MainWindow(QMainWindow):
         # MenuBar
         file_menu = FileMenu(self, self.collection_view)
         edit_menu = EditMenu(self, self.collection_view)
-        view_menu = ViewMenu(self)
+        self.view_menu = ViewMenu(self)
         self.menuBar().addMenu(file_menu.get_file_menu())
         self.menuBar().addMenu(edit_menu.get_edit_menu())
-        self.menuBar().addMenu(view_menu.get_view_menu())
+        self.menuBar().addMenu(self.view_menu.get_view_menu())
 
         # Toolbars
         toolbar = ToolBar(self)

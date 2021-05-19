@@ -1,13 +1,11 @@
+from enum import Enum
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
+
 import services.images_provider  as sip
-from imgmaneng.img_converter import convert_cv2Image_to_QPixmap
-import numpy as np
 import views.guielements.central.image_preview_view as vgcipv
 from models.effects import EffectType
-from models.image import Image
-from PyQt5.QtCore import Qt
-from enum import Enum
-from PyQt5.QtGui import QImage, QPixmap
-from imgmaneng.img_cleaner import remove_stains
 
 
 # TODO zmiana zdjecia w obrebie kolekcji - czy zapamiętujemy zoom i scrollbary czy reset
@@ -131,8 +129,8 @@ class ImagePreviewController:
             v_ratio = self.view.area_modified.verticalScrollBar().value() * 1.0 / max(
                 self.view.area_modified.verticalScrollBar().maximum(), 1)
 
-        h_res = x + h_ratio * max(0, zoom*pixmap.width() - width) - max(0, width - zoom*pixmap.width()) // 2
-        v_res = y + v_ratio * max(0, zoom*pixmap.height() - height) - max(0, height - zoom*pixmap.height()) // 2
+        h_res = x + h_ratio * max(0, zoom * pixmap.width() - width) - max(0, width - zoom * pixmap.width()) // 2
+        v_res = y + v_ratio * max(0, zoom * pixmap.height() - height) - max(0, height - zoom * pixmap.height()) // 2
 
         rx = int(h_res * 1.0 / zoom)
         ry = int(v_res * 1.0 / zoom)
@@ -140,9 +138,9 @@ class ImagePreviewController:
 
         if self.parent.effects_view.controller.is_brush_active() and rx >= 0 and ry >= 0 and rx < pixmap.width() and ry < pixmap.height():
             radius = self.parent.effects_view.controller.get_brush_radius()
-            # clean = remove_stains(self.image_provider.get_current_image(), rx, ry, radius)
             self.parent.effects_view.controller.change_effects({'effect_type': EffectType.CORRECTIONS,
-                                                'org': False,
-                                                'values': [{'type': EffectType.CORRECTIONS, 'x': rx, 'y': ry, 'r': radius}]})
+                                                                'org': False,
+                                                                'values': [{'type': EffectType.CORRECTIONS,
+                                                                            'value': {'x': rx, 'y': ry, 'r': radius}}]})
             # pixmap = QPixmap(QImage(clean, clean.shape[1], clean.shape[0], clean.shape[1] * 3, QImage.Format_RGB888))
             # self.set_new_modified_image(pixmap)

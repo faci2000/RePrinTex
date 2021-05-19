@@ -1,15 +1,12 @@
-from numpy.lib.function_base import median
-from models.page_info import PageInfo
-import models.image
 import cv2
-from matplotlib import lines
 import numpy as np
-import matplotlib.pyplot as plt
 import pytesseract
-from PIL import Image
+
+import models.image
+from models.page_info import PageInfo
 
 
-def img_analyze(input_img:models.image.Image):
+def img_analyze(input_img: models.image.Image):
     input_img.page_info = PageInfo()
     # read image
     img = cv2.imread(input_img.path)
@@ -19,9 +16,9 @@ def img_analyze(input_img:models.image.Image):
     # create sharp negative
     blur = cv2.GaussianBlur(gray, (13, 13), 0)
 
-    #cv2.imwrite("blur.png", blur)
-    th, threshed = cv2.threshold(blur, 127, 255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-    #cv2.imwrite("treshed.png", threshed)
+    # cv2.imwrite("blur.png", blur)
+    th, threshed = cv2.threshold(blur, 127, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    # cv2.imwrite("treshed.png", threshed)
 
     contours, hierarchy = cv2.findContours(threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     # median_letter_width = np.median([contuor[2] for contuor in contours ])
@@ -42,10 +39,11 @@ def img_analyze(input_img:models.image.Image):
         if text_block_w <= w and text_block_h <= h:
             text_block_x, text_block_y, text_block_w, text_block_h = x, y, w, h
 
-    #cv2.rectangle(result_image, (text_block_x, text_block_y),
+    # cv2.rectangle(result_image, (text_block_x, text_block_y),
     #              (text_block_x + text_block_w, text_block_y + text_block_h), (255, 0, 0), 2)
-    
-    input_img.page_info.text_block["x"],input_img.page_info.text_block["y"],input_img.page_info.text_block["w"],input_img.page_info.text_block["h"] = text_block_x, text_block_y, text_block_w, text_block_h
+
+    input_img.page_info.text_block["x"], input_img.page_info.text_block["y"], input_img.page_info.text_block["w"], \
+    input_img.page_info.text_block["h"] = text_block_x, text_block_y, text_block_w, text_block_h
     ## get boundaries of words
     kernel = np.ones((20, 50), np.uint8)
     dilation = cv2.dilate(threshed, kernel, iterations=1)
@@ -60,12 +58,12 @@ def img_analyze(input_img:models.image.Image):
             word = {}
             word["x"], word["y"], word["w"], word["h"], word["letters"] = x, y, w, h, []
             words.append(word)
-            #cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            # cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     ## get boundaries of characters
-    kernel = np.ones((7,7),np.uint8)
-    dilation = cv2.dilate(threshed, kernel, iterations = 1)
-    #cv2.imwrite("dilation.png", dilation)
+    kernel = np.ones((7, 7), np.uint8)
+    dilation = cv2.dilate(threshed, kernel, iterations=1)
+    # cv2.imwrite("dilation.png", dilation)
 
     # preparing data set with letters
 
@@ -79,7 +77,7 @@ def img_analyze(input_img:models.image.Image):
                     letter = {}
                     letter["x"], letter["y"], letter["w"], letter["h"] = x, y, w, h
                     word["letters"].append(letter)
-            #cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            # cv2.rectangle(result_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
     # cv2.imwrite("conturs.png", result_image)
 
@@ -93,13 +91,13 @@ def img_analyze(input_img:models.image.Image):
     print(th_lose)
     # plt.show()
     H, W = img.shape[:2]
-    input_img.page_info.lines["upuppers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
+    input_img.page_info.lines["upuppers"] = [y for y in range(text_block_y, text_block_y + text_block_h - 1, 1) if
                                              hist[y] <= th_lose and hist[y + 1] > th_lose]
-    input_img.page_info.lines["lolowers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
+    input_img.page_info.lines["lolowers"] = [y for y in range(text_block_y, text_block_y + text_block_h - 1, 1) if
                                              hist[y] > th_lose and hist[y + 1] <= th_lose]
-    input_img.page_info.lines["uppers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
+    input_img.page_info.lines["uppers"] = [y for y in range(text_block_y, text_block_y + text_block_h - 1, 1) if
                                            hist[y] <= th_strict and hist[y + 1] > th_strict]
-    input_img.page_info.lines["lowers"] = [y for y in range(text_block_y, text_block_y + text_block_h-1, 1) if
+    input_img.page_info.lines["lowers"] = [y for y in range(text_block_y, text_block_y + text_block_h - 1, 1) if
                                            hist[y] > th_strict and hist[y + 1] <= th_strict]
 
     # print(input_img.page_info.lines["lowers"])
@@ -116,10 +114,10 @@ def img_analyze(input_img:models.image.Image):
     # for y in input_img.page_info.lines["lowers"]:
     #     cv2.line(result_image, (0, y), (W, y), (0, 250, 250), 3)
 
-    #cv2.imwrite("./tmp/result.png", result_image)
+    # cv2.imwrite("./tmp/result.png", result_image)
     # input_img.modified_img = result_image
-    fill_lines(input_img,words,input_img.page_info.lines["uppers"],input_img.page_info.lines["lowers"])
-    #final=move_letters(text_lines,img)
+    fill_lines(input_img, words, input_img.page_info.lines["uppers"], input_img.page_info.lines["lowers"])
+    # final=move_letters(text_lines,img)
 
     # cv2.imwrite("final.png", final)
 
@@ -144,6 +142,6 @@ def fill_lines(input_image, words, uppers, lowers):
         if i != -1:
             input_image.page_info.text_lines[i]["words"].append(word)
 
-            
-def contains(big_x,big_y,big_w,big_h,s_x,s_y,s_w,s_h):
-    return big_x<=s_x and big_y<=s_y and (big_x+big_w)>=(s_x+s_w) and (big_y+big_h)>=(s_y+s_h)
+
+def contains(big_x, big_y, big_w, big_h, s_x, s_y, s_w, s_h):
+    return big_x <= s_x and big_y <= s_y and (big_x + big_w) >= (s_x + s_w) and (big_y + big_h) >= (s_y + s_h)

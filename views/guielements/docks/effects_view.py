@@ -1,9 +1,10 @@
-from services.images_provider import ImagesProvider
-from models.effects import EffectType, Lines
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton, QRadioButton
+from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton, \
+    QRadioButton
 
 from controllers.guielements.effects_controller import EffectsController
+from models.effects import EffectType, Lines
+from services.images_provider import ImagesProvider
 from views.guielements.effects_layout import add_clean, add_stains, add_contrast
 
 
@@ -22,28 +23,34 @@ class EffectsView:
         self.unstraighten_lines = QRadioButton('Unstraighten lines')
         self.unstraighten_lines.setChecked(True)
 
-        self.straighten_lines.toggled.connect(lambda: self.controller.change_effects({'effect_type': EffectType.STRAIGHTENED,
-                                                  'org': False,
-                                                  'values': [{'type': EffectType.STRAIGHTENED, 'value': True}]}))
-        self.unstraighten_lines.toggled.connect(lambda: self.controller.change_effects({'effect_type': EffectType.STRAIGHTENED,
-                                                  'org': False,
-                                                  'values': [{'type': EffectType.STRAIGHTENED, 'value':False}]}))
+        self.straighten_lines.toggled.connect(
+            lambda: self.controller.change_effects({'effect_type': EffectType.STRAIGHTENED,
+                                                    'org': False,
+                                                    'values': [{'type': EffectType.STRAIGHTENED, 'value': True}]}))
+        self.unstraighten_lines.toggled.connect(
+            lambda: self.controller.change_effects({'effect_type': EffectType.STRAIGHTENED,
+                                                    'org': False,
+                                                    'values': [{'type': EffectType.STRAIGHTENED, 'value': False}]}))
 
         self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
         self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
-        self.reset_button = self.create_button("Reset", lambda: self.controller.reset())
+        self.reset_button = self.create_button("Reset", lambda: ImagesProvider().reset())
 
-        self.apply_button.clicked.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LOWER_SHIFT,'org':False,
-                                                                                  'values':[{'type':EffectType.LOWER_SHIFT, 'value':self.clean_slider_dark.value()},
-                                                                                            {'type':EffectType.UPPER_SHIFT, 'value':self.clean_slider_light.value()},
-                                                                                            {'type':EffectType.CONTRAST_INTENSITY, 'value':self.contrast_slider.value()* 1.0 / 10}]}))
+        self.apply_button.clicked.connect(
+            lambda: self.controller.change_effects({'effect_type': EffectType.LOWER_SHIFT, 'org': False,
+                                                    'values': [{'type': EffectType.LOWER_SHIFT,
+                                                                'value': self.clean_slider_dark.value()},
+                                                               {'type': EffectType.UPPER_SHIFT,
+                                                                'value': self.clean_slider_light.value()},
+                                                               {'type': EffectType.CONTRAST_INTENSITY,
+                                                                'value': self.contrast_slider.value() * 1.0 / 10}]}))
 
         self.add_to_layout(layout)
 
         self.dock.setWidget(self.widget)
         self.widget.setLayout(layout)
 
-    def add_to_layout(self, layout:QVBoxLayout):
+    def add_to_layout(self, layout: QVBoxLayout):
         # Effects
         layout.addWidget(self.straighten_lines)
         layout.addWidget(self.unstraighten_lines)
@@ -92,23 +99,26 @@ class EffectsView:
         # hbox.addLayout(vbox)
 
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.MAIN_LINES.value,'org':True}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.MAIN_LINES.value, 'org': True}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.MINOR_LINES.value,'org':True}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.MINOR_LINES.value, 'org': True}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.TEXT_BLOCK.value,'org':True}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.TEXT_BLOCK.value, 'org': True}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.WORDS.value,'org':True}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.WORDS.value, 'org': True}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.LETTERS.value,'org':True}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.LETTERS.value, 'org': True}))
         vbox.addWidget(chk)
         hbox.addLayout(vbox)
-
-
 
         vbox = QVBoxLayout()
         vbox.addWidget(QLabel("Preview"))
@@ -121,19 +131,24 @@ class EffectsView:
         # hbox.addLayout(vbox)
 
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.MAIN_LINES.value,'org':False}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.MAIN_LINES.value, 'org': False}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.MINOR_LINES.value,'org':False}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.MINOR_LINES.value, 'org': False}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.TEXT_BLOCK.value,'org':False}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.TEXT_BLOCK.value, 'org': False}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.WORDS.value,'org':False}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.WORDS.value, 'org': False}))
         vbox.addWidget(chk)
         chk = QCheckBox()
-        chk.stateChanged.connect(lambda: self.controller.change_effects({'effect_type':EffectType.LINES,'type':Lines.LETTERS.value,'org':False}))
+        chk.stateChanged.connect(lambda: self.controller.change_effects(
+            {'effect_type': EffectType.LINES, 'type': Lines.LETTERS.value, 'org': False}))
         vbox.addWidget(chk)
         hbox.addLayout(vbox)
 
@@ -147,6 +162,3 @@ def create_slider(min_, max_, initial):
     slider.setMaximum(max_)
     slider.setValue(initial)
     return slider
-
-
-
