@@ -1,6 +1,6 @@
 import os
 
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMainWindow
 
 from controllers.controller import Controller
 from views.archive_creator import ArchiveCreator
@@ -8,9 +8,19 @@ from views.guielements.menu.dialogs import Dialogs
 
 
 class MenuBarController:
+    """
+    A class handling menu bar actions.
+
+    Attributes
+        parent: QMainWindow
+        dialogs: Dialogs
+
+    """
+
     def __init__(self, parent) -> None:
-        self.parent = parent
-        self.dialogs = Dialogs(self.parent)
+        self.parent: QMainWindow = parent
+        self.dialogs: Dialogs = Dialogs(self.parent)
+
         Controller().set_menubar_controller(self)
 
     def load_files(self):

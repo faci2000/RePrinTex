@@ -1,6 +1,6 @@
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QStatusBar, QLabel
+from PyQt5.QtWidgets import QMainWindow
 
 from controllers.controller import Controller
 from services.images_provider import ImagesProvider
@@ -56,6 +56,7 @@ class MainWindow(QMainWindow):
         toolbar = ToolBar(self)
         self.addToolBar(toolbar.get_toolbar())
 
+        # Images provider init
         ImagesProvider().load_data()
 
         # Error handling

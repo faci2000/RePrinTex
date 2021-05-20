@@ -18,7 +18,7 @@ class ControllerMeta(type):
 
 
 class Communicator(QObject):
-    error = pyqtSignal()
+    error = pyqtSignal(str)
 
 
 class Controller(metaclass=ControllerMeta):
@@ -101,10 +101,10 @@ class Controller(metaclass=ControllerMeta):
         self.collection_controller.create_collection(file_paths)
 
     # Errors | Messages
-    def show_error(self):
+    def show_error(self, message: str):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
         msg.setWindowTitle("Error!")
         msg.setStandardButtons(QMessageBox.Ok)
-        msg.setText("Eluwina")
+        msg.setText(message)
         msg.exec_()

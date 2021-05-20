@@ -2,7 +2,7 @@ import cv2
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtWidgets import QDialog, QGridLayout
+from PyQt5.QtWidgets import QDialog, QGridLayout, QMainWindow
 
 import imgmaneng.lines_streightening as ls
 from controllers.controller import Controller
@@ -11,8 +11,17 @@ from imgmaneng.recognize_letters import recognize_letters
 
 
 class ToolBarController:
+    """"
+            A class handling toolbar actions.
+
+            Attributes
+                parent: QMainWindow
+                in_timer: QTimer
+                out_timer:  QTimer
+        """
+
     def __init__(self, parent) -> None:
-        self.parent = parent
+        self.parent: QMainWindow = parent
         Controller().set_toolbar_controller(self)
 
         self.in_timer = QTimer()
@@ -50,10 +59,16 @@ class ToolBarController:
         layout = QGridLayout()
         dialog.setLayout(layout)
         layout.addWidget(webEngineView)
-        with open('data/help/help.html', 'r') as f:
-            html = f.read()
-            webEngineView.setHtml(html)
-        dialog.show()
+
+        try:
+            f = open('data/help/help.html', 'r')
+        except (OSError, FileNotFoundError,  Exception) as e:
+            Controller().communicator.error.emit("Cannot open help :c")
+        else:
+            with f:
+                html = f.read()
+                webEngineView.setHtml(html)
+                dialog.show()
 
     def zoom_pressed(self, zoom_in):
         if zoom_in:

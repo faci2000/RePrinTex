@@ -1,8 +1,9 @@
 import os.path
 
 from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtWidgets import QAction, QToolBar, QToolButton
+from PyQt5.QtWidgets import QAction, QToolBar, QToolButton, QMainWindow
 
+from controllers.controller import Controller
 from controllers.guielements.toolbar_controller import ToolBarController
 from services.images_provider import ImagesProvider
 
@@ -13,50 +14,67 @@ else:
 
 
 class ToolBar:
-    def __init__(self, parent):
-        self.parent = parent
-        self.controller = ToolBarController(parent)
-        self.toolbar = QToolBar("Tools", self.parent)
-        self.toolbar.addWidget(self.zoom_in())
-        self.toolbar.addWidget(self.zoom_out())
-        self.toolbar.addActions(self.get_actions())
+    """"
+        A class creating toolbar view.
 
-    def get_actions(self):
-        actions = [self.undo(), self.redo(), self.helper()]
+        Attributes
+            parent: QMainWindow
+            controller: ToolBarController
+            toolbar:  QToolBar
+
+        Methods:
+            get_toolbar() -> QToolBar
+                returns complete toolbar with undo, redo, zoom in, zoom out and help actions
+    """
+
+    def __init__(self, parent):
+        self.parent: QMainWindow = parent
+        self.controller: ToolBarController = ToolBarController(parent)
+        self.toolbar: QToolBar = QToolBar("Tools", self.parent)
+
+        self.toolbar.addWidget(self._zoom_in())
+        self.toolbar.addWidget(self._zoom_out())
+        self.toolbar.addActions(self._get_actions())
+
+    def _get_actions(self):
+        actions = [self._undo(), self._redo(), self._helper()]
         return actions
 
-    def helper(self):
-        help_ = QAction(QIcon(get_icon("data/icons/help")), "&Help", self.parent)
+    def _helper(self):
+        help_ = QAction("&Help", self.parent)
+        set_icon("data/icons/help", help_, "Help")
         help_.setStatusTip("Show help")
         help_.triggered.connect(lambda: self.controller.helper())
         return help_
 
-    def undo(self):
-        undo = QAction(QIcon(get_icon("data/icons/undo")), "&Undo", self.parent)
+    def _undo(self):
+        undo = QAction("&Undo", self.parent)
+        set_icon("data/icons/undo", undo, "Undo")
         undo.setShortcut('Ctrl+z')
         undo.setStatusTip("Erases the last change done")
         undo.triggered.connect(lambda: ImagesProvider().undo())
         return undo
 
-    def redo(self):
-        redo = QAction(QIcon(get_icon("data/icons/redo")), "&Redo", self.parent)
+    def _redo(self):
+        redo = QAction("&Redo", self.parent)
+        set_icon("data/icons/redo", redo, "Redo")
         redo.setShortcut('Ctrl+x')
         redo.setStatusTip("Restores the change that was previously undone")
         redo.triggered.connect(lambda: ImagesProvider().redo())
         return redo
 
-    def zoom_in(self):
+    def _zoom_in(self):
         zoom_in = QToolButton(self.parent)
-        zoom_in.setIcon(QIcon(get_icon("data/icons/zoom_in")))
+        set_icon("data/icons/zoom_in", zoom_in, "Zoom in")
         zoom_in.setShortcut('Ctrl+i')
         zoom_in.setStatusTip("Zoom in")
         zoom_in.pressed.connect(lambda: self.controller.zoom_pressed(zoom_in=True))
         zoom_in.released.connect(lambda: self.controller.zoom_released(zoom_in=True))
         return zoom_in
 
-    def zoom_out(self):
+    def _zoom_out(self):
         zoom_out = QToolButton(self.parent)
-        zoom_out.setIcon((QIcon(get_icon("data/icons/zoom_out"))))
+        set_icon("data/icons/zoom_out", zoom_out, "Zoom out")
         zoom_out.setShortcut('Ctrl+o')
         zoom_out.setStatusTip("Zoom out")
         zoom_out.pressed.connect(lambda: self.controller.zoom_pressed(zoom_in=False))
@@ -67,12 +85,23 @@ class ToolBar:
         return self.toolbar
 
 
-def get_icon(path):
-    if DARK:
-        new_path = path + "_light.png"
-    else:
-        new_path = path + "_dark.png"
+def set_icon(path, object_, name):
+    """ Adds icon or name to existing QAction or QToolButton """
 
-    icon = QIcon()
-    icon.addPixmap(QPixmap(new_path), QIcon.Normal, QIcon.Off)
-    return icon
+    try:
+        if DARK:
+            new_path = path + "_light.png"
+        else:
+            new_path = path + "_dark.png"
+
+        if not os.path.isfile(new_path):
+            raise FileNotFoundError
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap(new_path), QIcon.Normal, QIcon.Off)
+        object_.setIcon((QIcon(new_path)))
+
+    except (OSError, FileNotFoundError,  Exception) as e:
+        if type(object_) is QToolButton:
+            object_.setText(name)
+        Controller().communicator.error.emit("Cannot load some toolbar icons :c")
