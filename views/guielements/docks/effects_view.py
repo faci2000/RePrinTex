@@ -56,7 +56,7 @@ class EffectsView:
         layout.addWidget(self.unstraighten_lines)
         add_clean(self, self.widget, layout)
         add_contrast(self, self.widget, layout)
-        add_stains(self, self, layout)
+        add_stains(self, layout)
 
         # Control
         layout.addWidget(self.apply_button)

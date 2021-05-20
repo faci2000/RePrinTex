@@ -1,10 +1,10 @@
+import os.path
+
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QAction, QToolBar, QToolButton
 
 from controllers.guielements.toolbar_controller import ToolBarController
 from services.images_provider import ImagesProvider
-
-import os.path
 
 if os.path.isfile("dark"):
     DARK = True

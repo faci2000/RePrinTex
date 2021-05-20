@@ -8,7 +8,6 @@ import imgmaneng.lines_streightening as ls
 from controllers.controller import Controller
 from imgmaneng.img_analyze import img_analyze
 from imgmaneng.recognize_letters import recognize_letters
-from services.images_provider import ImagesProvider
 
 
 class ToolBarController:

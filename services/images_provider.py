@@ -111,7 +111,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             self.current_collection_index = old_index
             return self.get_current_collection()
 
-    def add_new_collection(self, new_image_collection: mic.ImageCollection) -> bool:  # return true if changed current collection
+    def add_new_collection(self,
+                           new_image_collection: mic.ImageCollection) -> bool:  # return true if changed current collection
         print(new_image_collection.name)
         self.collections.append(new_image_collection)  # otherwise return false
 

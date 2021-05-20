@@ -1,8 +1,8 @@
+import os.path
+
 from PyQt5.QtWidgets import QMenu, QAction
 
 from controllers.guielements.menu_bar_controller import MenuBarController
-
-import os.path
 
 if os.path.isfile("dark"):
     DARK = True

@@ -1,6 +1,9 @@
 from threading import Lock
 from typing import Any
 
+from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtWidgets import QMessageBox
+
 
 class ControllerMeta(type):
     _instances = {}
@@ -14,16 +17,23 @@ class ControllerMeta(type):
         return cls._instances[cls]
 
 
+class Communicator(QObject):
+    error = pyqtSignal()
+
+
 class Controller(metaclass=ControllerMeta):
     def __init__(self) -> None:
         self.parent = None
         self.collection_controller = None
         self.image_preview_controller = None
-        self.menu_bar_controller = None
-        self.status_bar_controller = None
+        self.menubar_controller = None
         self.toolbar_controller = None
         self.effects_controller = None
         self.archive_controller = None
+        self.statusbar = None
+
+        self.communicator = Communicator()
+        self.communicator.error.connect(self.show_error)
 
     # Setup
     def set_image_preview_controller(self, controller):
@@ -33,10 +43,7 @@ class Controller(metaclass=ControllerMeta):
         self.collection_controller = controller
 
     def set_menubar_controller(self, controller):
-        self.menu_bar_controller = controller
-
-    def set_statusbar_controller(self, controller):
-        self.status_bar_controller = controller
+        self.menubar_controller = controller
 
     def set_toolbar_controller(self, controller):
         self.toolbar_controller = controller
@@ -49,6 +56,7 @@ class Controller(metaclass=ControllerMeta):
 
     def set_parent(self, parent):
         self.parent = parent
+        self.statusbar = self.parent.statusBar()
 
     # Effects controller
     def is_brush_active(self):
@@ -91,3 +99,12 @@ class Controller(metaclass=ControllerMeta):
 
     def create_collection(self, file_paths):
         self.collection_controller.create_collection(file_paths)
+
+    # Errors | Messages
+    def show_error(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Error!")
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.setText("Eluwina")
+        msg.exec_()

@@ -12,7 +12,6 @@ from views.guielements.menu.edit_menu import EditMenu
 from views.guielements.menu.file_menu import FileMenu
 from views.guielements.menu.view_menu import ViewMenu
 from views.guielements.messagebox.errorbox import ErrorBox
-from views.guielements.status.status import StatusBarView
 from views.guielements.toolbar.toolbar import ToolBar
 
 
@@ -56,13 +55,6 @@ class MainWindow(QMainWindow):
         # Toolbars
         toolbar = ToolBar(self)
         self.addToolBar(toolbar.get_toolbar())
-
-        # Statusbar
-        self.statusbar = StatusBarView(self)
-        self.status_info = QLabel()
-        self.status_bar = QStatusBar()
-        self.status_bar.addWidget(self.status_info)
-        self.setStatusBar(self.status_bar)
 
         ImagesProvider().load_data()
 

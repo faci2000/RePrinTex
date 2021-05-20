@@ -1,10 +1,10 @@
-import sys
 import os.path
+import sys
+
 from PyQt5.QtWidgets import QApplication
 
-from views.main_window import MainWindow
 import qstylish
-import os.path
+from views.main_window import MainWindow
 
 if os.path.isfile("dark"):
     DARK = True

@@ -48,7 +48,7 @@ def add_contrast(parent, widget, layout):
          'values': [{'type': EffectType.CONTRAST_INTENSITY, 'value': parent.contrast_slider.value() * 1.0 / 10}]}))
 
 
-def add_stains(parent, widget, layout):
+def add_stains(parent, layout):
     parent.stains_button = create_button("Removing stains", True)
     parent.stains_button.clicked.connect(lambda: Controller().change_cursor())
     parent.stains_slider = create_slider(1, 100, 20)

@@ -3,8 +3,10 @@ from PyQt5.QtGui import QPixmap, QCursor
 
 from controllers.controller import Controller
 from imgmaneng.img_cleaner import clean_page, increase_contrast
+from imgmaneng.lines_streightening import lines_streigtening
 from models.effects import EffectType
 from services.images_provider import ImagesProvider
+from threads.worker_decorator import multi_thread_runner
 
 
 class EffectsController:
@@ -46,7 +48,9 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
+    @multi_thread_runner
     def change_effects(self, effects_to_change):  # {effect_type:EffectType,type:Line,org:bool ,value:bool}
+        print("EFFECTS")
         effects = ImagesProvider().get_current_collection_effects()
         if effects_to_change['org']:
             if effects_to_change['type'] not in ImagesProvider().get_current_collection_org_lines():

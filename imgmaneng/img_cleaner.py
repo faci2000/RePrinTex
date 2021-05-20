@@ -62,9 +62,9 @@ def _get_peaks(image):
 
     peaks = []
     for i, v in enumerate(hist_smooth):
-        if i == 0 or i == len(v) - 1:
+        if i == 0 or i == len(hist_smooth) - 1:
             continue
-        if hist[i - 1][0] < hist[i][0] and hist[i + 1][0] < hist[i][0]:
+        if hist_smooth[i - 1][0] < hist_smooth[i][0] and hist_smooth[i + 1][0] < hist_smooth[i][0]:
             peaks.append((i, v[0]))
     peaks = sorted(peaks, key=lambda x: x[1], reverse=True)
 

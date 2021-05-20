@@ -3,6 +3,8 @@ from functools import wraps
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 
+from controllers.controller import Controller
+
 
 class Worker(QtCore.QThread):
     started = pyqtSignal()
@@ -22,10 +24,10 @@ class Worker(QtCore.QThread):
         self.finished.emit()
 
     def before(self):
-        print("Starting")
+        Controller().statusbar.showMessage("Task in progress...")
 
     def after(self):
-        print("Finished")
+        Controller().statusbar.showMessage("Ready to go :)")
         self.quit()
 
 

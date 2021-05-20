@@ -2,7 +2,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QGridLayout, QMessageBox
 
 from controllers.controller import Controller
-from controllers.guielements.effects_controller import EffectsController
 from views.guielements.effects_layout import add_clean, add_contrast, add_stains
 
 
@@ -30,7 +29,7 @@ class Dialogs:
 
     def get_stains_dialog(self):
         dialog, layout = self.create_empty_dialog("Remove stains")
-        add_stains(self, dialog, layout)
+        add_stains(self, layout)
         dialog.setLayout(layout)
         return dialog
 

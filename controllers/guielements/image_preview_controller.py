@@ -12,6 +12,7 @@ from models.effects import EffectType
 # TODO zmiana zdjecia w obrebie kolekcji - czy zapamiętujemy zoom i scrollbary czy reset
 # TODO zoomowanie resetuje zmiany w modified area gdzies to trzeba trzymac, a najlepiej skopiowac cały Image to razem
 #  i historia zmian do dogadania
+from threads.worker_decorator import multi_thread_runner
 
 
 class Area(Enum):
