@@ -1,6 +1,7 @@
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap, QCursor
 
+from controllers.controller import Controller
 from imgmaneng.img_cleaner import clean_page, increase_contrast
 from models.effects import EffectType
 from services.images_provider import ImagesProvider
@@ -19,6 +20,7 @@ class EffectsController:
         self.view = view
         # img = parent.image_preview_view.controller.current_image
         self.image_provider = ImagesProvider()
+        Controller().set_effects_controller(self)
 
     def clean(self, img):
         clean = clean_page(img, self.modified_effects.upper_shift, self.modified_effects.lower_shift)
@@ -45,13 +47,12 @@ class EffectsController:
         return self.view.stains_slider.value()
 
     def change_effects(self, effects_to_change):  # {effect_type:EffectType,type:Line,org:bool ,value:bool}
-        print(effects_to_change)
-        effects = self.image_provider.get_current_collection_effects()
+        effects = ImagesProvider().get_current_collection_effects()
         if effects_to_change['org']:
-            if effects_to_change['type'] not in self.image_provider.get_current_collection_org_lines():
-                self.image_provider.get_current_collection_org_lines().add(effects_to_change['type'])
+            if effects_to_change['type'] not in ImagesProvider().get_current_collection_org_lines():
+                ImagesProvider().get_current_collection_org_lines().add(effects_to_change['type'])
             else:
-                self.image_provider.get_current_collection_org_lines().remove(effects_to_change['type'])
+                ImagesProvider().get_current_collection_org_lines().remove(effects_to_change['type'])
         elif effects_to_change['effect_type'] == EffectType.LINES:
             if effects_to_change['type'] not in effects.values[EffectType.LINES.value]:
                 effects.values[EffectType.LINES.value][effects_to_change['type']] = True
@@ -64,12 +65,12 @@ class EffectsController:
                     effects.values[eff['type'].value].append(eff['value'])
                 else:
                     effects.values[eff['type'].value] = eff['value']
-        self.image_provider.update_displayed_images(effects_to_change['org'])
+        ImagesProvider().update_displayed_images(effects_to_change['org'])
 
     def change_cursor(self):
         if self.is_brush_active():
             pixmap = QPixmap("data/cursors/circle_cursor.png")
-            size = 2.2 * self.get_brush_radius() * self.parent.image_preview_view.controller.modified_zoom
+            size = 2.2 * self.get_brush_radius() * Controller().get_modified_zoom()
             pixmap = pixmap.scaled(size, size)
             cursor = QCursor(pixmap, -1, -1)
             self.parent.setCursor(cursor)

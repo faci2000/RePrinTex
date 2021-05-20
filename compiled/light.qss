@@ -112,7 +112,7 @@ QCheckBox,
 QRadioButton,
 QComboBox,
 QLineEdit {
-    border: 1px solid rgba(133, 139, 148, 0.4);
+    border: 0px solid rgba(133, 139, 148, 0.4);
 }
 QAbstractSpinBox {
   padding: 3px 1px; }
@@ -674,3 +674,8 @@ QMenu::indicator:exclusive {
 QDialogButtonBox QPushButton {
   min-width: 70px;
 }
+
+QDialog QLineEdit {
+    border: 1px solid rgba(133, 139, 148, 0.4);
+}
+

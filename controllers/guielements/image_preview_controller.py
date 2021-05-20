@@ -3,8 +3,9 @@ from enum import Enum
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
-import services.images_provider  as sip
+import services.images_provider as sip
 import views.guielements.central.image_preview_view as vgcipv
+from controllers.controller import Controller
 from models.effects import EffectType
 
 
@@ -41,6 +42,8 @@ class ImagePreviewController:
         self.active_area = Area.ORIGINAL
         self.original_zoom = 1
         self.modified_zoom = 1
+
+        Controller().set_image_preview_controller(self)
 
     def set_new_image(self):  # ustawia pierwszy raz nowe zdjecie
         # image_provider.get_current_image() = image
@@ -134,13 +137,10 @@ class ImagePreviewController:
 
         rx = int(h_res * 1.0 / zoom)
         ry = int(v_res * 1.0 / zoom)
-        print(rx, ry)  # position from real image in pixels
 
-        if self.parent.effects_view.controller.is_brush_active() and rx >= 0 and ry >= 0 and rx < pixmap.width() and ry < pixmap.height():
-            radius = self.parent.effects_view.controller.get_brush_radius()
-            self.parent.effects_view.controller.change_effects({'effect_type': EffectType.CORRECTIONS,
-                                                                'org': False,
-                                                                'values': [{'type': EffectType.CORRECTIONS,
-                                                                            'value': {'x': rx, 'y': ry, 'r': radius}}]})
-            # pixmap = QPixmap(QImage(clean, clean.shape[1], clean.shape[0], clean.shape[1] * 3, QImage.Format_RGB888))
-            # self.set_new_modified_image(pixmap)
+        if Controller().is_brush_active() and rx >= 0 and ry >= 0 and rx < pixmap.width() and ry < pixmap.height():
+            radius = Controller().get_brush_radius()
+            Controller().change_effects({'effect_type': EffectType.CORRECTIONS,
+                                         'org': False,
+                                         'values': [{'type': EffectType.CORRECTIONS,
+                                                     'value': {'x': rx, 'y': ry, 'r': radius}}]})

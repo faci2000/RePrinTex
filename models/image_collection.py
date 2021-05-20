@@ -21,7 +21,7 @@ class ImageCollection:
         self.lines_on_org = set()
         self.current_image_id = None
         print(path)
-        if path != None:
+        if path:
             self.path = path
             self.detect_images()
 

@@ -55,7 +55,7 @@ class Effects:
 
     def add_new_key_to_history(self, key) -> np.ndarray:
         if self.current_history_index < len(self.history) - 1:
-            while (self.current_history_index < len(self.current_history_index) - 1):
+            while self.current_history_index < len(self.current_history_index) - 1:
                 self.history.pop(len(self.current_history_index) - 1)
         self.history.append(key)
 

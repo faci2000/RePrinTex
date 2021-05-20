@@ -2,6 +2,7 @@ import json
 
 from PyQt5 import QtWidgets
 
+from controllers.controller import Controller
 from views.guielements.docks.collection_view import CollectionView
 
 
@@ -11,6 +12,8 @@ class ArchiveCreatorController:
         self.archive_creator = archive_creator
         self.collections = {}
         self.collection_view: CollectionView = collection_view
+
+        Controller().set_archive_controller(self)
 
     def open_file_browser(self, path_box: QtWidgets.QComboBox):
         directory = str(QtWidgets.QFileDialog.getExistingDirectory())
@@ -32,7 +35,7 @@ class ArchiveCreatorController:
 
     def set_name(self, value, name_box: QtWidgets.QLineEdit):
         print(value)
-        if value != "" and value != None and value in self.collections:
+        if value != "" and value is not None and value in self.collections:
             name_box.setText(self.collections[value])
         elif name_box.text() != "" and value != "":
             self.collections[value] = name_box.text()
@@ -48,7 +51,7 @@ class ArchiveCreatorController:
             json.dump(data, outfile)
 
     def create_new_collection(self, path, name):
-        for coll in self.collection_view.controller.collections:
+        for coll in Controller().get_collections():
             if coll.path == path:
                 return
-        self.collection_view.controller.add_collection(path, name)
+        Controller().add_collection(path, name)

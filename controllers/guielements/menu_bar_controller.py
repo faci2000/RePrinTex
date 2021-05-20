@@ -1,6 +1,8 @@
-from PyQt5.QtWidgets import QFileDialog
 import os
-from services.images_provider import ImagesProvider
+
+from PyQt5.QtWidgets import QFileDialog
+
+from controllers.controller import Controller
 from views.archive_creator import ArchiveCreator
 from views.guielements.menu.dialogs import Dialogs
 
@@ -9,11 +11,12 @@ class MenuBarController:
     def __init__(self, parent) -> None:
         self.parent = parent
         self.dialogs = Dialogs(self.parent)
+        Controller().set_menubar_controller(self)
 
     def load_files(self):
         file_paths, _ = QFileDialog.getOpenFileNames(self.parent)
         if file_paths:
-            self.parent.collection_view.controller.create_collection(file_paths)
+            Controller().create_collection(file_paths)
 
     def create_archive(self, collection_view):
         create_archive_dialog = ArchiveCreator(collection_view)

@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QGridLayout, QMessageBox
 
+from controllers.controller import Controller
 from controllers.guielements.effects_controller import EffectsController
 from views.guielements.effects_layout import add_clean, add_contrast, add_stains
 
@@ -8,7 +9,7 @@ from views.guielements.effects_layout import add_clean, add_contrast, add_stains
 class Dialogs:
     def __init__(self, parent):
         self.parent = parent
-        self.controller = EffectsController(parent, self)
+        self.controller = Controller().effects_controller
 
         self.clean_dialog = self.get_clean_dialog()
         self.contrast_dialog = self.get_contrast_dialog()

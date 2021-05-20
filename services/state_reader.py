@@ -14,7 +14,7 @@ def read_saved_collections() -> List[ImageCollection]:
             collections = json.load(json_data)
             img_collections: List[ImageCollection] = []
             for coll in collections:
-                img_collections.append(read_saved_collection_data(coll['path']))
+                img_collections.append(read_saved_collection_data(coll["path"]))
             return img_collections
     except FileNotFoundError:
         return []

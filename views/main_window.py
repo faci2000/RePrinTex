@@ -2,6 +2,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStatusBar, QLabel
 
+from controllers.controller import Controller
 from services.images_provider import ImagesProvider
 from services.state_saver import save_collections, save_view_config
 from views.guielements.central.image_preview_view import ImagePreviewView
@@ -20,6 +21,8 @@ from views.guielements.toolbar.toolbar import ToolBar
 # żeby był jakiś przyzwoity konfigurator, który startuje i uzupełnia główne okno,
 # a także uruchamia poszczególne usługi tj. ImageProvider, który jest teraz 
 # startowany z CollectionView
+
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -28,6 +31,9 @@ class MainWindow(QMainWindow):
         # Geometry
         self.setGeometry(600, 300, 1080, 720)
         self.setWindowTitle("RePrinTex")
+
+        # Controller
+        Controller().set_parent(self)
 
         # Central widget
         self.image_preview_view = ImagePreviewView(self)

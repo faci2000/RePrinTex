@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QSlider, QPushButton
 
+from controllers.controller import Controller
 from models.effects import EffectType
 
 
@@ -21,12 +22,12 @@ def add_clean(parent, widget, layout):
     layout.addWidget(widget.clean_button)
 
     widget.clean_button.clicked.connect(
-        lambda: parent.controller.change_effects({'effect_type': EffectType.LOWER_SHIFT,
-                                                  'org': False,
-                                                  'values': [{'type': EffectType.LOWER_SHIFT,
-                                                              'value': parent.clean_slider_dark.value()},
-                                                             {'type': EffectType.UPPER_SHIFT,
-                                                              'value': parent.clean_slider_light.value()}]}))
+        lambda: Controller().change_effects({'effect_type': EffectType.LOWER_SHIFT,
+                                             'org': False,
+                                             'values': [{'type': EffectType.LOWER_SHIFT,
+                                                         'value': parent.clean_slider_dark.value()},
+                                                        {'type': EffectType.UPPER_SHIFT,
+                                                         'value': parent.clean_slider_light.value()}]}))
 
 
 def add_contrast(parent, widget, layout):
@@ -41,7 +42,7 @@ def add_contrast(parent, widget, layout):
     layout.addWidget(parent.contrast_slider)
     layout.addWidget(widget.contrast_button)
 
-    widget.contrast_button.clicked.connect(lambda: parent.controller.change_effects(
+    widget.contrast_button.clicked.connect(lambda: Controller().change_effects(
         {'effect_type': EffectType.CONTRAST_INTENSITY,
          'org': False,
          'values': [{'type': EffectType.CONTRAST_INTENSITY, 'value': parent.contrast_slider.value() * 1.0 / 10}]}))
@@ -49,9 +50,9 @@ def add_contrast(parent, widget, layout):
 
 def add_stains(parent, widget, layout):
     parent.stains_button = create_button("Removing stains", True)
-    parent.stains_button.clicked.connect(lambda: parent.controller.change_cursor())
+    parent.stains_button.clicked.connect(lambda: Controller().change_cursor())
     parent.stains_slider = create_slider(1, 100, 20)
-    parent.stains_slider.valueChanged.connect(lambda: parent.controller.change_cursor())
+    parent.stains_slider.valueChanged.connect(lambda: Controller().change_cursor())
     l1 = QLabel("Remove Stains")
     l2 = QLabel("Brush size")
 

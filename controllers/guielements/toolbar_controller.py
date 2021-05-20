@@ -5,6 +5,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QDialog, QGridLayout
 
 import imgmaneng.lines_streightening as ls
+from controllers.controller import Controller
 from imgmaneng.img_analyze import img_analyze
 from imgmaneng.recognize_letters import recognize_letters
 from services.images_provider import ImagesProvider
@@ -13,35 +14,31 @@ from services.images_provider import ImagesProvider
 class ToolBarController:
     def __init__(self, parent) -> None:
         self.parent = parent
+        Controller().set_toolbar_controller(self)
+
         self.in_timer = QTimer()
         self.out_timer = QTimer()
-        self.in_timer.timeout.connect(self.zoom_in)
-        self.out_timer.timeout.connect(self.zoom_out)
-
-    def zoom_in(self):
-        self.parent.image_preview_view.controller.zoom_in()
-
-    def zoom_out(self):
-        self.parent.image_preview_view.controller.zoom_out()
+        self.in_timer.timeout.connect(Controller().zoom_in)
+        self.out_timer.timeout.connect(Controller().zoom_out)
 
     def analyze_text(self):
-        img_collection = self.parent.collection_view.controller.get_collection()
+        img_collection = Controller().get_collection()
         image = img_collection.get_current_image()
         img_analyze(image)
         cv2.imwrite("result.png", image.modified_img)
-        self.parent.image_preview_view.controller.set_new_image(image)
+        Controller().set_new_image(image)
 
     def lines_straightening(self):
-        img_collection = self.parent.collection_view.controller.get_collection()
+        img_collection = Controller().get_collection()
         image = img_collection.get_current_image()
         ls.lines_streigtening(image)
         cv2.imwrite("result.png", image.modified_img)
         img_pix = QImage("result.png")
         pixmap = QPixmap(img_pix)
-        self.parent.image_preview_view.controller.set_new_image(pixmap)
+        Controller().set_new_image(pixmap)
 
     def recognize_letters(self):
-        img_collection = self.parent.collection_view.controller.get_collection()
+        img_collection = Controller().get_collection()
         image = img_collection.get_current_image()
         recognize_letters(image)
 

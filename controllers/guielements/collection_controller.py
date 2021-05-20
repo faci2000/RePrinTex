@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 import models.image_collection as mic
 import views.guielements.docks.collection_view as vgdcv
+from controllers.controller import Controller
 from models.image import Image
 
 
@@ -17,6 +18,7 @@ class CollectionController:
         self.image_provider = ImagesProvider()
         self.image_provider.image_selector = self
         self.collections: List[mic.ImageCollection] = []  # ImageCollection(self.parent)
+        Controller().set_collection_controller(self)
 
     def get_collection(self) -> mic.ImageCollection:
         return self.image_provider.get_current_collection()
@@ -65,7 +67,7 @@ class CollectionController:
         print(changed_collection)
         self.fill_name_combobox()
         print("filled")
-        if (not changed_collection):
+        if not changed_collection:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Question)
             msg.setWindowTitle("Change current collection")
@@ -92,4 +94,4 @@ class CollectionController:
             picture = self.image_provider.change_current_image(idx)
             self.image_provider.set_image_to_display()
         else:
-            self.parent.image_preview_view.controller.set_new_image(img)
+            Controller().set_new_image(img)
