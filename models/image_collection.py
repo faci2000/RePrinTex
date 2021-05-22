@@ -5,6 +5,7 @@ import string
 from typing import List
 
 from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWidgets import QMessageBox, QListWidget, QListWidgetItem, QDialog
 
 from models.effects import Effects
 from models.image import Image
@@ -15,7 +16,7 @@ class ImageCollection:
         self.parent = parent
         self.name = name
 
-        self.detail_file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(20))
+        self.detail_file_name = ''.join(random.choice(string.ascii_lowercase) for _ in range(20))
         self.collection: List[Image] = []
         self.effects: Effects = Effects()
         self.lines_on_org = set()

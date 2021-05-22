@@ -18,10 +18,13 @@ class FileMenu:
         save_image.triggered.connect(lambda: self.controller.save_image)
 
         remove_image = QAction("&Remove image from collection", self.parent)
-        remove_image.triggered.connect(lambda: self.controller.remove_image)
+        remove_image.triggered.connect(lambda: self.controller.remove_image())
 
         remove_collection = QAction("&Remove collection", self.parent)
         remove_collection.triggered.connect(lambda: self.controller.remove_collection)
+
+        add_image = QAction("&Add image to collection", self.parent)
+        add_image.triggered.connect(lambda: self.controller.add_image)
 
         export_action = QAction("&Export", self.parent, shortcut="Ctrl+S")
         export_action.triggered.connect(lambda: self.controller.export_image)

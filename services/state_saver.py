@@ -1,6 +1,7 @@
 import json
 from typing import List
 
+from controllers.controller import Controller
 from models.image_collection import ImageCollection
 from services.images_provider import ImagesProvider
 

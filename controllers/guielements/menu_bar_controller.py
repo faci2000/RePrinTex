@@ -32,8 +32,12 @@ class MenuBarController:
         create_archive_dialog = ArchiveCreator(collection_view)
         create_archive_dialog.exec_()
 
-    def remove_image(self):
+    def add_image(self):
         pass
+
+    def remove_image(self):
+        print("AAAAAAAAAA")
+        Controller().show_remove()
 
     def remove_collection(self):
         pass

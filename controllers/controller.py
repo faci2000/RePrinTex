@@ -2,7 +2,7 @@ from threading import Lock
 from typing import Any
 
 from PyQt5.QtCore import QObject, pyqtSignal
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QDialog, QListWidget, QListWidgetItem
 
 
 class ControllerMeta(type):
@@ -34,6 +34,8 @@ class Controller(metaclass=ControllerMeta):
 
         self.communicator = Communicator()
         self.communicator.error.connect(self.show_error)
+
+        self.remove_list = None
 
     # Setup
     def set_image_preview_controller(self, controller):
@@ -95,7 +97,7 @@ class Controller(metaclass=ControllerMeta):
 
     # Collection Controller
     def get_collection(self):
-        self.collection_controller.get_collection()
+        return self.collection_controller.get_collection()
 
     def get_collections(self):
         return self.collection_controller.collections
@@ -114,3 +116,20 @@ class Controller(metaclass=ControllerMeta):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.setText(message)
         msg.exec_()
+
+    def show_remove(self):
+        dialog = QDialog()
+        dialog.setWindowTitle("Pick image to remove")
+        dialog.adjustSize()
+        # layout =
+        self.remove_list = QListWidget(dialog)
+        self.remove_list.currentTextChanged[str].connect(lambda: self.remove_image())
+        C = self.get_collection()
+        for image in C.collection:
+            self.remove_list.addItem(QListWidgetItem(image.name))
+        dialog.adjustSize()
+        dialog.exec_()
+
+    def remove_image(self):
+        idx = self.remove_list.currentIndex().row()
+        print(idx)
