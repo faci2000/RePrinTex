@@ -95,3 +95,4 @@ class CollectionController:
             self.image_provider.set_image_to_display()
         else:
             Controller().set_new_image(img)
+

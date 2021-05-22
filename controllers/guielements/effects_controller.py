@@ -1,5 +1,8 @@
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QPixmap, QCursor
+
+import cv2
+import os
 
 from controllers.controller import Controller
 from imgmaneng.img_cleaner import clean_page, increase_contrast
@@ -36,11 +39,32 @@ class EffectsController:
         straight = lines_streigtening(img)
         return straight
 
-    def apply(self):
-        pass
+    @multi_thread_runner
+    def apply(self, image=None, path=None):
+        if image is None:
+            image = ImagesProvider().create_new_reworked_image()
+        if path is None:
+            name = ImagesProvider().get_current_image_name()
+            directory = str(QtWidgets.QFileDialog.getExistingDirectory())
+            path = directory + "/" + name + "_converted.png"
+        cv2.imwrite(path, image)
 
+    @multi_thread_runner
     def apply_all(self):
-        pass
+        C = ImagesProvider().get_current_collection()
+        directory = str(QtWidgets.QFileDialog.getExistingDirectory())
+        new_dir = directory + "/" + C.name
+
+        try:
+            os.mkdir(new_dir)
+        except OSError:
+            Controller().communicator.error.emit("Cannot create a directory!")
+            return
+
+        for image in C.collection:
+            new_image = ImagesProvider().create_new_reworked_image(image)
+            path = new_dir + "/" + image.name + "_converted.png"
+            self.apply(new_image, path)
 
     def is_brush_active(self):
         return self.view.stains_button.isChecked()
@@ -49,8 +73,7 @@ class EffectsController:
         return self.view.stains_slider.value()
 
     @multi_thread_runner
-    def change_effects(self, effects_to_change):  # {effect_type:EffectType,type:Line,org:bool ,value:bool}
-        print("EFFECTS")
+    def change_effects(self, effects_to_change):  # {effect_type:EffectType,type:Line,org:bool, value:bool}
         effects = ImagesProvider().get_current_collection_effects()
         if effects_to_change['org']:
             if effects_to_change['type'] not in ImagesProvider().get_current_collection_org_lines():

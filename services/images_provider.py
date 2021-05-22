@@ -184,12 +184,15 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             self.set_org_image(img_with_drawings)
             return True
 
-    def create_new_reworked_image(self) -> np.ndarray:
+    def create_new_reworked_image(self, original_image=None) -> np.ndarray:
+        if original_image is None:
+            original_image = self.get_current_image()
+
         effects = self.get_current_collection().effects
         if effects.values[me.EffectType.STRAIGHTENED.value]:
-            img = lines_streigtening(self.get_current_image())
+            img = lines_streigtening(original_image)
         else:
-            img = cv2.imread(self.get_current_image().path)
+            img = cv2.imread(original_image.path)
         # cv2.imshow("read from path",img)
         if effects.values[me.EffectType.UPPER_SHIFT.value] and effects.values[me.EffectType.LOWER_SHIFT.value]:
             img = clean_page(img, effects.values[me.EffectType.UPPER_SHIFT.value],
@@ -238,3 +241,6 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         effects = self.get_current_collection().effects
         effects.reset()
         self.update_displayed_images(False)
+
+    def get_current_image_name(self):
+        return self.get_current_image().name

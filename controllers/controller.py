@@ -74,6 +74,12 @@ class Controller(metaclass=ControllerMeta):
     def change_cursor(self):
         self.effects_controller.change_cursor()
 
+    def apply(self):
+        self.effects_controller.apply()
+
+    def apply_to_all(self):
+        self.effects_controller.apply_to_all()
+
     # Image preview controller
     def set_new_image(self, img):
         self.image_preview_controller.set_new_image(img)
