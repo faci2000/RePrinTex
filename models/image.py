@@ -13,6 +13,6 @@ class Image:
         self.last_org_pixmap = pixmap
         self.last_mod_pixmap = None
         self.page_info: PageInfo = None
-        # self.modified_img = None
+        self.stains = []
         self.zoom = 1
         self.pixmap_position = (0, 0)

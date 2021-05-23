@@ -29,12 +29,12 @@ def read_saved_collection_data(path: str) -> ImageCollection:
         img_coll.detail_file_name = path.split('/')[-1][:-5]
         img_coll.effects.values = collection['effects']
         img_coll.effects.values[EffectType.LINES.value] = {}
-        img_coll.effects.values[EffectType.LINES.value] = []
+        img_coll.effects.values[EffectType.LINES.value] = {}
         # print(collection)
         for img in collection['images']:
             # print(img)
             img_coll.add_image(Image(1, path=img['path'], name=img['name']))
-
+            img_coll.collection[len(img_coll.collection) - 1].stains=img['stains']
             if 'page_info' in img:
                 img_coll.collection[len(img_coll.collection) - 1].page_info = PageInfo()
                 img_coll.collection[len(img_coll.collection) - 1].page_info.text_block = img['page_info']['text_block']
