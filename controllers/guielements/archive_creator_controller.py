@@ -46,6 +46,7 @@ class ArchiveCreatorController:
     def save_config(self):
         with open('config.json') as json_file:
             data = json.load(json_file)
+
         data['collections'] = []
         for key, value in self.collections.items():
             data['collections'].append({'path': key, 'name': value})

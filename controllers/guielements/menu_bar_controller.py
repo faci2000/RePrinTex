@@ -3,6 +3,7 @@ import os
 from PyQt5.QtWidgets import QFileDialog, QMainWindow
 
 from controllers.controller import Controller
+from services.state_saver import write_style_config
 from views.archive_creator import ArchiveCreator
 from views.guielements.menu.dialogs import Dialogs
 
@@ -62,18 +63,11 @@ class MenuBarController:
     def increase_contrast(self):
         self.dialogs.open_contrast()
 
-    def remove_stains(self):
-        self.dialogs.open_stains()
-
     def change_style(self, dark):
         if dark:
-            f = open("dark", "w+")
-            f.close()
-            self.parent.view_menu.dark.setChecked(True)
-            self.parent.view_menu.light.setChecked(False)
+            write_style_config("dark")
         else:
-            if os.path.isfile("dark"):
-                os.remove("dark")
+            write_style_config("light")
             self.parent.view_menu.light.setChecked(True)
             self.parent.view_menu.dark.setChecked(False)
         self.dialogs.open_style()

@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QAction, QToolBar, QToolButton, QMainWindow
 from controllers.controller import Controller
 from controllers.guielements.toolbar_controller import ToolBarController
 from services.images_provider import ImagesProvider
+from services.state_reader import read_style_config
 
 if os.path.isfile("dark"):
     DARK = True
@@ -95,7 +96,7 @@ def set_icon(path, object_, name):
     """ Adds icon or name to existing QAction or QToolButton """
 
     try:
-        if DARK:
+        if read_style_config() == "dark":
             new_path = path + "_light.png"
         else:
             new_path = path + "_dark.png"

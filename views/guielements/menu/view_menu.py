@@ -3,11 +3,9 @@ import os.path
 from PyQt5.QtWidgets import QMenu, QAction
 
 from controllers.guielements.menu_bar_controller import MenuBarController
+from services.state_reader import read_style_config
 
-if os.path.isfile("dark"):
-    DARK = True
-else:
-    DARK = False
+DARK = read_style_config() == "dark"
 
 
 class ViewMenu:

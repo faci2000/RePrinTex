@@ -1,5 +1,6 @@
 from typing import List
 import os
+import json
 
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
@@ -139,6 +140,14 @@ class CollectionController:
                     if os.path.exists(path):
                         os.remove(path)
                     break
+            with open('config.json') as json_file:
+                data = json.load(json_file)
+                for coll in data['collections']:
+                    if coll['name'] == name:
+                        data['collections'].remove(coll)
+                        break
+                with open('config.json', 'w') as outfile:
+                    json.dump(data, outfile)
         self.view.collections_list.removeItem(idx)
         self.view.files_list.clear()
 

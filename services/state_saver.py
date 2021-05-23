@@ -53,3 +53,11 @@ def save_view_config(image_provider: ImagesProvider):
     with open('./data/viewcfg.json', "w") as outfile:
         json.dump(view_data, outfile)
     # raise IOError
+
+
+def write_style_config(style):
+    with open('config.json') as json_file:
+        data = json.load(json_file)
+    data['style'] = style
+    with open('config.json', 'w') as outfile:
+        json.dump(data, outfile)

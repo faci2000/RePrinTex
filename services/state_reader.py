@@ -60,3 +60,9 @@ def read_view_config(image_provider: sip.ImagesProvider):
             image_provider.current_image_index = data['current_image_index']
     except FileNotFoundError:
         return
+
+
+def read_style_config():
+    with open('config.json') as json_file:
+        data = json.load(json_file)
+        return data["style"]
