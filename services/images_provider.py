@@ -167,7 +167,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                 key = effects.get_key(img)
                 print("SET KEY: ",key)
                 if key in effects.reworked_imgs:
-                    moded_img = effects.reworked_imgs[key]
+                    moded_img = effects.reworked_imgs[key].copy()
                     # cv2.imshow("read from history", moded_img)
                     # effects.history.append(key)
                     # self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
@@ -175,11 +175,14 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                 else:
                     moded_img = self.create_new_reworked_image()
                     # cv2.imshow("created new",moded_img)
+                    print("# MODED_IMG",id(moded_img))
                     effects.reworked_imgs[key] = moded_img.copy()
+                    print("# COPIED_IMG",id(effects.reworked_imgs[key]))
                 if changes:
                     effects.add_new_key_to_history(key)
                     effects.current_history_index += 1  # dodać przycinanie historii oraz obecny index
                 img_with_drawings = self.draw_lines(moded_img, effects.values[me.EffectType.LINES.value])
+                print("# IMG_WITH_DRAWINGS",id(img_with_drawings))
                 img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
                 self.set_mod_image(img_with_drawings)
                 return True

@@ -39,7 +39,7 @@ def draw_lines_and_boundaries(image: Image, img: np.ndarray, lines) -> numpy.nda
             cv2.line(img, (0, y), (W, y), (0, 0, 0), 1)
 
         for y in image.page_info.lines["lolowers"]:
-            cv2.line(img, (0, y), (W, y), (0, 250, 250), 1)
+            cv2.line(img, (0, y), (W, y), (250, 250, 0), 1)
 
     if Lines.MAIN_LINES.value in lines:
         print("main lines")
@@ -48,6 +48,6 @@ def draw_lines_and_boundaries(image: Image, img: np.ndarray, lines) -> numpy.nda
             cv2.line(img, (0, y), (W, y), (0, 0, 0), 3)
 
         for y in image.page_info.lines["lowers"]:
-            cv2.line(img, (0, y), (W, y), (0, 250, 250), 3)
+            cv2.line(img, (0, y), (W, y), (250, 250, 0), 3)
 
     return img  # QPixmap(QImage(img.data, img.shape[1], img.shape[0], img.shape[1] * 3, QImage.Format_RGB888))
