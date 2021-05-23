@@ -58,6 +58,7 @@ class ImagePreviewView:
 
     def create_area(self):
         area = QScrollArea(self.central_widget)
+        area.setMinimumWidth(310)
         area.setWidgetResizable(True)
         return area
 
