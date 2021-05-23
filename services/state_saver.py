@@ -7,10 +7,12 @@ from services.images_provider import ImagesProvider
 
 
 def save_collections(collections_list: List[ImageCollection]):
+    print("collections list:",collections_list,len(collections_list))
     saved_collections_paths = []
-    for collection in collections_list:
-        saved_collections_paths.append({'name': collection.name,
-                                        'path': save_collection(collection)})
+    if len(collections_list)>0:
+        for collection in collections_list:
+            saved_collections_paths.append({'name': collection.name,
+                                            'path': save_collection(collection)})
     with open('./data/coll.json', "w") as outfile:
         json.dump(saved_collections_paths, outfile)
     # raise IOError

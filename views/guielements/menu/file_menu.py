@@ -1,3 +1,5 @@
+from services.images_provider import ImagesProvider
+from services.state_saver import save_collection, save_collections, save_view_config
 from services.exporter import export_all, export_one
 from PyQt5.QtWidgets import QAction, QMenu
 
@@ -16,7 +18,8 @@ class FileMenu:
         open_action.triggered.connect(lambda: self.controller.load_files())
 
         save_image = QAction("&Save project", self.parent)
-        save_image.triggered.connect(lambda: self.controller.save_image)
+        save_image.triggered.connect(lambda: save_collections(ImagesProvider().collections))
+        save_image.triggered.connect(lambda: save_view_config(ImagesProvider()))
 
         remove_image = QAction("&Remove selected images", self.parent)
         remove_image.triggered.connect(lambda: self.controller.remove_images())
@@ -32,7 +35,7 @@ class FileMenu:
 
         export_all_action = QAction("&Export all", self.parent)
         export_all_action.triggered.connect(lambda: export_all())
-        
+
         export_menu = QMenu("&Export", self.parent)
         export_menu.addActions([export_action, export_all_action])
 
