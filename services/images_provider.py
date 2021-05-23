@@ -153,20 +153,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                   effects.values[me.EffectType.CONTRAST_INTENSITY.value],
                   effects.values[me.EffectType.STRAIGHTENED.value],
                   img.stains)# ,
-                  #effects.values[me.EffectType.CORRECTIONS.value])
-            # if len(effects.history) == 0 or effects.current_history_index == len(effects.history):
-            #     key = effects.get_key(img)
-            #     print("New changes -> generated new key")
-            # elif img.path == effects.history[effects.current_history_index - 1].split('|')[0]:
-            #     key = effects.history[effects.current_history_index - 1]
-            #     print("Same changes -> get key from history")
-            # else:
-            #     key = effects.get_key(img)
-            #     print("Same changes -> generated new key")
-            # if changes:
-            #     key = effects.get_key(img)
-            # else:
-            #     key = effects.history[effects.current_history_index - 1]
+
             key = effects.get_key(img)
             print("SET KEY: ",key)
             if key in effects.reworked_imgs:
@@ -252,6 +239,22 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         effects = self.get_current_collection().effects
         effects.reset(self.get_current_image())
         self.update_displayed_images(False,False)
+
+    def change_image_to_next(self):
+        index = self.image_selector.view.files_list.currentIndex().row()
+        size = self.image_selector.view.files_list.count()
+        print("Image change next: ",index,size,(index+1)%size)
+        self.image_selector.view.files_list.setCurrentRow((index+1)%size)
+        self.change_current_image((index+1)%size)
+        self.set_image_to_display()
+
+    def change_image_to_prev(self):
+        index = self.image_selector.view.files_list.currentIndex().row()
+        size = self.image_selector.view.files_list.count()
+        print("Image change prev: ",index,size,(index-1)%size)
+        self.image_selector.view.files_list.setCurrentRow((index-1)%size)
+        self.change_current_image((index-1)%size)
+        self.set_image_to_display()
 
     def get_current_image_name(self):
         return self.get_current_image().name

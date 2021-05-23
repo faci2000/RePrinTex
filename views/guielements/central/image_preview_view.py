@@ -1,3 +1,4 @@
+import services.images_provider as sip
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QScrollArea, QLabel, QVBoxLayout, QWidget, QSplitter, QPushButton, QHBoxLayout, QSizePolicy
@@ -44,11 +45,11 @@ class ImagePreviewView:
 
         next_button = QPushButton()
         next_button.setText("Next image")
-        # next_button.clicked.connect()
+        next_button.clicked.connect(lambda: sip.ImagesProvider().change_image_to_next())
 
         prev_button = QPushButton()
         prev_button.setText("Previous image")
-        # prev_button.clicked.connect()
+        prev_button.clicked.connect(lambda: sip.ImagesProvider().change_image_to_prev())
 
         button_layout.addWidget(prev_button)
         button_layout.addWidget(next_button)

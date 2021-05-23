@@ -2,6 +2,4 @@
 **/reprintex-env/*
 .vscode
 .idea/*
-data/viewcfg.json
-data/coll.json
-data/colldet/*
+*.json
