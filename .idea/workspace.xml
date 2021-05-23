@@ -2,18 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes">
+      <change afterPath="$PROJECT_DIR$/data/testData/test2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/testData/test3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/testData/test4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/testData/test5.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiled/dark.qss" beforeDir="false" afterPath="$PROJECT_DIR$/compiled/dark.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiled/light.qss" beforeDir="false" afterPath="$PROJECT_DIR$/compiled/light.qss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/toolbar_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/coll.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/colldet/hhilzfuzgoxtbqocotjq.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/viewcfg.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/effects.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/effects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/images_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/images_provider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/toolbar/toolbar.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/toolbar/toolbar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/testData/test1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/exporter.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/exporter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/docks/effects_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/guielements/menu/file_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/menu/file_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,15 +50,15 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/cursors" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\cursors" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\icons" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\cursor" />
-      <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data\cursors" />
       <recent name="C:\Users\Alicja\Documents\GitHub\RePrinTex\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -179,7 +179,7 @@
       <workItem from="1621595936886" duration="12000" />
       <workItem from="1621596996659" duration="137000" />
       <workItem from="1621597501756" duration="14000" />
-      <workItem from="1621678928733" duration="33245000" />
+      <workItem from="1621678928733" duration="39333000" />
     </task>
     <task id="LOCAL-00001" summary="effects and fixes">
       <created>1619124514533</created>
@@ -211,7 +211,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="effects and fixes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1621781148048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1621791549741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RePrinTex$Worker.coverage" NAME="Worker Coverage Results" MODIFIED="1620374187431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
     <SUITE FILE_PATH="coverage/RePrinTex$Dec.coverage" NAME="Dec Coverage Results" MODIFIED="1620375755689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
   </component>
