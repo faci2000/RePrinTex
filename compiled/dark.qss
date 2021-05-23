@@ -71,7 +71,9 @@ QDateTimeEdit > QAbstractItemView,
 QToolBox {
   background-color: #242629;
   border: 1px solid rgba(133, 139, 148, 0.4); }
-  QToolButton:disabled,
+  QToolButton:disabled{
+background-color: #cecece;
+}
   QLineEdit:disabled,
   QTextEdit:disabled,
   QPlainTextEdit:disabled,
@@ -674,12 +676,10 @@ QMenu::indicator:exclusive {
 QDialogButtonBox QPushButton {
   min-width: 70px;
 }
-
 QDialog QToolButton {
     border: 1px solid rgba(183, 189, 188, 0.4);
     min-width: 70px;
 }
-
 QDialog QLineEdit {
     border: 1px solid rgba(183, 189, 188, 0.4);
 }

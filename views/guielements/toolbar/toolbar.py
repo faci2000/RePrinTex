@@ -29,16 +29,20 @@ class ToolBar:
 
     def __init__(self, parent):
         self.parent: QMainWindow = parent
-        self.controller: ToolBarController = ToolBarController(parent)
+        self.controller: ToolBarController = ToolBarController(parent, self)
         self.toolbar: QToolBar = QToolBar("Tools", self.parent)
 
+        self.undo_button = self.get_undo()
+        self.redo_button = self.get_redo()
+
+        self._add_buttons()
+        self.toolbar.addAction(self._helper())
+
+    def _add_buttons(self):
         self.toolbar.addWidget(self._zoom_in())
         self.toolbar.addWidget(self._zoom_out())
-        self.toolbar.addActions(self._get_actions())
-
-    def _get_actions(self):
-        actions = [self._undo(), self._redo(), self._helper()]
-        return actions
+        self.toolbar.addWidget(self.undo_button)
+        self.toolbar.addWidget(self.redo_button)
 
     def _helper(self):
         help_ = QAction("&Help", self.parent)
@@ -47,21 +51,23 @@ class ToolBar:
         help_.triggered.connect(lambda: self.controller.helper())
         return help_
 
-    def _undo(self):
-        undo = QAction("&Undo", self.parent)
-        set_icon("data/icons/undo", undo, "Undo")
-        undo.setShortcut('Ctrl+z')
-        undo.setStatusTip("Erases the last change done")
-        undo.triggered.connect(lambda: ImagesProvider().undo())
-        return undo
+    def get_undo(self):
+        undo_button = QToolButton(self.parent)
+        set_icon("data/icons/undo", undo_button, "Undo")
+        undo_button.setShortcut('Ctrl+z')
+        undo_button.setStatusTip("Erases the last change done")
+        undo_button.clicked.connect(lambda: ImagesProvider().undo())
+        undo_button.setEnabled(False)
+        return undo_button
 
-    def _redo(self):
-        redo = QAction("&Redo", self.parent)
-        set_icon("data/icons/redo", redo, "Redo")
-        redo.setShortcut('Ctrl+x')
-        redo.setStatusTip("Restores the change that was previously undone")
-        redo.triggered.connect(lambda: ImagesProvider().redo())
-        return redo
+    def get_redo(self):
+        redo_button = QToolButton(self.parent)
+        set_icon("data/icons/redo", redo_button, "Redo")
+        redo_button.setShortcut('Ctrl+x')
+        redo_button.setStatusTip("Restores the change that was previously undone")
+        redo_button.clicked.connect(lambda: ImagesProvider().redo())
+        redo_button.setEnabled(False)
+        return redo_button
 
     def _zoom_in(self):
         zoom_in = QToolButton(self.parent)
