@@ -20,8 +20,9 @@ class ToolBarController:
                 out_timer:  QTimer
         """
 
-    def __init__(self, parent) -> None:
+    def __init__(self, parent, view) -> None:
         self.parent: QMainWindow = parent
+        self.view = view
         Controller().set_toolbar_controller(self)
 
         self.in_timer = QTimer()

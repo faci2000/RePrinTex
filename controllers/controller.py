@@ -114,6 +114,23 @@ class Controller(metaclass=ControllerMeta):
     def remove_collection(self):
         self.collection_controller.remove_collection()
 
+    # Toolbar controller
+    def change_undo_button(self, enabled=True):
+        self.toolbar_controller.view.undo_button.setEnabled(enabled)
+
+    def change_redo_button(self, enabled=True):
+        self.toolbar_controller.view.redo_button.setEnabled(enabled)
+
+    def update_redo_undo(self, effects):
+        if effects.current_history_index == 0:
+            self.change_undo_button(False)
+        else:
+            self.change_undo_button(True)
+        if effects.current_history_index < len(effects.history) - 1:
+            self.change_redo_button(True)
+        else:
+            self.change_redo_button(False)
+
     # Errors | Messages
     def show_error(self, message: str):
         msg = QMessageBox()

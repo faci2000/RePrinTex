@@ -71,7 +71,9 @@ QDateTimeEdit > QAbstractItemView,
 QToolBox {
   background-color: #ffffff;
   border: 1px solid #b3b3b3; }
-  QToolButton:disabled,
+    QToolButton:disabled{
+background-color: #cecece;
+}
   QLineEdit:disabled,
   QTextEdit:disabled,
   QPlainTextEdit:disabled,

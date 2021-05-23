@@ -78,7 +78,7 @@ class Effects:
         else:
             raise IndexError
 
-    def redo(self,img:Image):
+    def redo(self, img: Image):
         if self.current_history_index < len(self.history):
             self.current_history_index += 1
             self.parse_effects_values(self.history[self.current_history_index-1],img)
@@ -91,7 +91,7 @@ class Effects:
                 self.history.pop(len(self.history) - 1)
         self.history.append(key)
 
-    def reset(self,img:Image) -> np.ndarray:
+    def reset(self, img: Image) -> np.ndarray:
         zero_key = self.history[0]
         self.add_new_key_to_history(zero_key)
         self.parse_effects_values(zero_key,img)

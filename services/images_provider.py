@@ -8,6 +8,7 @@ from PyQt5.QtGui import QPixmap
 
 import models.effects as me
 import models.image_collection as mic
+from controllers.controller import Controller
 from controllers.guielements.image_preview_controller import ImagePreviewController
 from imgmaneng.img_cleaner import clean_page, increase_contrast, remove_stains
 from imgmaneng.img_converter import convert_cv2Image_to_QPixmap
@@ -105,6 +106,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                     if self.collections[i].name == new_collection_text:
                         self.current_collection_index = i
                         break
+            Controller().update_redo_undo(self.get_current_collection_effects())
             return self.get_current_collection()
         except:
             print("Index out of bounds.")
@@ -140,8 +142,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         print("set pixmap mod")
         self.get_current_image().last_mod_pixmap = convert_cv2Image_to_QPixmap(image)
         self.image_view.set_new_image()
-        self.update_displayed_images(True,True)
-        self.update_displayed_images(False,True)
+        self.update_displayed_images(True, True)
+        self.update_displayed_images(False, True)
 
     def update_displayed_images(self, update_org_image: bool,changes:bool):
         img = self.get_current_image()
@@ -212,6 +214,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         self.image_view.set_new_org_image(pixmap)
 
     def set_mod_image(self, image: np.ndarray):
+        Controller().update_redo_undo(self.get_current_collection_effects())
+
         pixmap = convert_cv2Image_to_QPixmap(image)
         # self.image_view.view.set_right_image(pixmap)
         self.image_view.set_new_modified_image(pixmap)
@@ -224,21 +228,22 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
 
     def undo(self):
         effects = self.get_current_collection().effects
-        print("1:",effects.current_history_index)
         effects.undo(self.get_current_image())
-        print("2:",effects.current_history_index)
-        self.update_displayed_images(False,False)
-        print("3:",effects.current_history_index)
+        self.update_displayed_images(False, False)
+        Controller().change_redo_button(enabled=True)
 
     def redo(self):
         effects = self.get_current_collection().effects
         effects.redo(self.get_current_image())
-        self.update_displayed_images(False,False)
+        self.update_displayed_images(False, False)
+        Controller().change_undo_button(enabled=True)
 
     def reset(self):
         effects = self.get_current_collection().effects
         effects.reset(self.get_current_image())
-        self.update_displayed_images(False,False)
+        self.update_displayed_images(False, False)
+        Controller().change_undo_button(enabled=True)
+        Controller().change_redo_button(enabled=True)
 
     def change_image_to_next(self):
         index = self.image_selector.view.files_list.currentIndex().row()
