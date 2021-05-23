@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QAction, QMenu
 from controllers.controller import Controller
 from controllers.guielements.menu_bar_controller import MenuBarController
 from services.images_provider import ImagesProvider
+import services.exporter as se
 
 
 class EditMenu:
@@ -23,7 +24,7 @@ class EditMenu:
         apply.triggered.connect(lambda: Controller().apply())
 
         apply_to_all = QAction("&Apply to all", self.parent)
-        apply_to_all.triggered.connect(lambda: Controller().apply_to_all())
+        apply_to_all.triggered.connect(lambda: se.apply_to_all())
 
         reset = QAction("&Reset", self.parent)
         reset.triggered.connect(lambda: ImagesProvider().reset())

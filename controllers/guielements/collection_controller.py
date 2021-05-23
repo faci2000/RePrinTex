@@ -47,6 +47,10 @@ class CollectionController:
         self.fill_collection_list_view(coll)
         if len(coll.collection) > 0:
             self.image_provider.change_current_image(0)
+            self.image_provider.set_image_to_display()
+        else:
+            self.image_provider.image_view.view.label_modified.clear()
+            self.image_provider.image_view.view.label_original.clear()
 
     def fill_collection_list_view(self, collection: mic.ImageCollection):
         self.view.clear()
@@ -140,5 +144,10 @@ class CollectionController:
                 with open('config.json', 'w') as outfile:
                     json.dump(data, outfile)
         self.view.collections_list.removeItem(idx)
-        self.view.files_list.clear()
+        if len(self.image_provider.collections)>0:
+            self.change_collection(self.view.collections_list.currentText())
+        else:
+            self.image_provider.image_view.view.label_modified.clear()
+            self.image_provider.image_view.view.label_original.clear()
+            self.view.collections_list.clear()
 

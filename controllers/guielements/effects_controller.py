@@ -69,6 +69,9 @@ class EffectsController:
                     effects.values[eff['type'].value] = eff['value']
         ImagesProvider().update_displayed_images(effects_to_change['org'],True)
 
+    def apply(self):
+        ImagesProvider().update_displayed_images(True,True)
+
     def change_cursor(self):
         if self.is_brush_active():
             pixmap = QPixmap("data/cursors/circle.png")
