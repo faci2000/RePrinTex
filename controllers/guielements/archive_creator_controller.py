@@ -34,11 +34,14 @@ class ArchiveCreatorController:
                 json.dump(data, outfile)
 
     def set_name(self, value, name_box: QtWidgets.QLineEdit):
-        print(value)
+        # print(value)
         if value != "" and value is not None and value in self.collections:
             name_box.setText(self.collections[value])
-        elif name_box.text() != "" and value != "":
-            self.collections[value] = name_box.text()
+        # elif name_box.text() != "" and value != "":
+        #     self.collections[value] = name_box.text()
+
+    def save_name(self, value, name_box: QtWidgets.QLineEdit):
+        self.collections[value] = name_box.text()
 
     def save_config(self):
         with open('config.json') as json_file:
