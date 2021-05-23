@@ -105,8 +105,8 @@ class Controller(metaclass=ControllerMeta):
     def add_collection(self, path, name):
         self.collection_controller.add_collection(path, name)
 
-    def create_collection(self, file_paths):
-        self.collection_controller.create_collection(file_paths)
+    def add_image(self, file_paths):
+        self.collection_controller.add_images(file_paths)
 
     def remove_images(self):
         self.collection_controller.remove_images()

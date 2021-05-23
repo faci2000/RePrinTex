@@ -26,21 +26,12 @@ class CollectionController:
     def get_collection(self) -> mic.ImageCollection:
         return self.image_provider.get_current_collection()
 
-    def create_collection(self, file_paths):
-        self.view.clear()
-        self.collection.clear()
-
-        for idx, path in enumerate(file_paths):
-            name = path.split('/')[-1]
-            image = QImage(path)
-            if image.isNull():
-                QMessageBox.information(self.parent, "Error", "Cannot load file {}.".format(name))
-                return
-            pixmap = QPixmap(image)
-            image = Image(idx, path, name, pixmap)
-
-            self.collection.add_image(image)
-            self.view.add_image_icon(pixmap, name)
+    def add_images(self, file_path):
+        collection = self.image_provider.get_current_collection()
+        print(file_path)
+        new_img = Image(len(collection.collection),file_path,file_path.split('/')[-1].split('.')[0],QPixmap(QImage(file_path)))
+        collection.add_image(new_img)
+        self.view.add_image_icon(new_img.last_org_pixmap , new_img.name)
 
     def change_collection(self, index: int = None, text: str = None):
 
