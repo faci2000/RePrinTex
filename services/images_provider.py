@@ -151,6 +151,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
             print(effects.values[me.EffectType.LINES.value], effects.values[me.EffectType.LOWER_SHIFT.value],
                   effects.values[me.EffectType.UPPER_SHIFT.value],
                   effects.values[me.EffectType.CONTRAST_INTENSITY.value],
+                  effects.values[me.EffectType.STRAIGHTENED.value],
                   effects.values[me.EffectType.CORRECTIONS.value])
             if len(effects.history) == 0 or effects.current_history_index == len(effects.history):
                 key = effects.get_key(img.path)
