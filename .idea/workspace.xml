@@ -2,26 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes">
+      <change afterPath="$PROJECT_DIR$/data/colldet/hhilzfuzgoxtbqocotjq.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiled/dark.qss" beforeDir="false" afterPath="$PROJECT_DIR$/compiled/dark.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiled/light.qss" beforeDir="false" afterPath="$PROJECT_DIR$/compiled/light.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiled/qstylish_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/compiled/qstylish_rc.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/menu_bar_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/converted.png" beforeDir="false" afterPath="$PROJECT_DIR$/converted.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dark" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/coll.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/colldet/wjxgttwazcvbisfqkopi.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/viewcfg.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qstylish.py" beforeDir="false" afterPath="$PROJECT_DIR$/qstylish.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/converted.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/coll.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/coll.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/effects.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/effects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/images_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/images_provider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/central/image_preview_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/central/image_preview_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/docks/collection_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/docks/collection_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/menu/dialogs.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/menu/dialogs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/guielements/menu/file_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/guielements/menu/file_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/state_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/state_reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/state_saver.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/state_saver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +178,7 @@
       <workItem from="1621595936886" duration="12000" />
       <workItem from="1621596996659" duration="137000" />
       <workItem from="1621597501756" duration="14000" />
-      <workItem from="1621678928733" duration="21463000" />
+      <workItem from="1621678928733" duration="27622000" />
     </task>
     <task id="LOCAL-00001" summary="effects and fixes">
       <created>1619124514533</created>
@@ -218,7 +210,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="effects and fixes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1621767892848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/RePrinTex$RePrinTexApp.coverage" NAME="RePrinTexApp Coverage Results" MODIFIED="1621773882551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RePrinTex$Worker.coverage" NAME="Worker Coverage Results" MODIFIED="1620374187431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
     <SUITE FILE_PATH="coverage/RePrinTex$Dec.coverage" NAME="Dec Coverage Results" MODIFIED="1620375755689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/threads" />
   </component>

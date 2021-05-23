@@ -10,6 +10,8 @@ class ArchiveCreator(QDialog):
         super(QDialog, self).__init__()
         self.controller = ArchiveCreatorController(self, collection_view)
 
+        self.setWindowTitle("Create collection")
+        self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowCloseButtonHint)
         layout = QBoxLayout(QBoxLayout.TopToBottom, self)
 
         name_label = QtWidgets.QLabel()

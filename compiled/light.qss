@@ -678,3 +678,8 @@ QDialogButtonBox QPushButton {
 QDialog QLineEdit {
     border: 1px solid rgba(183, 189, 188, 0.4);
 }
+
+QDialog QToolButton {
+    border: 1px solid rgba(90, 90, 90, 0.4);
+    min-width: 70px;
+}

@@ -33,7 +33,7 @@ class EffectsView:
                                                     'values': [{'type': EffectType.STRAIGHTENED, 'value': False}]}))
 
         self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
-        self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_all())
+        self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_to_all())
         self.reset_button = self.create_button("Reset", lambda: ImagesProvider().reset())
 
         self.apply_button.clicked.connect(

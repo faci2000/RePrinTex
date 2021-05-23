@@ -8,7 +8,7 @@ from controllers.controller import Controller
 from imgmaneng.img_cleaner import clean_page, increase_contrast
 from imgmaneng.lines_streightening import lines_streigtening
 from models.effects import EffectType
-from services.images_provider import ImagesProvider
+from services.images_provider import ImagesProvider, EmptyCollectionsListException
 from threads.worker_decorator import multi_thread_runner
 
 
@@ -50,13 +50,17 @@ class EffectsController:
         cv2.imwrite(path, image)
 
     @multi_thread_runner
-    def apply_all(self):
-        C = ImagesProvider().get_current_collection()
-        directory = str(QtWidgets.QFileDialog.getExistingDirectory())
-        new_dir = directory + "/" + C.name
-
+    def apply_to_all(self):
         try:
+            C = ImagesProvider().get_current_collection()
+            directory = str(QtWidgets.QFileDialog.getExistingDirectory())
+            new_dir = directory + "/" + C.name
             os.mkdir(new_dir)
+
+        except EmptyCollectionsListException as e:
+            Controller().communicator.error.emit(str(e))
+            return
+
         except OSError:
             Controller().communicator.error.emit("Cannot create a directory!")
             return

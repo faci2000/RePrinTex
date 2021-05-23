@@ -1,4 +1,5 @@
 from typing import List
+import os
 
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox
@@ -7,7 +8,8 @@ import models.image_collection as mic
 import views.guielements.docks.collection_view as vgdcv
 from controllers.controller import Controller
 from models.image import Image
-from services.images_provider import ImagesProvider
+from services.images_provider import ImagesProvider, EmptyCollectionsListException
+from services.state_reader import read_saved_collections, read_collections_json
 
 
 class CollectionController:
@@ -41,11 +43,14 @@ class CollectionController:
             self.view.add_image_icon(pixmap, name)
 
     def change_collection(self, index: int = None, text: str = None):
+
         print(index, text)
         if index:
             coll = self.image_provider.change_current_collection(new_collection_index=index)
-        else:
+        elif text:
             coll = self.image_provider.change_current_collection(new_collection_text=text)
+        else:
+            return
         self.view.collections_list.setCurrentText(coll.name)
         self.fill_collection_list_view(coll)
         if len(coll.collection) > 0:
@@ -61,6 +66,7 @@ class CollectionController:
                 return
             pixmap = QPixmap(image)
             self.view.add_image_icon(pixmap, img.name)
+        self.active_collection = collection
 
     def add_collection(self, path: str, name: str):
         new_col = mic.ImageCollection(parent=self.parent, path=path, name=name)
@@ -98,11 +104,41 @@ class CollectionController:
             Controller().set_new_image(img)
 
     def remove_images(self):
-        to_remove = self.view.files_list.selectedItems()
-        coll = ImagesProvider().get_current_collection()
+        try:
+            to_remove = self.view.files_list.selectedItems()
+            if len(to_remove) == 0:
+                raise Exception("No images selected!")
 
-        for item in to_remove:
-            idx = self.view.files_list.indexFromItem(item).row()
-            del coll.collection[idx]
-            self.view.files_list.takeItem(idx)
-        self.view.files_list.update()
+            coll = ImagesProvider().get_current_collection()
+
+            for item in to_remove:
+                idx = self.view.files_list.indexFromItem(item).row()
+                del coll.collection[idx]
+                self.view.files_list.takeItem(idx)
+            self.view.files_list.update()
+
+        except (Exception, EmptyCollectionsListException) as e:
+            Controller().communicator.error.emit(str(e))
+            return
+
+    def remove_collection(self):
+        idx = self.view.collections_list.currentIndex()
+        coll_json = read_collections_json()
+
+        if self.active_collection:
+            name = self.active_collection.name
+            for coll in ImagesProvider().collections:
+                if name == coll.name:
+                    ImagesProvider().collections.remove(coll)
+                    ImagesProvider().current_collection_index = None
+                    self.active_collection = None
+                    break
+            for coll in coll_json:
+                if coll["name"] == name:
+                    path = "./data/colldet/" + coll["path"]
+                    if os.path.exists(path):
+                        os.remove(path)
+                    break
+        self.view.collections_list.removeItem(idx)
+        self.view.files_list.clear()
+
