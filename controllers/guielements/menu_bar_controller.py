@@ -39,7 +39,7 @@ class MenuBarController:
         Controller().remove_images()
 
     def remove_collection(self):
-        pass
+        Controller().remove_collection()
 
     def save_image(self):
         pass

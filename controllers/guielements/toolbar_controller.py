@@ -72,12 +72,12 @@ class ToolBarController:
 
     def zoom_pressed(self, zoom_in):
         if zoom_in:
-            self.in_timer.start(50)
+            self.in_timer.start(30)
         else:
-            self.out_timer.start(50)
+            self.out_timer.start(30)
 
     def zoom_released(self, zoom_in):
         if zoom_in:
-            self.in_timer.stop()
+            self.in_timer.stop(30)
         else:
-            self.out_timer.stop()
+            self.out_timer.stop(30)

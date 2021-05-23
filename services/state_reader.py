@@ -8,14 +8,22 @@ from models.image_collection import ImageCollection
 from models.page_info import PageInfo
 
 
-def read_saved_collections() -> List[ImageCollection]:
+def read_collections_json():
     try:
         with open('./data/coll.json', 'r') as json_data:
             collections = json.load(json_data)
-            img_collections: List[ImageCollection] = []
-            for coll in collections:
-                img_collections.append(read_saved_collection_data(coll["path"]))
-            return img_collections
+            return collections
+    except FileNotFoundError:
+        return []
+
+
+def read_saved_collections() -> List[ImageCollection]:
+    try:
+        collections = read_collections_json()
+        img_collections: List[ImageCollection] = []
+        for coll in collections:
+            img_collections.append(read_saved_collection_data(coll["path"]))
+        return img_collections
     except FileNotFoundError:
         return []
 

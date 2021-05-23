@@ -108,6 +108,12 @@ class Controller(metaclass=ControllerMeta):
     def create_collection(self, file_paths):
         self.collection_controller.create_collection(file_paths)
 
+    def remove_images(self):
+        self.collection_controller.remove_images()
+
+    def remove_collection(self):
+        self.collection_controller.remove_collection()
+
     # Errors | Messages
     def show_error(self, message: str):
         msg = QMessageBox()
@@ -117,5 +123,4 @@ class Controller(metaclass=ControllerMeta):
         msg.setText(message)
         msg.exec_()
 
-    def remove_images(self):
-        self.collection_controller.remove_images()
+

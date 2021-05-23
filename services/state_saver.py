@@ -6,7 +6,7 @@ from models.image_collection import ImageCollection
 from services.images_provider import ImagesProvider
 
 
-def save_collections(collections_list: List[ImageCollection]) -> bool:
+def save_collections(collections_list: List[ImageCollection]):
     saved_collections_paths = []
     for collection in collections_list:
         saved_collections_paths.append({'name': collection.name,

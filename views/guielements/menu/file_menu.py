@@ -20,8 +20,8 @@ class FileMenu:
         remove_image = QAction("&Remove selected images", self.parent)
         remove_image.triggered.connect(lambda: self.controller.remove_images())
 
-        remove_collection = QAction("&Remove collection", self.parent)
-        remove_collection.triggered.connect(lambda: self.controller.remove_collection)
+        remove_collection = QAction("&Remove current collection", self.parent)
+        remove_collection.triggered.connect(lambda: self.controller.remove_collection())
 
         add_image = QAction("&Add image to collection", self.parent)
         add_image.triggered.connect(lambda: self.controller.add_image)
