@@ -4,4 +4,4 @@
 .idea/*
 *.json
 tmp/*
-config.json
+./config.json

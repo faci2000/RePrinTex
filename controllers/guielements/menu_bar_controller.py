@@ -25,9 +25,9 @@ class MenuBarController:
         Controller().set_menubar_controller(self)
 
     def load_files(self):
-        file_paths, _ = QFileDialog.getOpenFileNames(self.parent)
+        file_paths, _ = QFileDialog.getOpenFileName(self.parent)
         if file_paths:
-            Controller().create_collection(file_paths)
+            Controller().add_image(file_paths)
 
     def create_archive(self, collection_view):
         create_archive_dialog = ArchiveCreator(collection_view)

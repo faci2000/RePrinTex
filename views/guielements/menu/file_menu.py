@@ -9,10 +9,10 @@ class FileMenu:
         self.controller = MenuBarController(parent)
         self.parent = parent
 
-        create_archive = QAction("&Create new image archive", self.parent)
+        create_archive = QAction("&Create new image collection", self.parent)
         create_archive.triggered.connect(lambda: self.controller.create_archive(collection_view))
 
-        open_action = QAction("&Open new image", self.parent, shortcut="Ctrl+O")
+        open_action = QAction("&Add image to current collection", self.parent, shortcut="Ctrl+O")
         open_action.triggered.connect(lambda: self.controller.load_files())
 
         save_image = QAction("&Save project", self.parent)
@@ -32,13 +32,7 @@ class FileMenu:
 
         export_all_action = QAction("&Export all", self.parent)
         export_all_action.triggered.connect(lambda: export_all())
-
-        # export_as_action = QAction("&Export as", self.parent, triggered=self.controller.export_image_as)
-        # export_as_action.triggered.connect(lambda: self.controller.export_all_images)
-
-        # export_all_as_action = QAction("&Export all as", self.parent)
-        # export_all_as_action.triggered.connect(lambda: self.controller.export_all_as)
-
+        
         export_menu = QMenu("&Export", self.parent)
         export_menu.addActions([export_action, export_all_action])
 
