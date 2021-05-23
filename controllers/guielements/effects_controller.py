@@ -76,8 +76,9 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
-    @multi_thread_runner
+    #@multi_thread_runner
     def change_effects(self, effects_to_change):  # {effect_type:EffectType,type:Line,org:bool, value:bool}
+        print("(Effects)-> ",effects_to_change)
         effects = ImagesProvider().get_current_collection_effects()
         if effects_to_change['org']:
             if effects_to_change['type'] not in ImagesProvider().get_current_collection_org_lines():
@@ -86,6 +87,7 @@ class EffectsController:
                 ImagesProvider().get_current_collection_org_lines().remove(effects_to_change['type'])
         elif effects_to_change['effect_type'] == EffectType.LINES:
             if effects_to_change['type'] not in effects.values[EffectType.LINES.value]:
+                print(effects.values[EffectType.LINES.value])
                 effects.values[EffectType.LINES.value][effects_to_change['type']] = True
             else:
                 effects.values[EffectType.LINES.value].pop(effects_to_change['type'])
@@ -93,10 +95,10 @@ class EffectsController:
         else:
             for eff in effects_to_change['values']:
                 if eff['type'] == EffectType.CORRECTIONS:
-                    effects.values[eff['type'].value].append(eff['value'])
+                    ImagesProvider().get_current_image().stains.append(eff['value'])
                 else:
                     effects.values[eff['type'].value] = eff['value']
-        ImagesProvider().update_displayed_images(effects_to_change['org'])
+        ImagesProvider().update_displayed_images(effects_to_change['org'],True)
 
     def change_cursor(self):
         if self.is_brush_active():
