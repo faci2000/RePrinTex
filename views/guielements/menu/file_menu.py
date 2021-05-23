@@ -1,3 +1,4 @@
+from services.exporter import export_all, export_one
 from PyQt5.QtWidgets import QAction, QMenu
 
 from controllers.guielements.menu_bar_controller import MenuBarController
@@ -27,19 +28,19 @@ class FileMenu:
         add_image.triggered.connect(lambda: self.controller.add_image)
 
         export_action = QAction("&Export", self.parent, shortcut="Ctrl+S")
-        export_action.triggered.connect(lambda: self.controller.export_image)
+        export_action.triggered.connect(lambda: export_one())
 
         export_all_action = QAction("&Export all", self.parent)
-        export_all_action.triggered.connect(lambda: self.controller.export_all_images)
+        export_all_action.triggered.connect(lambda: export_all())
 
-        export_as_action = QAction("&Export as", self.parent, triggered=self.controller.export_image_as)
-        export_as_action.triggered.connect(lambda: self.controller.export_all_images)
+        # export_as_action = QAction("&Export as", self.parent, triggered=self.controller.export_image_as)
+        # export_as_action.triggered.connect(lambda: self.controller.export_all_images)
 
-        export_all_as_action = QAction("&Export all as", self.parent)
-        export_all_as_action.triggered.connect(lambda: self.controller.export_all_as)
+        # export_all_as_action = QAction("&Export all as", self.parent)
+        # export_all_as_action.triggered.connect(lambda: self.controller.export_all_as)
 
         export_menu = QMenu("&Export", self.parent)
-        export_menu.addActions([export_action, export_as_action, export_all_action, export_all_as_action])
+        export_menu.addActions([export_action, export_all_action])
 
         self.file_menu = QMenu("&File", self.parent)
         self.file_menu.addActions([create_archive, open_action, remove_image, remove_collection, save_image])

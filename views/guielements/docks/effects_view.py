@@ -1,3 +1,4 @@
+from services.exporter import apply_to_all
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QCheckBox, QDockWidget, QHBoxLayout, QVBoxLayout, QSlider, QLabel, QWidget, QPushButton, \
     QRadioButton
@@ -32,8 +33,8 @@ class EffectsView:
                                                     'org': False,
                                                     'values': [{'type': EffectType.STRAIGHTENED, 'value': False}]}))
 
-        self.apply_button = self.create_button("Apply", lambda: self.controller.apply())
-        self.apply_all_button = self.create_button("Apply to all", lambda: self.controller.apply_to_all())
+        self.apply_button = self.create_button("Apply")
+        self.apply_all_button = self.create_button("Apply to all", lambda: apply_to_all())
         self.reset_button = self.create_button("Reset", lambda: ImagesProvider().reset())
 
         self.apply_button.clicked.connect(

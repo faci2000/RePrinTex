@@ -3,3 +3,5 @@
 .vscode
 .idea/*
 *.json
+tmp/*
+config.json
