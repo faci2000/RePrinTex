@@ -95,6 +95,9 @@ class ImagePreviewController:
             self.view.set_right_image(
                 self.image_provider.get_current_pixmap(False).scaled(size, transformMode=Qt.SmoothTransformation))
 
+        if Controller().is_brush_active():
+            Controller().change_cursor()
+
     def zoom_in(self):
         self.zoom(0.07)
 
