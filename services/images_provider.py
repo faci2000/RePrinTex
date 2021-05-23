@@ -140,32 +140,38 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         print("set pixmap mod")
         self.get_current_image().last_mod_pixmap = convert_cv2Image_to_QPixmap(image)
         self.image_view.set_new_image()
-        self.update_displayed_images(True)
-        self.update_displayed_images(False)
+        self.update_displayed_images(True,True)
+        self.update_displayed_images(False,True)
 
-    def update_displayed_images(self, update_org_image: bool):
+    def update_displayed_images(self, update_org_image: bool,changes:bool):
         img = self.get_current_image()
         if not update_org_image:
             effects = self.get_current_collection().effects
-            print(effects.history, effects.current_history_index)
-            print(effects.values[me.EffectType.LINES.value], effects.values[me.EffectType.LOWER_SHIFT.value],
+            print("EFFECTS HISTORY: ",effects.history, effects.current_history_index)
+            print("EFFECTS VALUES: ",effects.values[me.EffectType.LINES.value], effects.values[me.EffectType.LOWER_SHIFT.value],
                   effects.values[me.EffectType.UPPER_SHIFT.value],
                   effects.values[me.EffectType.CONTRAST_INTENSITY.value],
                   effects.values[me.EffectType.STRAIGHTENED.value],
-                  effects.values[me.EffectType.CORRECTIONS.value])
-            if len(effects.history) == 0 or effects.current_history_index == len(effects.history):
-                key = effects.get_key(img.path)
-                print("dupa1")
-            elif img.path == effects.history[effects.current_history_index - 1].split('|')[0]:
-                key = effects.history[effects.current_history_index - 1]
-                print("dupa2")
-            else:
-                key = effects.get_key(img.path)
-                print("dupa3")
-            print(key)
+                  img.stains)# ,
+                  #effects.values[me.EffectType.CORRECTIONS.value])
+            # if len(effects.history) == 0 or effects.current_history_index == len(effects.history):
+            #     key = effects.get_key(img)
+            #     print("New changes -> generated new key")
+            # elif img.path == effects.history[effects.current_history_index - 1].split('|')[0]:
+            #     key = effects.history[effects.current_history_index - 1]
+            #     print("Same changes -> get key from history")
+            # else:
+            #     key = effects.get_key(img)
+            #     print("Same changes -> generated new key")
+            # if changes:
+            #     key = effects.get_key(img)
+            # else:
+            #     key = effects.history[effects.current_history_index - 1]
+            key = effects.get_key(img)
+            print("SET KEY: ",key)
             if key in effects.reworked_imgs:
                 moded_img = effects.reworked_imgs[key]
-                cv2.imshow("read from history", moded_img)
+                # cv2.imshow("read from history", moded_img)
                 # effects.history.append(key)
                 # self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
                 # return True
@@ -173,8 +179,9 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                 moded_img = self.create_new_reworked_image()
                 # cv2.imshow("created new",moded_img)
                 effects.reworked_imgs[key] = moded_img.copy()
-            effects.add_new_key_to_history(key)
-            effects.current_history_index += 1  # dodać przycinanie historii oraz obecny index
+            if changes:
+                effects.add_new_key_to_history(key)
+                effects.current_history_index += 1  # dodać przycinanie historii oraz obecny index
             img_with_drawings = self.draw_lines(moded_img, effects.values[me.EffectType.LINES.value])
             img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
             self.set_mod_image(img_with_drawings)
@@ -204,8 +211,8 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         # cv2.imshow("after contrast",img)
 
         # cv2.imshow("after cleaning",img)
-        if effects.values[me.EffectType.CORRECTIONS.value]:
-            for stain in effects.values[me.EffectType.CORRECTIONS.value]:
+        if original_image.stains:
+            for stain in original_image.stains:
                 img = remove_stains(img, stain['x'], stain['y'], stain['r'])
         return img
 
@@ -230,18 +237,21 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
 
     def undo(self):
         effects = self.get_current_collection().effects
-        effects.undo()
-        self.update_displayed_images(False)
+        print("1:",effects.current_history_index)
+        effects.undo(self.get_current_image())
+        print("2:",effects.current_history_index)
+        self.update_displayed_images(False,False)
+        print("3:",effects.current_history_index)
 
     def redo(self):
         effects = self.get_current_collection().effects
-        effects.redo()
-        self.update_displayed_images(False)
+        effects.redo(self.get_current_image())
+        self.update_displayed_images(False,False)
 
     def reset(self):
         effects = self.get_current_collection().effects
-        effects.reset()
-        self.update_displayed_images(False)
+        effects.reset(self.get_current_image())
+        self.update_displayed_images(False,False)
 
     def get_current_image_name(self):
         return self.get_current_image().name

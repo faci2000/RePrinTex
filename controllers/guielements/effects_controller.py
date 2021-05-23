@@ -91,10 +91,10 @@ class EffectsController:
         else:
             for eff in effects_to_change['values']:
                 if eff['type'] == EffectType.CORRECTIONS:
-                    effects.values[eff['type'].value].append(eff['value'])
+                    ImagesProvider().get_current_image().stains.append(eff['value'])
                 else:
                     effects.values[eff['type'].value] = eff['value']
-        ImagesProvider().update_displayed_images(effects_to_change['org'])
+        ImagesProvider().update_displayed_images(effects_to_change['org'],True)
 
     def change_cursor(self):
         if self.is_brush_active():

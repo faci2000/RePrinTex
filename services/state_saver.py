@@ -30,10 +30,12 @@ def save_collection(collection: ImageCollection) -> str:
                                                        'lines': img.page_info.lines,
                                                        'text_block': img.page_info.text_block
                                                    },
+                                                   'stains':img.stains,
                                                    'name': img.name})
         else:
             collection_save_form['images'].append({'path': img.path,
-                                                   'name': img.name})
+                                                   'name': img.name,
+                                                   'stains':img.stains})
     filename = collection.detail_file_name + '.json'
     # print(collection_save_form)
     # print(collection.detail_file_name)
