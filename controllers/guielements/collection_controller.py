@@ -7,6 +7,7 @@ import models.image_collection as mic
 import views.guielements.docks.collection_view as vgdcv
 from controllers.controller import Controller
 from models.image import Image
+from services.images_provider import ImagesProvider
 
 
 class CollectionController:
@@ -96,3 +97,12 @@ class CollectionController:
         else:
             Controller().set_new_image(img)
 
+    def remove_images(self):
+        to_remove = self.view.files_list.selectedItems()
+        coll = ImagesProvider().get_current_collection()
+
+        for item in to_remove:
+            idx = self.view.files_list.indexFromItem(item).row()
+            del coll.collection[idx]
+            self.view.files_list.takeItem(idx)
+        self.view.files_list.update()

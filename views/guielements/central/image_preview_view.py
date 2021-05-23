@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QScrollArea, QLabel, QHBoxLayout, QWidget, QSplitter
+from PyQt5.QtWidgets import QScrollArea, QLabel, QVBoxLayout, QWidget, QSplitter, QPushButton, QHBoxLayout, QSizePolicy
 
 import controllers.guielements.image_preview_controller as cgipc
 
@@ -18,7 +18,7 @@ class ImagePreviewView:
         self.parent = parent
         self.controller = cgipc.ImagePreviewController(self.parent, self)
 
-        self.layout = QHBoxLayout()
+        self.layout = QVBoxLayout()
         self.central_widget = QWidget()
         self.central_widget.setLayout(self.layout)
 
@@ -29,10 +29,31 @@ class ImagePreviewView:
         self.label_modified = create_label(self.area_modified, self.controller.clicked_modified_action)
 
         self.splitter = QSplitter(Qt.Horizontal)
+        self.splitter.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.splitter.addWidget(self.area_original)
         self.splitter.addWidget(self.area_modified)
 
         self.layout.addWidget(self.splitter)
+
+        self.add_buttons()
+
+    def add_buttons(self):
+        button_widget = QWidget()
+        button_layout = QHBoxLayout()
+        button_widget.setLayout(button_layout)
+
+        next_button = QPushButton()
+        next_button.setText("Next image")
+        # next_button.clicked.connect()
+
+        prev_button = QPushButton()
+        prev_button.setText("Previous image")
+        # prev_button.clicked.connect()
+
+        button_layout.addWidget(prev_button)
+        button_layout.addWidget(next_button)
+        button_widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
+        self.layout.addWidget(button_widget)
 
     def create_area(self):
         area = QScrollArea(self.central_widget)

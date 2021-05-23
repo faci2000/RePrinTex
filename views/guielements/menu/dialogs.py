@@ -60,3 +60,5 @@ class Dialogs:
         layout = QGridLayout(dialog)
 
         return dialog, layout
+
+

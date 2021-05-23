@@ -35,9 +35,8 @@ class MenuBarController:
     def add_image(self):
         pass
 
-    def remove_image(self):
-        print("AAAAAAAAAA")
-        Controller().show_remove()
+    def remove_images(self):
+        Controller().remove_images()
 
     def remove_collection(self):
         pass

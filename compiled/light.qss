@@ -5,7 +5,7 @@ QWidget {
   selection-background-color: #3d9ae0;
   selection-color: #000; }
   QWidget:disabled {
-    color: #383838; }
+    color: #bfbfbf; }
 
 QListView::item:selected:active,
 QTableView::item:selected:active,
@@ -50,6 +50,10 @@ QMenu,
 QMenu::indicator {
   background-color: #f0f0f0; }
 
+QPushButton {
+    border-radius: 4px;
+}
+
 QToolButton,
 QLineEdit,
 QTextEdit,
@@ -64,10 +68,10 @@ QGroupBox,
 QAbstractSpinBox,
 QDateEdit > QAbstractItemView,
 QDateTimeEdit > QAbstractItemView,
-
-QListView {
-    color: #383838;}
-
+QToolBox {
+  background-color: #ffffff;
+  border: 1px solid #b3b3b3; }
+  QToolButton:disabled,
   QLineEdit:disabled,
   QTextEdit:disabled,
   QPlainTextEdit:disabled,
@@ -85,11 +89,7 @@ QListView {
     color: #bfbfbf; }
 
 QStatusBar,
-QDockWidget {
-    color: #383838;}
-
 QDockWidget::title {
-
   background: #e0e0e0;
   border: 1px solid #b3b3b3; }
 
@@ -102,8 +102,7 @@ QSlider {
 QPushButton,
 QToolBox::tab {
   background-color: qlineargradient(x1: 0.0, y1: 0.0, x2: 0.0, y2: 1.0, stop: 0.1 rgba(255, 255, 255, 100%), stop: 0.8 rgba(239, 239, 239, 100%));
-  border: 1px solid #b3b3b3;
-  border-radius: 4px;}
+  border: 1px solid #b3b3b3; }
   QPushButton:selected,
   QToolBox::tab:selected {
     background-color: #f7f7f7; }
@@ -111,36 +110,37 @@ QToolBox::tab {
 QCheckBox,
 QRadioButton,
 QComboBox,
-QLineEdit {
-    border: 1px solid rgba(133, 139, 148, 0.4);
-}
+QLineEdit,
 QAbstractSpinBox {
   padding: 3px 1px; }
 
 QGroupBox {
   padding-top: 16px; }
 
+QToolButton {
+  background-color: #f0f0f0;
+  border: 0px;
+  }
 QPushButton,
 QToolButton {
-  padding: 3px 1px; }
+  padding: 3px 1px;
+  }
   QPushButton:checked,
+  QToolButton:hover {
+    background-color: #cecece; }
   QToolButton:checked {
-    background-color: #e0e0e0; }
-  QPushButton:hover,
-  QToolButton:hover{
-    background-color: #e0e0e0; }
+    background-color: #cecece; }
+
 QComboBox {
   padding: 4px;
   background-color: #ffffff;
-  border: 1px solid #b3b3b3;
-   color: #383838;}
+  border: 1px solid #b3b3b3; }
   QComboBox:!editable {
     background-color: qlineargradient(x1: 0.0, y1: 0.0, x2: 0.0, y2: 1.0, stop: 0.1 rgba(255, 255, 255, 100%), stop: 0.8 rgba(239, 239, 239, 100%)); }
   QComboBox:disabled {
-    color: #383838; }
+    color: #bfbfbf; }
   QComboBox::drop-down {
     padding: 4px;
-    color: #383838;
     border: none;
     subcontrol-origin: padding;
     subcontrol-position: top right;
@@ -676,6 +676,5 @@ QDialogButtonBox QPushButton {
 }
 
 QDialog QLineEdit {
-    border: 1px solid rgba(133, 139, 148, 0.4);
+    border: 1px solid rgba(183, 189, 188, 0.4);
 }
-

@@ -97,7 +97,7 @@ class EffectsController:
     def change_cursor(self):
         if self.is_brush_active():
             pixmap = QPixmap("data/cursors/circle_cursor.png")
-            size = 2.2 * self.get_brush_radius() * Controller().get_modified_zoom()
+            size = 3 * self.get_brush_radius() * Controller().get_modified_zoom()
             pixmap = pixmap.scaled(size, size)
             cursor = QCursor(pixmap, -1, -1)
             self.parent.setCursor(cursor)

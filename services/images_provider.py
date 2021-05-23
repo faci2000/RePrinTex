@@ -244,3 +244,4 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
 
     def get_current_image_name(self):
         return self.get_current_image().name
+

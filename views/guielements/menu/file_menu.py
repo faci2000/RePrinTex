@@ -17,8 +17,8 @@ class FileMenu:
         save_image = QAction("&Save project", self.parent)
         save_image.triggered.connect(lambda: self.controller.save_image)
 
-        remove_image = QAction("&Remove image from collection", self.parent)
-        remove_image.triggered.connect(lambda: self.controller.remove_image())
+        remove_image = QAction("&Remove selected images", self.parent)
+        remove_image.triggered.connect(lambda: self.controller.remove_images())
 
         remove_collection = QAction("&Remove collection", self.parent)
         remove_collection.triggered.connect(lambda: self.controller.remove_collection)

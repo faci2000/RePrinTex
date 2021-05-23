@@ -19,9 +19,11 @@ class CollectionView:
 
         self.files_list = QListWidget(self.dock)
         self.files_list.setViewMode(QListWidget.IconMode)
+        self.files_list.setSelectionMode(3)
         self.files_list.setResizeMode(QListWidget.Adjust)
         self.files_list.setIconSize(QSize(50, 50))
-        self.files_list.currentTextChanged[str].connect(lambda: self.controller.change_image())
+        self.files_list.itemClicked.connect(lambda: self.controller.change_image())
+        # self.files_list.currentTextChanged[str].connect(lambda: self.controller.change_image())
         self.vbox.addWidget(self.files_list)
 
         self.multiwidget.setLayout(self.vbox)
