@@ -459,19 +459,17 @@ QStatusBar {
 
 QMenuBar {
   border-bottom: 1px solid rgba(103, 108, 117, 0.4); }
-
 QMenu {
   border: 1px solid rgba(133, 139, 148, 0.4);
   background-color: #373a3f; }
-  QMenu::item:selected {
+QMenu::item:selected {
     background-color: #114f7e; }
-  QMenu::indicator {
-    border: none;
-    outline: none;
-    background-color: transparent; }
-    QMenu::indicator:selected {
-      background-color: #114f7e; }
-
+QMenu::indicator {
+  border: none;
+  outline: none;
+  background-color: transparent; }
+QMenu::indicator:selected {
+  background-color: #114f7e; }
 QToolButton,
 QComboBox,
 QLineEdit,
