@@ -19,9 +19,6 @@ class EditMenu:
         contrast_page = QAction("&Increase contrast", self.parent)
         contrast_page.triggered.connect(lambda: self.controller.increase_contrast())
 
-        remove_stains = QAction("&Remove stains", self.parent)
-        remove_stains.triggered.connect(lambda: self.controller.remove_stains())
-
         apply = QAction("&Apply", self.parent)
         apply.triggered.connect(lambda: Controller().apply())
 
@@ -32,7 +29,7 @@ class EditMenu:
         reset.triggered.connect(lambda: ImagesProvider().reset())
 
         effects_menu = QMenu("&Effects", self.parent)
-        effects_menu.addActions([straighten_lines, clean_page, contrast_page, remove_stains])
+        effects_menu.addActions([straighten_lines, clean_page, contrast_page])
 
         self.edit_menu = QMenu("&Edit", self.parent)
         self.edit_menu.addActions([apply, apply_to_all, reset])

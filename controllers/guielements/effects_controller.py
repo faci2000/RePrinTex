@@ -78,7 +78,7 @@ class EffectsController:
 
     @multi_thread_runner
     def change_effects(self, effects_to_change):  # {effect_type:EffectType,type:Line,org:bool, value:bool}
-        print("(Effects)-> ",effects_to_change)
+        print("(Effects)-> ", effects_to_change)
         effects = ImagesProvider().get_current_collection_effects()
         if effects_to_change['org']:
             if effects_to_change['type'] not in ImagesProvider().get_current_collection_org_lines():
@@ -102,7 +102,7 @@ class EffectsController:
 
     def change_cursor(self):
         if self.is_brush_active():
-            pixmap = QPixmap("data/cursors/circle_cursor.png")
+            pixmap = QPixmap("data/cursors/circle.png")
             size = 3 * self.get_brush_radius() * Controller().get_modified_zoom()
             pixmap = pixmap.scaled(size, size)
             cursor = QCursor(pixmap, -1, -1)

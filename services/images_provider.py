@@ -85,6 +85,13 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         else:
             return collection.collection[self.current_image_index]
 
+    def image_exists(self):
+        try:
+            self.get_current_image()
+            return True
+        except EmptyCollectionException:
+            return False
+
     def change_current_image(self, new_image_index: int) -> Image:
         old_index = self.current_image_index
         try:
@@ -146,40 +153,44 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
         self.update_displayed_images(False, True)
 
     def update_displayed_images(self, update_org_image: bool,changes:bool):
-        img = self.get_current_image()
-        if not update_org_image:
-            effects = self.get_current_collection().effects
-            print("EFFECTS HISTORY: ",effects.history, effects.current_history_index)
-            print("EFFECTS VALUES: ",effects.values[me.EffectType.LINES.value], effects.values[me.EffectType.LOWER_SHIFT.value],
-                  effects.values[me.EffectType.UPPER_SHIFT.value],
-                  effects.values[me.EffectType.CONTRAST_INTENSITY.value],
-                  effects.values[me.EffectType.STRAIGHTENED.value],
-                  img.stains)# ,
+        try:
+            img = self.get_current_image()
+            if not update_org_image:
+                effects = self.get_current_collection().effects
+                print("EFFECTS HISTORY: ",effects.history, effects.current_history_index)
+                print("EFFECTS VALUES: ",effects.values[me.EffectType.LINES.value], effects.values[me.EffectType.LOWER_SHIFT.value],
+                      effects.values[me.EffectType.UPPER_SHIFT.value],
+                      effects.values[me.EffectType.CONTRAST_INTENSITY.value],
+                      effects.values[me.EffectType.STRAIGHTENED.value],
+                      img.stains)# ,
 
-            key = effects.get_key(img)
-            print("SET KEY: ",key)
-            if key in effects.reworked_imgs:
-                moded_img = effects.reworked_imgs[key]
-                # cv2.imshow("read from history", moded_img)
-                # effects.history.append(key)
-                # self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
-                # return True
+                key = effects.get_key(img)
+                print("SET KEY: ",key)
+                if key in effects.reworked_imgs:
+                    moded_img = effects.reworked_imgs[key]
+                    # cv2.imshow("read from history", moded_img)
+                    # effects.history.append(key)
+                    # self.set_mod_image(self.draw_lines(moded_img,effects.values[me.EffectType.LINES]))
+                    # return True
+                else:
+                    moded_img = self.create_new_reworked_image()
+                    # cv2.imshow("created new",moded_img)
+                    effects.reworked_imgs[key] = moded_img.copy()
+                if changes:
+                    effects.add_new_key_to_history(key)
+                    effects.current_history_index += 1  # dodać przycinanie historii oraz obecny index
+                img_with_drawings = self.draw_lines(moded_img, effects.values[me.EffectType.LINES.value])
+                img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
+                self.set_mod_image(img_with_drawings)
+                return True
             else:
-                moded_img = self.create_new_reworked_image()
-                # cv2.imshow("created new",moded_img)
-                effects.reworked_imgs[key] = moded_img.copy()
-            if changes:
-                effects.add_new_key_to_history(key)
-                effects.current_history_index += 1  # dodać przycinanie historii oraz obecny index
-            img_with_drawings = self.draw_lines(moded_img, effects.values[me.EffectType.LINES.value])
-            img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
-            self.set_mod_image(img_with_drawings)
-            return True
-        else:
-            img_with_drawings = self.draw_lines(cv2.imread(img.path), self.get_current_collection().lines_on_org)
-            img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
-            self.set_org_image(img_with_drawings)
-            return True
+                img_with_drawings = self.draw_lines(cv2.imread(img.path), self.get_current_collection().lines_on_org)
+                img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
+                self.set_org_image(img_with_drawings)
+                return True
+        except EmptyCollectionException as e:
+            Controller().communicator.error.emit(str(e))
+            return
 
     def create_new_reworked_image(self, original_image=None) -> np.ndarray:
         if original_image is None:
