@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/collection_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/guielements/effects_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/converted.png" beforeDir="false" afterPath="$PROJECT_DIR$/converted.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dark" beforeDir="false" />
-    </list>
+    <list default="true" id="c22a9392-9bb5-4ad3-9baf-b763da422303" name="Default Changelist" comment="effects and fixes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +169,7 @@
       <workItem from="1621678928733" duration="41857000" />
       <workItem from="1621794509142" duration="1846000" />
       <workItem from="1621799102677" duration="219000" />
-      <workItem from="1621843301389" duration="2624000" />
+      <workItem from="1621843301389" duration="3287000" />
     </task>
     <task id="LOCAL-00001" summary="effects and fixes">
       <created>1619124514533</created>
