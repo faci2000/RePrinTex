@@ -45,7 +45,7 @@ class EffectsController:
     def get_brush_radius(self):
         return self.view.stains_slider.value()
 
-    # @multi_thread_runner
+    @multi_thread_runner
     def change_effects(self, effects_to_change):  # {effect_type:EffectType,type:Line,org:bool, value:bool}
         print("(Effects)-> ", effects_to_change)
         effects = ImagesProvider().get_current_collection_effects()
