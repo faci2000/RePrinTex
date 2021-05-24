@@ -144,10 +144,12 @@ class CollectionController:
                 with open('config.json', 'w') as outfile:
                     json.dump(data, outfile)
         self.view.collections_list.removeItem(idx)
-        if len(self.image_provider.collections)>0:
+
+        if len(self.image_provider.collections) > 0:
             self.change_collection(self.view.collections_list.currentText())
         else:
             self.image_provider.image_view.view.label_modified.clear()
             self.image_provider.image_view.view.label_original.clear()
             self.view.collections_list.clear()
+            self.view.files_list.clear()
 
