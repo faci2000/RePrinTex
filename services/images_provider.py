@@ -188,7 +188,7 @@ class ImagesProvider(metaclass=ImagesProviderMeta):
                 return True
             else:
                 img_with_drawings = self.draw_lines(cv2.imread(img.path), self.get_current_collection().lines_on_org)
-                img.last_mod_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
+                img.last_org_pixmap = convert_cv2Image_to_QPixmap(img_with_drawings)
                 self.set_org_image(img_with_drawings)
                 return True
         except EmptyCollectionException as e:
