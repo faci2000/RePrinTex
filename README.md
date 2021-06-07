@@ -7,5 +7,4 @@ Desktop app for text photos proccessing, especially for straightening curved lin
 Project developed for course Programming in Python at AGH UST 2020/2021
 
 ## Authors 
-Alicja Niewiadomska
-Michał Faciszewski
+Alicja Niewiadomska | Michał Faciszewski
